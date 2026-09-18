@@ -69,7 +69,9 @@ teamManager.onStateChanged = () => gameManager.broadcastState();
 
 // Static frontend serving
 const distPath = path.join(__dirname, '..', 'dist');
+const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(distPath));
+app.use(express.static(publicPath));
 
 // REST APIs
 app.get('/api/health', (req, res) => {
