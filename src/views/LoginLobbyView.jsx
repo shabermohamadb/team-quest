@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AlertCircle, Check, ArrowRight, Loader2, Maximize, Volume2, VolumeX, ShieldCheck } from 'lucide-react';
+import { AlertCircle, Check, ArrowRight, Loader2, Maximize, Volume2, VolumeX, ShieldCheck, Users } from 'lucide-react';
 import TeamBadge from '../components/TeamBadge';
 import { TEAMS } from '../utils/constants';
 import { requestFullscreenMode, useFullscreenStatus } from '../utils/fullscreen';
@@ -8,7 +8,8 @@ import { sounds } from '../utils/sound';
 export default function LoginLobbyView({
   gameState,
   playerTeam,
-  onJoinTeam
+  onJoinTeam,
+  onSwitchView
 }) {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [error, setError] = useState('');
@@ -253,7 +254,7 @@ export default function LoginLobbyView({
         </main>
 
         {/* Bottom Status & Waiting Bar */}
-        <footer className="shrink-0 p-4 md:p-6 border-t border-[#1A2234] bg-[#0A0E18]/90 text-center space-y-1">
+        <footer className="shrink-0 p-4 md:p-6 border-t border-[#1A2234] bg-[#0A0E18]/90 text-center space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold tracking-wider">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
             <span>STATUS: WAITING FOR ADMIN TO START TOURNAMENT</span>
@@ -261,6 +262,15 @@ export default function LoginLobbyView({
           <p className="text-xs font-mono text-zinc-500 pt-1">
             When the host starts the game, your screen will automatically advance into Round 1.
           </p>
+          <div className="pt-1">
+            <button
+              onClick={() => onSwitchView ? onSwitchView('teammember') : (window.location.href = '/teammember')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1E293B] bg-[#0E1524] hover:bg-[#151F33] hover:border-amber-500/40 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+            >
+              <Users className="w-3.5 h-3.5 text-amber-400" />
+              <span>View Team Members & Squads (/teammember)</span>
+            </button>
+          </div>
         </footer>
       </div>
     );
@@ -371,6 +381,18 @@ export default function LoginLobbyView({
               </>
             )}
           </button>
+
+          {/* View Team Members Link */}
+          <div className="text-center pt-2">
+            <button
+              type="button"
+              onClick={() => onSwitchView ? onSwitchView('teammember') : (window.location.href = '/teammember')}
+              className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-amber-400 transition-colors py-1 px-3 rounded-lg hover:bg-[#0E1524] border border-transparent hover:border-[#1E293B] cursor-pointer"
+            >
+              <Users className="w-3.5 h-3.5 text-amber-400" />
+              <span>Check Team Members & Rosters (/teammember)</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -199,6 +199,14 @@ app.get('/api/rosters', (req, res) => {
   res.json(participantManager.getRosters(gameManager.teamCount));
 });
 
+app.get(['/api/teammembers', '/api/team-members'], (req, res) => {
+  const data = participantManager.getRosters(gameManager.teamCount);
+  res.json({
+    success: true,
+    ...data
+  });
+});
+
 app.get('/api/validate-code', (req, res) => {
   const code = (req.query.code || '').trim().toUpperCase();
   const valid = code === gameManager.gameCode.toUpperCase();
@@ -267,6 +275,12 @@ io.on('connection', (socket) => {
     } else {
       socket.emit('game_state_update', state);
     }
+  });
+
+  socket.on('get_rosters', (data, callback) => {
+    const cb = typeof data === 'function' ? data : callback;
+    const rosters = participantManager.getRosters(gameManager.teamCount);
+    if (typeof cb === 'function') cb(rosters);
   });
 
   socket.on('validate_game_code', (data, callback) => {

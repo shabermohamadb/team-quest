@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, Users } from 'lucide-react';
 import { sounds } from '../utils/sound';
 import TeamBadge from './TeamBadge';
 
-export default function Navbar({ playerTeam, isConnected = true }) {
+export default function Navbar({ playerTeam, isConnected = true, onSwitchView }) {
   const [soundOn, setSoundOn] = useState(sounds.enabled);
 
   const toggleSound = () => {
@@ -33,8 +33,18 @@ export default function Navbar({ playerTeam, isConnected = true }) {
           </div>
         </div>
 
-        {/* Right Controls: Team Indicator (if joined) & Audio */}
-        <div className="flex items-center gap-3">
+        {/* Right Controls: Team Members shortcut, Team Indicator & Audio */}
+        <div className="flex items-center gap-2.5">
+          {/* Team Members Shortcut */}
+          <button
+            onClick={() => onSwitchView ? onSwitchView('teammember') : (window.location.href = '/teammember')}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[#1E2638] bg-[#0E131F] text-zinc-300 hover:text-white hover:border-amber-500/40 transition-all cursor-pointer text-xs font-mono font-bold"
+            title="View Team Members (/teammember)"
+          >
+            <Users className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline">ROSTERS</span>
+          </button>
+
           {playerTeam && (
             <div className="flex items-center gap-1.5">
               <TeamBadge team={playerTeam} size="sm" />

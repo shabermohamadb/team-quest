@@ -5,6 +5,7 @@ import LoginLobbyView from './views/LoginLobbyView';
 import PlayerView from './views/PlayerView';
 import AdminView from './views/AdminView';
 import LeaderboardView from './views/LeaderboardView';
+import TeamMemberView from './views/TeamMemberView';
 import CinematicIntro from './components/CinematicIntro';
 import AdminErrorBoundary from './components/AdminErrorBoundary';
 import GameErrorBoundary from './components/GameErrorBoundary';
@@ -16,6 +17,14 @@ function getInitialView() {
 
   if (path.startsWith('/admin') || hash.startsWith('#admin')) return 'admin';
   if (path.startsWith('/leaderboard') || hash.startsWith('#leaderboard')) return 'leaderboard';
+  if (
+    path.startsWith('/teammember') ||
+    hash.startsWith('#teammember') ||
+    path.startsWith('/teammembers') ||
+    hash.startsWith('#teammembers')
+  ) {
+    return 'teammember';
+  }
   return 'player';
 }
 
@@ -23,9 +32,17 @@ function shouldShowIntro() {
   if (typeof window === 'undefined') return false;
   const path = window.location.pathname.toLowerCase();
   const hash = window.location.hash.toLowerCase();
-  // Admin and Leaderboard routes NEVER get player cinematic intro
+  // Admin, Leaderboard, and TeamMember routes NEVER get player cinematic intro
   if (path.startsWith('/admin') || hash.startsWith('#admin')) return false;
   if (path.startsWith('/leaderboard') || hash.startsWith('#leaderboard')) return false;
+  if (
+    path.startsWith('/teammember') ||
+    hash.startsWith('#teammember') ||
+    path.startsWith('/teammembers') ||
+    hash.startsWith('#teammembers')
+  ) {
+    return false;
+  }
 
   // 2. Active saved team session (reconnecting/refreshing player) NEVER gets intro
   try {
@@ -89,6 +106,8 @@ export default function App() {
       window.history.pushState({}, '', '/admin');
     } else if (newView === 'leaderboard') {
       window.history.pushState({}, '', '/leaderboard');
+    } else if (newView === 'teammember') {
+      window.history.pushState({}, '', '/teammember');
     } else {
       window.history.pushState({}, '', '/game');
     }
@@ -474,16 +493,17 @@ export default function App() {
         <CinematicIntro onComplete={handleIntroComplete} />
       )}
 
-      {/* Top Navigation Bar (Hidden during cinematic intro AND hidden when player is joined in full-screen game mode or on admin/leaderboard routes) */}
-      {activeView !== 'admin' && activeView !== 'leaderboard' && !showIntro && !playerTeam && (
+      {/* Top Navigation Bar (Hidden during cinematic intro AND hidden when player is joined in full-screen game mode or on admin/leaderboard/teammember routes) */}
+      {activeView !== 'admin' && activeView !== 'leaderboard' && activeView !== 'teammember' && !showIntro && !playerTeam && (
         <Navbar
           playerTeam={playerTeam}
           isConnected={connectionStatus === 'CONNECTED'}
+          onSwitchView={switchView}
         />
       )}
 
       {/* Missing Backend Advisory (Vercel deployment without backend URL configured) */}
-      {!showIntro && activeView !== 'leaderboard' && isMissingBackendConfig && (
+      {!showIntro && activeView !== 'leaderboard' && activeView !== 'teammember' && isMissingBackendConfig && (
         <div className="bg-amber-950/90 border-b border-amber-600 text-amber-200 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
           <span className="font-bold">⚠️ Vercel Realtime Setup:</span>
           <span>Set <code className="bg-black/40 px-1.5 py-0.5 rounded text-amber-300">VITE_REALTIME_URL=https://your-backend-url</code> in Vercel Environment Variables.</span>
@@ -491,7 +511,7 @@ export default function App() {
       )}
 
       {/* Reconnection Status Banner with Grace Period */}
-      {!showIntro && activeView !== 'leaderboard' && showDisconnectBanner && connectionStatus === 'RECONNECTING' && (
+      {!showIntro && activeView !== 'leaderboard' && activeView !== 'teammember' && showDisconnectBanner && connectionStatus === 'RECONNECTING' && (
         <div className="bg-amber-950/85 border-b border-amber-700 text-amber-300 text-xs font-mono text-center py-1.5 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <span>RECONNECTING TO GAME SERVER{reconnectAttempt > 0 ? ` (ATTEMPT ${reconnectAttempt})...` : '...'}</span>
@@ -499,7 +519,7 @@ export default function App() {
       )}
 
       {/* Connection Error Banner with Manual Retry */}
-      {!showIntro && activeView !== 'leaderboard' && connectionStatus === 'ERROR' && (
+      {!showIntro && activeView !== 'leaderboard' && activeView !== 'teammember' && connectionStatus === 'ERROR' && (
         <div className="bg-rose-950/90 border-b border-rose-800 text-rose-200 text-xs font-mono text-center py-1.5 px-4 flex items-center justify-center gap-3 sticky top-0 z-50">
           <span>✕ UNABLE TO REACH GAME SERVER.</span>
           <button
@@ -534,6 +554,7 @@ export default function App() {
                 gameState={gameState}
                 playerTeam={playerTeam}
                 onJoinTeam={handleJoinTeam}
+                onSwitchView={switchView}
               />
             )}
           </GameErrorBoundary>
@@ -548,6 +569,16 @@ export default function App() {
         {activeView === 'leaderboard' && (
           <GameErrorBoundary>
             <LeaderboardView />
+          </GameErrorBoundary>
+        )}
+
+        {activeView === 'teammember' && (
+          <GameErrorBoundary>
+            <TeamMemberView
+              onNavigate={switchView}
+              playerTeam={playerTeam}
+              teamCount={gameState?.teamCount || 4}
+            />
           </GameErrorBoundary>
         )}
       </div>
