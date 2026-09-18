@@ -93,6 +93,97 @@ class SoundEffects {
   winnerCeremony() {
     this.playWinner();
   }
+
+  // Cinematic Intro Sounds (Web Audio API synthesized)
+  playIntroSwell() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(110, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(220, this.ctx.currentTime + 0.8);
+      gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.06, this.ctx.currentTime + 0.4);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.8);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.8);
+    } catch (_) {}
+  }
+
+  playHeroImpact() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      // Sub-bass impact
+      const sub = this.ctx.createOscillator();
+      const subGain = this.ctx.createGain();
+      sub.type = 'sine';
+      sub.frequency.setValueAtTime(150, this.ctx.currentTime);
+      sub.frequency.exponentialRampToValueAtTime(45, this.ctx.currentTime + 0.6);
+      subGain.gain.setValueAtTime(0.18, this.ctx.currentTime);
+      subGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.6);
+      sub.connect(subGain);
+      subGain.connect(this.ctx.destination);
+      sub.start();
+      sub.stop(this.ctx.currentTime + 0.6);
+
+      // Metallic top chime
+      const chime = this.ctx.createOscillator();
+      const chimeGain = this.ctx.createGain();
+      chime.type = 'triangle';
+      chime.frequency.setValueAtTime(587.33, this.ctx.currentTime);
+      chimeGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      chimeGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.4);
+      chime.connect(chimeGain);
+      chimeGain.connect(this.ctx.destination);
+      chime.start();
+      chime.stop(this.ctx.currentTime + 0.4);
+    } catch (_) {}
+  }
+
+  playSubtitleReveal() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(659.25, this.ctx.currentTime + 0.35);
+      gain.gain.setValueAtTime(0.07, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.35);
+    } catch (_) {}
+  }
+
+  playTransitionWhoosh() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(260, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(520, this.ctx.currentTime + 0.5);
+      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.5);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.5);
+    } catch (_) {}
+  }
 }
 
 export const sounds = new SoundEffects();

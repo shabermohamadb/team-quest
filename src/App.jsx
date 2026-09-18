@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import LoginLobbyView from './views/LoginLobbyView';
 import PlayerView from './views/PlayerView';
 import AdminView from './views/AdminView';
+import CinematicIntro from './components/CinematicIntro';
 import AdminErrorBoundary from './components/AdminErrorBoundary';
 import GameErrorBoundary from './components/GameErrorBoundary';
 import { GAME_STATES } from './utils/constants';
@@ -16,8 +17,35 @@ function getInitialView() {
   return 'player';
 }
 
+function shouldShowIntro() {
+  if (typeof window === 'undefined') return false;
+  // 1. Admin route NEVER gets player intro
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  if (path.startsWith('/admin') || hash.startsWith('#admin')) return false;
+
+  // 2. Active saved team session (reconnecting/refreshing player) NEVER gets intro
+  try {
+    const saved = localStorage.getItem('team_quest_session');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed?.team && parsed?.sessionToken) return false;
+    }
+  } catch (_) {}
+
+  // 3. Already seen in current browser session?
+  try {
+    if (sessionStorage.getItem('aura7f_intro_seen') === 'true') {
+      return false;
+    }
+  } catch (_) {}
+
+  return true;
+}
+
 export default function App() {
   const [activeView, setActiveView] = useState(getInitialView);
+  const [showIntro, setShowIntro] = useState(shouldShowIntro);
   const [connectionStatus, setConnectionStatus] = useState(
     socket.connected ? 'CONNECTED' : 'CONNECTING'
   );
@@ -27,6 +55,13 @@ export default function App() {
 
   const [gameState, setGameState] = useState(null);
   const [playerTeam, setPlayerTeam] = useState(null);
+
+  const handleIntroComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem('aura7f_intro_seen', 'true');
+    } catch (_) {}
+    setShowIntro(false);
+  }, []);
 
   const [feedback, setFeedback] = useState(null);
 
@@ -364,8 +399,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#070A12] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-black">
-      {/* Top Navigation Bar for Player & Lobby */}
-      {activeView !== 'admin' && (
+      {/* Cinematic Opening Intro (Plays once on first load before team selection) */}
+      {showIntro && activeView === 'player' && (
+        <CinematicIntro onComplete={handleIntroComplete} />
+      )}
+
+      {/* Top Navigation Bar for Player & Lobby (Hidden during cinematic intro) */}
+      {activeView !== 'admin' && !showIntro && (
         <Navbar
           playerTeam={playerTeam}
           isConnected={connectionStatus === 'CONNECTED'}
@@ -373,7 +413,7 @@ export default function App() {
       )}
 
       {/* Missing Backend Advisory (Vercel deployment without backend URL configured) */}
-      {isMissingBackendConfig && (
+      {!showIntro && isMissingBackendConfig && (
         <div className="bg-amber-950/90 border-b border-amber-600 text-amber-200 text-xs font-mono text-center py-2.5 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
           <span className="font-bold">⚠️ Vercel Realtime Setup:</span>
           <span>Set <code className="bg-black/40 px-1.5 py-0.5 rounded text-amber-300">VITE_REALTIME_URL=https://your-backend-url</code> in Vercel Environment Variables.</span>
@@ -381,7 +421,7 @@ export default function App() {
       )}
 
       {/* Reconnection Status Banner with Grace Period */}
-      {showDisconnectBanner && connectionStatus === 'RECONNECTING' && (
+      {!showIntro && showDisconnectBanner && connectionStatus === 'RECONNECTING' && (
         <div className="bg-amber-950/85 border-b border-amber-700 text-amber-300 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <span>RECONNECTING TO GAME SERVER{reconnectAttempt > 0 ? ` (ATTEMPT ${reconnectAttempt})...` : '...'}</span>
@@ -389,7 +429,7 @@ export default function App() {
       )}
 
       {/* Connection Error Banner with Manual Retry */}
-      {connectionStatus === 'ERROR' && (
+      {!showIntro && connectionStatus === 'ERROR' && (
         <div className="bg-rose-950/90 border-b border-rose-800 text-rose-200 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-3 sticky top-0 z-50">
           <span>✕ UNABLE TO REACH GAME SERVER.</span>
           <button

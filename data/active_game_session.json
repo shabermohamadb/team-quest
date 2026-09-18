@@ -1,8 +1,8 @@
 {
-  "gameSessionId": "session_1789710131291_p5nyyew",
+  "gameSessionId": "session_1789711547391_n6ubrtz",
   "gameCode": "QUEST-2026",
   "adminPin": "admin123",
-  "stateVersion": 59,
+  "stateVersion": 107,
   "state": "LOBBY",
   "previousState": null,
   "teamCount": 4,
@@ -130,53 +130,6 @@
       "challengeNumber": 1
     },
     {
-      "id": "r1-50",
-      "round": 1,
-      "domain": "Artificial Intelligence",
-      "difficulty": "Easy",
-      "website": "ChatGPT",
-      "correctAnswer": "ChatGPT",
-      "acceptedAnswers": [
-        "chat gpt",
-        "openai chatgpt",
-        "chat.openai.com"
-      ],
-      "clue1": "Conversational AI chatbot launched by OpenAI in November 2022 that sparked the generative AI boom.",
-      "clue2": "Fine-tuned from GPT large language models using Reinforcement Learning from Human Feedback (RLHF).",
-      "clue3": "The \"GPT\" in its name stands for Generative Pre-trained Transformer.",
-      "isActive": true,
-      "clues": [
-        "Conversational AI chatbot launched by OpenAI in November 2022 that sparked the generative AI boom.",
-        "Fine-tuned from GPT large language models using Reinforcement Learning from Human Feedback (RLHF).",
-        "The \"GPT\" in its name stands for Generative Pre-trained Transformer."
-      ],
-      "questionNumber": 2,
-      "challengeNumber": 2
-    },
-    {
-      "id": "r1-15",
-      "round": 1,
-      "domain": "Web APIs",
-      "difficulty": "Medium",
-      "website": "GraphQL",
-      "correctAnswer": "GraphQL",
-      "acceptedAnswers": [
-        "graphql.org",
-        "graph ql"
-      ],
-      "clue1": "Open-source query language for APIs created internally by Facebook in 2012.",
-      "clue2": "Clients define the exact shape of the data they need, eliminating over-fetching.",
-      "clue3": "Replaces multiple REST endpoints with a single unified POST endpoint.",
-      "isActive": true,
-      "clues": [
-        "Open-source query language for APIs created internally by Facebook in 2012.",
-        "Clients define the exact shape of the data they need, eliminating over-fetching.",
-        "Replaces multiple REST endpoints with a single unified POST endpoint."
-      ],
-      "questionNumber": 3,
-      "challengeNumber": 3
-    },
-    {
       "id": "r1-06",
       "round": 1,
       "domain": "Databases",
@@ -197,8 +150,124 @@
         "Supports native data structures like strings, hashes, lists, sets, and sorted sets.",
         "Its acronym stands for Remote Dictionary Server."
       ],
+      "questionNumber": 2,
+      "challengeNumber": 2
+    },
+    {
+      "id": "r1-27",
+      "round": 1,
+      "domain": "Programming Languages",
+      "difficulty": "Easy",
+      "website": "Java",
+      "correctAnswer": "Java",
+      "acceptedAnswers": [
+        "java se",
+        "openjdk"
+      ],
+      "clue1": "Object-oriented language developed by James Gosling at Sun Microsystems in 1995.",
+      "clue2": "Known for the philosophy \"Write Once, Run Anywhere\" via the JVM bytecode.",
+      "clue3": "Named after an Indonesian island famous for coffee, and uses a hot coffee cup logo.",
+      "isActive": true,
+      "clues": [
+        "Object-oriented language developed by James Gosling at Sun Microsystems in 1995.",
+        "Known for the philosophy \"Write Once, Run Anywhere\" via the JVM bytecode.",
+        "Named after an Indonesian island famous for coffee, and uses a hot coffee cup logo."
+      ],
+      "questionNumber": 3,
+      "challengeNumber": 3
+    },
+    {
+      "id": "r1-13",
+      "round": 1,
+      "domain": "Systems Programming",
+      "difficulty": "Hard",
+      "website": "Rust",
+      "correctAnswer": "Rust",
+      "acceptedAnswers": [
+        "rust-lang",
+        "rust lang"
+      ],
+      "clue1": "Systems programming language that guarantees memory safety without garbage collection.",
+      "clue2": "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
+      "clue3": "Its mascot is Ferris the Crab, and its package manager is Cargo.",
+      "isActive": true,
+      "clues": [
+        "Systems programming language that guarantees memory safety without garbage collection.",
+        "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
+        "Its mascot is Ferris the Crab, and its package manager is Cargo."
+      ],
       "questionNumber": 4,
       "challengeNumber": 4
+    },
+    {
+      "id": "r1-39",
+      "round": 1,
+      "domain": "Computer Science Theory",
+      "difficulty": "Medium",
+      "website": "Turing Machine",
+      "correctAnswer": "Turing Machine",
+      "acceptedAnswers": [
+        "turing",
+        "universal turing machine"
+      ],
+      "clue1": "Mathematical model of computation that manipulates symbols on an infinite strip of tape.",
+      "clue2": "Formulated in 1936 to define the fundamental limits of what can be computed algorithmically.",
+      "clue3": "Conceived by British mathematician and codebreaker Alan Turing.",
+      "isActive": true,
+      "clues": [
+        "Mathematical model of computation that manipulates symbols on an infinite strip of tape.",
+        "Formulated in 1936 to define the fundamental limits of what can be computed algorithmically.",
+        "Conceived by British mathematician and codebreaker Alan Turing."
+      ],
+      "questionNumber": 5,
+      "challengeNumber": 5
+    },
+    {
+      "id": "r1-46",
+      "round": 1,
+      "domain": "Graph Databases",
+      "difficulty": "Hard",
+      "website": "Neo4j",
+      "correctAnswer": "Neo4j",
+      "acceptedAnswers": [
+        "neo4j.com",
+        "neo 4j"
+      ],
+      "clue1": "Native graph database designed from the ground up to leverage relationships in data.",
+      "clue2": "Uses nodes, relationships, properties, and the declarative Cypher query language.",
+      "clue3": "Powers recommendation engines, fraud detection rings, and social network analysis.",
+      "isActive": true,
+      "clues": [
+        "Native graph database designed from the ground up to leverage relationships in data.",
+        "Uses nodes, relationships, properties, and the declarative Cypher query language.",
+        "Powers recommendation engines, fraud detection rings, and social network analysis."
+      ],
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r1-48",
+      "round": 1,
+      "domain": "CSS Frameworks",
+      "difficulty": "Easy",
+      "website": "Tailwind CSS",
+      "correctAnswer": "Tailwind CSS",
+      "acceptedAnswers": [
+        "tailwind",
+        "tailwindcss",
+        "tailwindcss.com"
+      ],
+      "clue1": "Utility-first CSS framework packed with classes like flex, pt-4, text-center, and rotate-90.",
+      "clue2": "Created by Adam Wathan; generates scan-based atomic stylesheets via JIT engine.",
+      "clue3": "Features a cyan wind wave logo and eliminates traditional custom stylesheet naming.",
+      "isActive": true,
+      "clues": [
+        "Utility-first CSS framework packed with classes like flex, pt-4, text-center, and rotate-90.",
+        "Created by Adam Wathan; generates scan-based atomic stylesheets via JIT engine.",
+        "Features a cyan wind wave logo and eliminates traditional custom stylesheet naming."
+      ],
+      "questionNumber": 7,
+      "challengeNumber": 7
     },
     {
       "id": "r1-44",
@@ -219,121 +288,51 @@
         "Uses a pull-based HTTP scraping model to collect multidimensional time-series data.",
         "Queries metrics using PromQL and is named after the Greek Titan who brought fire to humanity."
       ],
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
-      "id": "r1-17",
-      "round": 1,
-      "domain": "Security & Networking",
-      "difficulty": "Hard",
-      "website": "Wireshark",
-      "correctAnswer": "Wireshark",
-      "acceptedAnswers": [
-        "wireshark.org",
-        "ethereal"
-      ],
-      "clue1": "Widely used packet analyzer for network troubleshooting, analysis, and protocol development.",
-      "clue2": "Formerly known as Ethereal; visualizes TCP handshakes and VoIP packet streams.",
-      "clue3": "Features a blue shark fin silhouette as its logo.",
-      "isActive": true,
-      "clues": [
-        "Widely used packet analyzer for network troubleshooting, analysis, and protocol development.",
-        "Formerly known as Ethereal; visualizes TCP handshakes and VoIP packet streams.",
-        "Features a blue shark fin silhouette as its logo."
-      ],
-      "questionNumber": 6,
-      "challengeNumber": 6
-    },
-    {
-      "id": "r1-10",
-      "round": 1,
-      "domain": "Version Control",
-      "difficulty": "Easy",
-      "website": "Git",
-      "correctAnswer": "Git",
-      "acceptedAnswers": [
-        "git scm",
-        "git-scm"
-      ],
-      "clue1": "Distributed version control system created in 2005 to manage Linux kernel development.",
-      "clue2": "Uses Directed Acyclic Graphs (DAGs) and SHA-1/SHA-256 commit hashes.",
-      "clue3": "Terminal commands include add, commit, push, rebase, and checkout.",
-      "isActive": true,
-      "clues": [
-        "Distributed version control system created in 2005 to manage Linux kernel development.",
-        "Uses Directed Acyclic Graphs (DAGs) and SHA-1/SHA-256 commit hashes.",
-        "Terminal commands include add, commit, push, rebase, and checkout."
-      ],
-      "questionNumber": 7,
-      "challengeNumber": 7
-    },
-    {
-      "id": "r1-37",
-      "round": 1,
-      "domain": "Cryptography",
-      "difficulty": "Hard",
-      "website": "RSA",
-      "correctAnswer": "RSA",
-      "acceptedAnswers": [
-        "rsa encryption",
-        "rsa algorithm"
-      ],
-      "clue1": "Public-key cryptosystem widely used for secure data transmission and digital signatures.",
-      "clue2": "Asymmetric security relies on the practical difficulty of factoring the product of two large prime numbers.",
-      "clue3": "Named after the initials of Rivest, Shamir, and Adleman.",
-      "isActive": true,
-      "clues": [
-        "Public-key cryptosystem widely used for secure data transmission and digital signatures.",
-        "Asymmetric security relies on the practical difficulty of factoring the product of two large prime numbers.",
-        "Named after the initials of Rivest, Shamir, and Adleman."
-      ],
       "questionNumber": 8,
       "challengeNumber": 8
     },
     {
-      "id": "r1-03",
+      "id": "r1-04",
       "round": 1,
-      "domain": "Web Development",
-      "difficulty": "Medium",
-      "website": "MDN Web Docs",
-      "correctAnswer": "MDN Web Docs",
+      "domain": "DevOps & Containers",
+      "difficulty": "Easy",
+      "website": "Docker",
+      "correctAnswer": "Docker",
       "acceptedAnswers": [
-        "mdn",
-        "mozilla developer network",
-        "developer.mozilla.org"
+        "docker.com",
+        "docker"
       ],
-      "clue1": "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
-      "clue2": "It includes interactive code playgrounds and detailed browser compatibility matrices.",
-      "clue3": "It is maintained by Mozilla and features dinosaur-themed easter eggs.",
+      "clue1": "Platform that popularised lightweight containerization using Linux namespaces and cgroups.",
+      "clue2": "Packages software and its dependencies into isolated portable images.",
+      "clue3": "Its iconic mascot is a smiling blue whale carrying shipping containers.",
       "isActive": true,
       "clues": [
-        "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
-        "It includes interactive code playgrounds and detailed browser compatibility matrices.",
-        "It is maintained by Mozilla and features dinosaur-themed easter eggs."
+        "Platform that popularised lightweight containerization using Linux namespaces and cgroups.",
+        "Packages software and its dependencies into isolated portable images.",
+        "Its iconic mascot is a smiling blue whale carrying shipping containers."
       ],
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r1-12",
+      "id": "r1-45",
       "round": 1,
-      "domain": "Programming Languages",
-      "difficulty": "Easy",
-      "website": "Python",
-      "correctAnswer": "Python",
+      "domain": "Data Visualization",
+      "difficulty": "Medium",
+      "website": "Grafana",
+      "correctAnswer": "Grafana",
       "acceptedAnswers": [
-        "python3",
-        "python.org"
+        "grafana labs",
+        "grafana.com"
       ],
-      "clue1": "High-level interpreted language known for clean indentation-based syntax and readability.",
-      "clue2": "Created by Guido van Rossum and named after a British comedy troupe.",
-      "clue3": "Dominates machine learning, data science, and uses libraries like NumPy and Pandas.",
+      "clue1": "Multi-platform analytics and interactive dashboard visualization web application.",
+      "clue2": "Connects to diverse data sources like InfluxDB, Prometheus, MySQL, and CloudWatch.",
+      "clue3": "Famous for dark-themed real-time charts in network operations centers.",
       "isActive": true,
       "clues": [
-        "High-level interpreted language known for clean indentation-based syntax and readability.",
-        "Created by Guido van Rossum and named after a British comedy troupe.",
-        "Dominates machine learning, data science, and uses libraries like NumPy and Pandas."
+        "Multi-platform analytics and interactive dashboard visualization web application.",
+        "Connects to diverse data sources like InfluxDB, Prometheus, MySQL, and CloudWatch.",
+        "Famous for dark-themed real-time charts in network operations centers."
       ],
       "questionNumber": 10,
       "challengeNumber": 10
@@ -376,74 +375,144 @@
       "challengeNumber": 1
     },
     {
-      "id": "r2-10",
+      "id": "r2-35",
       "round": 2,
-      "category": "Alphanumeric Growth",
-      "difficulty": "Medium",
-      "patternText": "A1  →  B2  →  C4  →  D8  →  ?",
+      "category": "Vowel Progression",
+      "difficulty": "Easy",
+      "patternText": "A  →  E  →  I  →  O  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "E10"
+          "text": "P"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "E12"
+          "text": "Q"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "E16"
+          "text": "U"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "F16"
+          "text": "Y"
         }
       ],
       "correctOptionId": "C",
       "correctOption": "C",
-      "explanation": "Letter steps by +1 (D → E); number doubles (8 × 2 = 16). Result: E16.",
+      "explanation": "Standard sequence of English vowels. The 5th vowel is U.",
       "isActive": true,
       "questionNumber": 2,
       "challengeNumber": 2
     },
     {
-      "id": "r2-16",
+      "id": "r2-27",
       "round": 2,
-      "category": "Powers of Three",
+      "category": "Quadratic Progression",
       "difficulty": "Medium",
-      "patternText": "1  →  3  →  9  →  27  →  81  →  ?",
+      "patternText": "2  →  6  →  12  →  20  →  30  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "162"
+          "text": "40"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "243"
+          "text": "42"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "216"
+          "text": "44"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "324"
+          "text": "48"
         }
       ],
       "correctOptionId": "B",
       "correctOption": "B",
-      "explanation": "Multiply each term by 3 (3^n). 81 × 3 = 243.",
+      "explanation": "n × (n + 1): 1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30. Next is 6×7 = 42.",
       "isActive": true,
       "questionNumber": 3,
       "challengeNumber": 3
+    },
+    {
+      "id": "r2-23",
+      "round": 2,
+      "category": "Alphabetical Reverse",
+      "difficulty": "Easy",
+      "patternText": "Z  →  X  →  V  →  T  →  R  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "Q"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "P"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "O"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "N"
+        }
+      ],
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "Reverse alphabet skipping one letter (-2). R - 2 = P.",
+      "isActive": true,
+      "questionNumber": 4,
+      "challengeNumber": 4
+    },
+    {
+      "id": "r2-12",
+      "round": 2,
+      "category": "Binary Bit Shift",
+      "difficulty": "Hard",
+      "patternText": "0001  →  0010  →  0100  →  1000  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "0000"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "1001"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "0001"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "1111"
+        }
+      ],
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Circular 4-bit left shift (ROL). Shifting 1000 left wraps the 1 back to 0001.",
+      "isActive": true,
+      "questionNumber": 5,
+      "challengeNumber": 5
     },
     {
       "id": "r2-50",
@@ -477,8 +546,78 @@
       "correctOption": "B",
       "explanation": "Each +1 to CIDR prefix halves available address space: 32 ÷ 2 = 16 IPs (2^(32-28) = 16).",
       "isActive": true,
-      "questionNumber": 4,
-      "challengeNumber": 4
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r2-17",
+      "round": 2,
+      "category": "Triangular Numbers",
+      "difficulty": "Medium",
+      "patternText": "1  →  3  →  6  →  10  →  15  →  21  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "26"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "28"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "30"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "36"
+        }
+      ],
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "Triangular numbers (n*(n+1)/2): +2, +3, +4, +5, +6, +7. 21 + 7 = 28.",
+      "isActive": true,
+      "questionNumber": 7,
+      "challengeNumber": 7
+    },
+    {
+      "id": "r2-38",
+      "round": 2,
+      "category": "Symbol Symmetrical Flip",
+      "difficulty": "Easy",
+      "patternText": "( )  →  [ ]  →  { }  →  < >  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "| |"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "/ /"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "# #"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "! !"
+        }
+      ],
+      "correctOptionId": "A",
+      "correctOption": "A",
+      "explanation": "Standard enclosing bracket and delimiter pairs: parenthetical, square, curly, angle, vertical pipe (| |).",
+      "isActive": true,
+      "questionNumber": 8,
+      "challengeNumber": 8
     },
     {
       "id": "r2-30",
@@ -512,180 +651,40 @@
       "correctOption": "C",
       "explanation": "Bitwise right shift >> 1 divides by 2. 16 >> 1 = 8.",
       "isActive": true,
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
-      "id": "r2-08",
-      "round": 2,
-      "category": "Fibonacci Series",
-      "difficulty": "Easy",
-      "patternText": "0  →  1  →  1  →  2  →  3  →  5  →  8  →  13  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "18"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "19"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "21"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "24"
-        }
-      ],
-      "correctOptionId": "C",
-      "correctOption": "C",
-      "explanation": "Each term is the sum of the two preceding terms: 8 + 13 = 21.",
-      "isActive": true,
-      "questionNumber": 6,
-      "challengeNumber": 6
-    },
-    {
-      "id": "r2-34",
-      "round": 2,
-      "category": "Prime Factors",
-      "difficulty": "Hard",
-      "patternText": "2×3 (6)  →  3×5 (15)  →  5×7 (35)  →  7×11 (77)  →  11×13 (?)",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "133"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "141"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "143"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "153"
-        }
-      ],
-      "correctOptionId": "C",
-      "correctOption": "C",
-      "explanation": "Product of consecutive primes: 11 × 13 = 143.",
-      "isActive": true,
-      "questionNumber": 7,
-      "challengeNumber": 7
-    },
-    {
-      "id": "r2-06",
-      "round": 2,
-      "category": "Polygon Sides",
-      "difficulty": "Easy",
-      "patternText": "Triangle (3)  →  Square (4)  →  Pentagon (5)  →  Hexagon (6)  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "Octagon (8)"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "Heptagon (7)"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "Nonagon (9)"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "Decagon (10)"
-        }
-      ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Sequential increment of geometric polygon sides: 3, 4, 5, 6, next is 7 (Heptagon).",
-      "isActive": true,
-      "questionNumber": 8,
-      "challengeNumber": 8
-    },
-    {
-      "id": "r2-31",
-      "round": 2,
-      "category": "Two Step Alternation",
-      "difficulty": "Easy",
-      "patternText": "10  →  15  →  13  →  18  →  16  →  21  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "17"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "19"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "23"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "26"
-        }
-      ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Rule is +5 then -2. 21 - 2 = 19.",
-      "isActive": true,
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r2-32",
+      "id": "r2-20",
       "round": 2,
-      "category": "Hex ASCII Steps",
+      "category": "ASCII Value Leap",
       "difficulty": "Hard",
-      "patternText": "0x41 ('A')  →  0x42 ('B')  →  0x44 ('D')  →  0x47 ('G')  →  ?",
+      "patternText": "a (97)  →  c (99)  →  f (102)  →  j (106)  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "0x4A ('J')"
+          "text": "m (109)"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "0x4B ('K')"
+          "text": "n (110)"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "0x4C ('L')"
+          "text": "o (111)"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "0x4D ('M')"
+          "text": "p (112)"
         }
       ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Difference increases by 1 each step: +1, +2, +3, +4. 0x47 + 4 = 0x4B ('K').",
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Increments increase by 1 each step: +2, +3, +4, +5. 106 + 5 = 111, which is \"o\".",
       "isActive": true,
       "questionNumber": 10,
       "challengeNumber": 10
@@ -714,130 +713,48 @@
       "challengeNumber": 1
     },
     {
-      "id": "r3-48",
+      "id": "r3-27",
       "round": 3,
-      "title": "ASCII Binary Byte Stream",
-      "category": "Binary ASCII",
-      "difficulty": "Hard",
-      "code": "01001110 01001111 01000100 01000101",
-      "hint": "Four bytes: 01001110 = 78 ('N'), 01001111 = 79 ('O'), 01000100 = 68 ('D'), 01000101 = 69 ('E').",
-      "correctCode": "NODE",
+      "title": "ROT13 Caesar Rotation",
+      "category": "Caesar Cipher",
+      "difficulty": "Medium",
+      "code": "NPGVIY",
+      "hint": "Rotate each letter forward by 13 positions.",
+      "correctCode": "ACTIYL",
       "alternateCodes": [
-        "node"
+        "actiyl",
+        "action"
       ],
-      "explanation": "N-O-D-E: A point in a network graph or tree.",
+      "explanation": "N(14)+13=A, P(16)+13=C, G(7)+13=T, V(22)+13=I, I(9)+13=V, Y(25)+13=L -> ACTIYL",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "node"
+        "actiyl",
+        "action"
       ],
       "questionNumber": 2,
       "challengeNumber": 2
     },
     {
-      "id": "r3-25",
+      "id": "r3-32",
       "round": 3,
-      "title": "ASCII Binary Byte Stream",
-      "category": "Binary ASCII",
-      "difficulty": "Hard",
-      "code": "01010001 01010101 01000101 01010011 01010100",
-      "hint": "Five bytes: 01010001 = 81 ('Q'), 01010101 = 85 ('U').",
-      "correctCode": "QUEST",
+      "title": "Leetspeak Hacker Code",
+      "category": "Substitution",
+      "difficulty": "Easy",
+      "code": "5Y5T3M",
+      "hint": "5=S, 3=E",
+      "correctCode": "SYSTEM",
       "alternateCodes": [
-        "quest"
+        "system"
       ],
-      "explanation": "81=Q, 85=U, 69=E, 83=S, 84=T -> QUEST",
+      "explanation": "S-Y-S-T-E-M",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "quest"
+        "system"
       ],
       "questionNumber": 3,
       "challengeNumber": 3
-    },
-    {
-      "id": "r3-17",
-      "round": 3,
-      "title": "Hexadecimal ASCII Code",
-      "category": "Hex Encoding",
-      "difficulty": "Medium",
-      "code": "42  59  54  45",
-      "hint": "0x42 = 66 in decimal ('B'), 0x59 = 89 in decimal ('Y').",
-      "correctCode": "BYTE",
-      "alternateCodes": [
-        "byte"
-      ],
-      "explanation": "0x42=B, 0x59=Y, 0x54=T, 0x45=E -> BYTE",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "byte"
-      ],
-      "questionNumber": 4,
-      "challengeNumber": 4
-    },
-    {
-      "id": "r3-14",
-      "round": 3,
-      "title": "ASCII Binary Byte Stream",
-      "category": "Binary ASCII",
-      "difficulty": "Medium",
-      "code": "01000100 01000001 01010100 01000001",
-      "hint": "Four 8-bit bytes in ASCII: 01000100 = 68 ('D').",
-      "correctCode": "DATA",
-      "alternateCodes": [
-        "data"
-      ],
-      "explanation": "68=D, 65=A, 84=T, 65=A -> DATA",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "data"
-      ],
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
-      "id": "r3-30",
-      "round": 3,
-      "title": "A1Z26 Numerical Cipher",
-      "category": "Alphabetical Mapping",
-      "difficulty": "Easy",
-      "code": "16  1  3  11  5  20",
-      "hint": "16=P, 1=A, 3=C, 11=K, 5=E, 20=T",
-      "correctCode": "PACKET",
-      "alternateCodes": [
-        "packet"
-      ],
-      "explanation": "P-A-C-K-E-T: A formatted unit of data carried by a packet-switched network.",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "packet"
-      ],
-      "questionNumber": 6,
-      "challengeNumber": 6
-    },
-    {
-      "id": "r3-40",
-      "round": 3,
-      "title": "Morse Code Word",
-      "category": "Morse Code",
-      "difficulty": "Medium",
-      "code": "..- -. .. -..-",
-      "hint": "..- = U, -. = N, .. = I, -..- = X",
-      "correctCode": "UNIX",
-      "alternateCodes": [
-        "unix"
-      ],
-      "explanation": "Decodes to U-N-I-X.",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "unix"
-      ],
-      "questionNumber": 7,
-      "challengeNumber": 7
     },
     {
       "id": "r3-44",
@@ -859,52 +776,136 @@
         "copyright",
         "cpyright"
       ],
+      "questionNumber": 4,
+      "challengeNumber": 4
+    },
+    {
+      "id": "r3-09",
+      "round": 3,
+      "title": "International Morse Code",
+      "category": "Morse Code",
+      "difficulty": "Easy",
+      "code": "... --- ...",
+      "hint": "Three short dots, three long dashes, three short dots.",
+      "correctCode": "SOS",
+      "alternateCodes": [
+        "sos"
+      ],
+      "explanation": "... is S, --- is O, ... is S -> SOS",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "sos"
+      ],
+      "questionNumber": 5,
+      "challengeNumber": 5
+    },
+    {
+      "id": "r3-05",
+      "round": 3,
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
+      "difficulty": "Hard",
+      "code": "01000011 01011001 01000010 01000101 01010010",
+      "hint": "8-bit binary to ASCII characters: 01000011 = 67 in decimal ('C').",
+      "correctCode": "CYBER",
+      "alternateCodes": [
+        "cyber"
+      ],
+      "explanation": "67=C, 89=Y, 66=B, 69=E, 82=R -> CYBER",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "cyber"
+      ],
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r3-02",
+      "round": 3,
+      "title": "Coordinate Grid Cipher",
+      "category": "Matrix Coordinates",
+      "difficulty": "Medium",
+      "code": "(2,3) (1,5) (4,1)",
+      "hint": "Row then Column in standard 5x5 Polybius grid: (1,1)=A, (1,5)=E, (2,3)=H... Wait: Letter index = (R-1)*5 + C. Letters: 8=H, 5=E, 16=P? Look closely: (2,3) in word M-A-P grid",
+      "correctCode": "MAP",
+      "alternateCodes": [
+        "map"
+      ],
+      "explanation": "Coordinates on the team quest locator map evaluate directly to MAP.",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "map"
+      ],
+      "questionNumber": 7,
+      "challengeNumber": 7
+    },
+    {
+      "id": "r3-48",
+      "round": 3,
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
+      "difficulty": "Hard",
+      "code": "01001110 01001111 01000100 01000101",
+      "hint": "Four bytes: 01001110 = 78 ('N'), 01001111 = 79 ('O'), 01000100 = 68 ('D'), 01000101 = 69 ('E').",
+      "correctCode": "NODE",
+      "alternateCodes": [
+        "node"
+      ],
+      "explanation": "N-O-D-E: A point in a network graph or tree.",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "node"
+      ],
       "questionNumber": 8,
       "challengeNumber": 8
     },
     {
-      "id": "r3-41",
+      "id": "r3-36",
       "round": 3,
-      "title": "Base64 Decryption Snippet",
-      "category": "Base64 Decoding",
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
       "difficulty": "Hard",
-      "code": "Uk9VVEVS",
-      "hint": "Base64 decoded ASCII characters. A hardware device that forwards data packets between networks.",
-      "correctCode": "ROUTER",
+      "code": "01010011 01010001 01001100",
+      "hint": "Three bytes: 01010011 = 83 ('S'), 01010001 = 81 ('Q'), 01001100 = 76 ('L').",
+      "correctCode": "SQL",
       "alternateCodes": [
-        "router"
+        "sql"
       ],
-      "explanation": "Base64 decoding of \"Uk9VVEVS\" yields ROUTER.",
+      "explanation": "Structured Query Language: S-Q-L.",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "router"
+        "sql"
       ],
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r3-34",
+      "id": "r3-26",
       "round": 3,
       "title": "Hexadecimal ASCII Code",
       "category": "Hex Encoding",
-      "difficulty": "Easy",
-      "code": "47  49  54",
-      "hint": "0x47 = 71 ('G'), 0x49 = 73 ('I'), 0x54 = 84 ('T').",
-      "correctCode": "GIT",
+      "difficulty": "Medium",
+      "code": "4C  4F  43  4B",
+      "hint": "0x4C = 76 ('L'), 0x4F = 79 ('O'), 0x43 = 67 ('C'), 0x4B = 75 ('K').",
+      "correctCode": "LOCK",
       "alternateCodes": [
-        "git"
+        "lock"
       ],
-      "explanation": "G-I-T: The ubiquitous version control tool.",
+      "explanation": "Decodes to L-O-C-K.",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "git"
+        "lock"
       ],
       "questionNumber": 10,
       "challengeNumber": 10
     }
   ],
   "roundSubmissions": [],
-  "updatedAt": "2026-09-18T05:42:11.297Z"
+  "updatedAt": "2026-09-18T06:05:47.395Z"
 }
