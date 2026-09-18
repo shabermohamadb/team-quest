@@ -2,7 +2,7 @@
   "gameSessionId": "session_1789711547391_n6ubrtz",
   "gameCode": "QUEST-2026",
   "adminPin": "admin123",
-  "stateVersion": 107,
+  "stateVersion": 109,
   "state": "LOBBY",
   "previousState": null,
   "teamCount": 4,
@@ -907,5 +907,5 @@
     }
   ],
   "roundSubmissions": [],
-  "updatedAt": "2026-09-18T06:05:47.395Z"
+  "updatedAt": "2026-09-18T06:06:53.102Z"
 }
