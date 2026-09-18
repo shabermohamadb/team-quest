@@ -43,6 +43,20 @@ function shouldShowIntro() {
   return true;
 }
 
+function getInitialPlayerTeam() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const saved = localStorage.getItem('team_quest_session');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed?.team && parsed?.sessionToken) {
+        return Number(parsed.team);
+      }
+    }
+  } catch (_) {}
+  return null;
+}
+
 export default function App() {
   const [activeView, setActiveView] = useState(getInitialView);
   const [showIntro, setShowIntro] = useState(shouldShowIntro);
@@ -54,7 +68,7 @@ export default function App() {
   const disconnectTimerRef = useRef(null);
 
   const [gameState, setGameState] = useState(null);
-  const [playerTeam, setPlayerTeam] = useState(null);
+  const [playerTeam, setPlayerTeam] = useState(getInitialPlayerTeam);
 
   const handleIntroComplete = useCallback(() => {
     try {
@@ -83,6 +97,27 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Prevent page scrolling when in full-screen player game mode
+  useEffect(() => {
+    if (activeView === 'player' && playerTeam) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.overscrollBehavior = 'none';
+      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overscrollBehavior = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.overscrollBehavior = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.overscrollBehavior = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.overscrollBehavior = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.overscrollBehavior = '';
+    };
+  }, [activeView, playerTeam]);
 
   // Initial REST fetch to guarantee instant teamCount & state on page load
   useEffect(() => {
@@ -398,14 +433,20 @@ export default function App() {
   const showActivePlayerView = Boolean(playerTeam && isGameActive);
 
   return (
-    <div className="min-h-screen bg-[#070A12] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-black">
+    <div
+      className={`${
+        activeView === 'player' && playerTeam
+          ? 'w-screen h-screen min-h-[100dvh] max-h-[100dvh] overflow-hidden bg-[#070A12] text-slate-100 flex flex-col font-sans select-none'
+          : 'min-h-screen bg-[#070A12] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-black'
+      }`}
+    >
       {/* Cinematic Opening Intro (Plays once on first load before team selection) */}
       {showIntro && activeView === 'player' && (
         <CinematicIntro onComplete={handleIntroComplete} />
       )}
 
-      {/* Top Navigation Bar for Player & Lobby (Hidden during cinematic intro) */}
-      {activeView !== 'admin' && !showIntro && (
+      {/* Top Navigation Bar (Hidden during cinematic intro AND hidden when player is joined in full-screen game mode) */}
+      {activeView !== 'admin' && !showIntro && !playerTeam && (
         <Navbar
           playerTeam={playerTeam}
           isConnected={connectionStatus === 'CONNECTED'}
@@ -414,7 +455,7 @@ export default function App() {
 
       {/* Missing Backend Advisory (Vercel deployment without backend URL configured) */}
       {!showIntro && isMissingBackendConfig && (
-        <div className="bg-amber-950/90 border-b border-amber-600 text-amber-200 text-xs font-mono text-center py-2.5 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
+        <div className="bg-amber-950/90 border-b border-amber-600 text-amber-200 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
           <span className="font-bold">⚠️ Vercel Realtime Setup:</span>
           <span>Set <code className="bg-black/40 px-1.5 py-0.5 rounded text-amber-300">VITE_REALTIME_URL=https://your-backend-url</code> in Vercel Environment Variables.</span>
         </div>
@@ -422,7 +463,7 @@ export default function App() {
 
       {/* Reconnection Status Banner with Grace Period */}
       {!showIntro && showDisconnectBanner && connectionStatus === 'RECONNECTING' && (
-        <div className="bg-amber-950/85 border-b border-amber-700 text-amber-300 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
+        <div className="bg-amber-950/85 border-b border-amber-700 text-amber-300 text-xs font-mono text-center py-1.5 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <span>RECONNECTING TO GAME SERVER{reconnectAttempt > 0 ? ` (ATTEMPT ${reconnectAttempt})...` : '...'}</span>
         </div>
@@ -430,7 +471,7 @@ export default function App() {
 
       {/* Connection Error Banner with Manual Retry */}
       {!showIntro && connectionStatus === 'ERROR' && (
-        <div className="bg-rose-950/90 border-b border-rose-800 text-rose-200 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-3 sticky top-0 z-50">
+        <div className="bg-rose-950/90 border-b border-rose-800 text-rose-200 text-xs font-mono text-center py-1.5 px-4 flex items-center justify-center gap-3 sticky top-0 z-50">
           <span>✕ UNABLE TO REACH GAME SERVER.</span>
           <button
             onClick={() => {
@@ -446,7 +487,7 @@ export default function App() {
       )}
 
       {/* VIEW ROUTING */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         {activeView === 'player' && (
           <GameErrorBoundary>
             {showActivePlayerView ? (

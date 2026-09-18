@@ -1,8 +1,8 @@
 {
-  "gameSessionId": "session_1789713263621_vg1o5dv",
+  "gameSessionId": "session_1789714331353_jknfv9p",
   "gameCode": "QUEST-2026",
   "adminPin": "admin123",
-  "stateVersion": 5,
+  "stateVersion": 4,
   "state": "LOBBY",
   "previousState": null,
   "teamCount": 4,
@@ -130,99 +130,6 @@
       "challengeNumber": 1
     },
     {
-      "id": "r1-34",
-      "round": 1,
-      "domain": "CI/CD Automation",
-      "difficulty": "Medium",
-      "website": "Jenkins",
-      "correctAnswer": "Jenkins",
-      "acceptedAnswers": [
-        "jenkins ci",
-        "hudson"
-      ],
-      "clue1": "Open-source automation server enabling developers to build, test, and deploy applications.",
-      "clue2": "Forked from the Hudson project in 2011; configurations written in Jenkinsfiles.",
-      "clue3": "Its mascot is a mustachioed English butler dressed in black-tie attire.",
-      "isActive": true,
-      "clues": [
-        "Open-source automation server enabling developers to build, test, and deploy applications.",
-        "Forked from the Hudson project in 2011; configurations written in Jenkinsfiles.",
-        "Its mascot is a mustachioed English butler dressed in black-tie attire."
-      ],
-      "questionNumber": 2,
-      "challengeNumber": 2
-    },
-    {
-      "id": "r1-24",
-      "round": 1,
-      "domain": "Text Editors",
-      "difficulty": "Easy",
-      "website": "Vim",
-      "correctAnswer": "Vim",
-      "acceptedAnswers": [
-        "vi improved",
-        "neovim",
-        "vi"
-      ],
-      "clue1": "Highly configurable modal terminal text editor built to enable efficient text editing.",
-      "clue2": "Features normal, insert, visual, and command-line editing modes.",
-      "clue3": "A running joke among beginners is how difficult it is to exit with :wq or :q!.",
-      "isActive": true,
-      "clues": [
-        "Highly configurable modal terminal text editor built to enable efficient text editing.",
-        "Features normal, insert, visual, and command-line editing modes.",
-        "A running joke among beginners is how difficult it is to exit with :wq or :q!."
-      ],
-      "questionNumber": 3,
-      "challengeNumber": 3
-    },
-    {
-      "id": "r1-21",
-      "round": 1,
-      "domain": "Databases",
-      "difficulty": "Medium",
-      "website": "MongoDB",
-      "correctAnswer": "MongoDB",
-      "acceptedAnswers": [
-        "mongo",
-        "mongodb.com"
-      ],
-      "clue1": "Leading source-available document-oriented NoSQL database system.",
-      "clue2": "Stores data in flexible BSON (Binary JSON) documents with dynamic schemas.",
-      "clue3": "Its name is derived from the word \"humongous\" and uses a green leaf logo.",
-      "isActive": true,
-      "clues": [
-        "Leading source-available document-oriented NoSQL database system.",
-        "Stores data in flexible BSON (Binary JSON) documents with dynamic schemas.",
-        "Its name is derived from the word \"humongous\" and uses a green leaf logo."
-      ],
-      "questionNumber": 4,
-      "challengeNumber": 4
-    },
-    {
-      "id": "r1-13",
-      "round": 1,
-      "domain": "Systems Programming",
-      "difficulty": "Hard",
-      "website": "Rust",
-      "correctAnswer": "Rust",
-      "acceptedAnswers": [
-        "rust-lang",
-        "rust lang"
-      ],
-      "clue1": "Systems programming language that guarantees memory safety without garbage collection.",
-      "clue2": "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
-      "clue3": "Its mascot is Ferris the Crab, and its package manager is Cargo.",
-      "isActive": true,
-      "clues": [
-        "Systems programming language that guarantees memory safety without garbage collection.",
-        "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
-        "Its mascot is Ferris the Crab, and its package manager is Cargo."
-      ],
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
       "id": "r1-38",
       "round": 1,
       "domain": "Real-Time Communications",
@@ -242,54 +149,55 @@
         "Uses STUN and TURN servers for NAT traversal and SDP for media negotiation.",
         "Acronym stands for Web Real-Time Communication."
       ],
-      "questionNumber": 6,
-      "challengeNumber": 6
+      "questionNumber": 2,
+      "challengeNumber": 2
     },
     {
-      "id": "r1-18",
+      "id": "r1-08",
       "round": 1,
-      "domain": "JavaScript Engines",
+      "domain": "Networking",
       "difficulty": "Hard",
-      "website": "V8",
-      "correctAnswer": "V8",
+      "website": "Nginx",
+      "correctAnswer": "Nginx",
       "acceptedAnswers": [
-        "v8 engine",
-        "v8 javascript engine"
+        "engine x",
+        "nginx.org",
+        "nginx"
       ],
-      "clue1": "Open-source high-performance JavaScript and WebAssembly engine written in C++.",
-      "clue2": "Created by Google for Chrome; also powers Node.js and Deno runtimes.",
-      "clue3": "Named after a powerful eight-cylinder automotive engine.",
+      "clue1": "High-performance event-driven web server and reverse proxy created by Igor Sysoev.",
+      "clue2": "Engineered specifically to solve the C10K concurrency problem.",
+      "clue3": "Pronounced \"Engine-X\" and commonly paired with PHP-FPM or Node.js backends.",
       "isActive": true,
       "clues": [
-        "Open-source high-performance JavaScript and WebAssembly engine written in C++.",
-        "Created by Google for Chrome; also powers Node.js and Deno runtimes.",
-        "Named after a powerful eight-cylinder automotive engine."
+        "High-performance event-driven web server and reverse proxy created by Igor Sysoev.",
+        "Engineered specifically to solve the C10K concurrency problem.",
+        "Pronounced \"Engine-X\" and commonly paired with PHP-FPM or Node.js backends."
       ],
-      "questionNumber": 7,
-      "challengeNumber": 7
+      "questionNumber": 3,
+      "challengeNumber": 3
     },
     {
-      "id": "r1-19",
+      "id": "r1-33",
       "round": 1,
-      "domain": "Developer Tools",
+      "domain": "API Testing",
       "difficulty": "Easy",
-      "website": "VS Code",
-      "correctAnswer": "VS Code",
+      "website": "Postman",
+      "correctAnswer": "Postman",
       "acceptedAnswers": [
-        "visual studio code",
-        "vscode"
+        "postman.com",
+        "postman api"
       ],
-      "clue1": "Extensible source-code editor built on Electron and Monaco by Microsoft.",
-      "clue2": "Known for its marketplace of extensions, built-in terminal, and Language Server Protocol.",
-      "clue3": "Often abbreviated with two letters: VS.",
+      "clue1": "Collaborative platform for API design, mock servers, automated testing, and documentation.",
+      "clue2": "Developers use it to compose HTTP GET, POST, and PUT requests with custom auth headers.",
+      "clue3": "Its logo depicts an astronaut with wings delivering mail across space.",
       "isActive": true,
       "clues": [
-        "Extensible source-code editor built on Electron and Monaco by Microsoft.",
-        "Known for its marketplace of extensions, built-in terminal, and Language Server Protocol.",
-        "Often abbreviated with two letters: VS."
+        "Collaborative platform for API design, mock servers, automated testing, and documentation.",
+        "Developers use it to compose HTTP GET, POST, and PUT requests with custom auth headers.",
+        "Its logo depicts an astronaut with wings delivering mail across space."
       ],
-      "questionNumber": 8,
-      "challengeNumber": 8
+      "questionNumber": 4,
+      "challengeNumber": 4
     },
     {
       "id": "r1-20",
@@ -311,27 +219,121 @@
         "Created by Ryan Dahl in 2009 using an event-driven, non-blocking I/O model.",
         "Its package ecosystem npm is the largest software registry in the world."
       ],
+      "questionNumber": 5,
+      "challengeNumber": 5
+    },
+    {
+      "id": "r1-16",
+      "round": 1,
+      "domain": "Web Standards",
+      "difficulty": "Hard",
+      "website": "WebAssembly",
+      "correctAnswer": "WebAssembly",
+      "acceptedAnswers": [
+        "wasm",
+        "web assembly"
+      ],
+      "clue1": "Binary instruction format for a stack-based virtual machine in modern web browsers.",
+      "clue2": "Enables near-native performance for C, C++, and Rust code directly on web pages.",
+      "clue3": "Commonly abbreviated as WASM.",
+      "isActive": true,
+      "clues": [
+        "Binary instruction format for a stack-based virtual machine in modern web browsers.",
+        "Enables near-native performance for C, C++, and Rust code directly on web pages.",
+        "Commonly abbreviated as WASM."
+      ],
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r1-23",
+      "round": 1,
+      "domain": "DevOps & Infrastructure",
+      "difficulty": "Medium",
+      "website": "Terraform",
+      "correctAnswer": "Terraform",
+      "acceptedAnswers": [
+        "terraform.io",
+        "hashicorp terraform"
+      ],
+      "clue1": "Open-source Infrastructure-as-Code software tool created by HashiCorp.",
+      "clue2": "Allows users to define cloud resources declaratively using HashiCorp Configuration Language (HCL).",
+      "clue3": "Famous terminal commands include init, plan, and apply.",
+      "isActive": true,
+      "clues": [
+        "Open-source Infrastructure-as-Code software tool created by HashiCorp.",
+        "Allows users to define cloud resources declaratively using HashiCorp Configuration Language (HCL).",
+        "Famous terminal commands include init, plan, and apply."
+      ],
+      "questionNumber": 7,
+      "challengeNumber": 7
+    },
+    {
+      "id": "r1-29",
+      "round": 1,
+      "domain": "Databases",
+      "difficulty": "Medium",
+      "website": "SQLite",
+      "correctAnswer": "SQLite",
+      "acceptedAnswers": [
+        "sqlite3",
+        "sqlite.org"
+      ],
+      "clue1": "C-language library implementing a small, fast, self-contained SQL database engine.",
+      "clue2": "Unlike client-server engines, it reads and writes directly to a single disk file.",
+      "clue3": "The most widely deployed database in the world, embedded in every smartphone and browser.",
+      "isActive": true,
+      "clues": [
+        "C-language library implementing a small, fast, self-contained SQL database engine.",
+        "Unlike client-server engines, it reads and writes directly to a single disk file.",
+        "The most widely deployed database in the world, embedded in every smartphone and browser."
+      ],
+      "questionNumber": 8,
+      "challengeNumber": 8
+    },
+    {
+      "id": "r1-03",
+      "round": 1,
+      "domain": "Web Development",
+      "difficulty": "Medium",
+      "website": "MDN Web Docs",
+      "correctAnswer": "MDN Web Docs",
+      "acceptedAnswers": [
+        "mdn",
+        "mozilla developer network",
+        "developer.mozilla.org"
+      ],
+      "clue1": "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
+      "clue2": "It includes interactive code playgrounds and detailed browser compatibility matrices.",
+      "clue3": "It is maintained by Mozilla and features dinosaur-themed easter eggs.",
+      "isActive": true,
+      "clues": [
+        "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
+        "It includes interactive code playgrounds and detailed browser compatibility matrices.",
+        "It is maintained by Mozilla and features dinosaur-themed easter eggs."
+      ],
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r1-35",
+      "id": "r1-40",
       "round": 1,
-      "domain": "CDN & Web Security",
-      "difficulty": "Medium",
-      "website": "Cloudflare",
-      "correctAnswer": "Cloudflare",
+      "domain": "DevOps & Git",
+      "difficulty": "Easy",
+      "website": "GitLab",
+      "correctAnswer": "GitLab",
       "acceptedAnswers": [
-        "cloudflare.com"
+        "gitlab.com",
+        "git lab"
       ],
-      "clue1": "Global reverse proxy, CDN, and DDoS mitigation network protecting millions of websites.",
-      "clue2": "Operates 1.1.1.1 DNS, Workers edge serverless compute, and SSL/TLS proxying.",
-      "clue3": "Its name combines \"Cloud\" with \"Flare\" and features an orange cloud logo.",
+      "clue1": "Complete DevOps platform delivered as a single application with built-in CI/CD pipelines.",
+      "clue2": "Offers self-hosted community editions as an alternative to proprietary code hosts.",
+      "clue3": "Uses an origami geometric orange fox as its official logo.",
       "isActive": true,
       "clues": [
-        "Global reverse proxy, CDN, and DDoS mitigation network protecting millions of websites.",
-        "Operates 1.1.1.1 DNS, Workers edge serverless compute, and SSL/TLS proxying.",
-        "Its name combines \"Cloud\" with \"Flare\" and features an orange cloud logo."
+        "Complete DevOps platform delivered as a single application with built-in CI/CD pipelines.",
+        "Offers self-hosted community editions as an alternative to proprietary code hosts.",
+        "Uses an origami geometric orange fox as its official logo."
       ],
       "questionNumber": 10,
       "challengeNumber": 10
@@ -374,109 +376,284 @@
       "challengeNumber": 1
     },
     {
-      "id": "r2-04",
+      "id": "r2-36",
       "round": 2,
-      "category": "Clockwise Rotation",
-      "difficulty": "Easy",
-      "patternText": "▲  →  ►  →  ▼  →  ◄  →  ?",
+      "category": "Binary Parity Bit",
+      "difficulty": "Hard",
+      "patternText": "0000_0  →  0001_1  →  0010_1  →  0011_0  →  0100_1  →  0101_?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "▼ (Down)"
+          "text": "0"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "▲ (Up)"
+          "text": "1"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "► (Right)"
+          "text": "X"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "◄ (Left)"
+          "text": "2"
         }
       ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "90-degree clockwise cycle. After Left (◄), the arrow rotates back to Up (▲).",
+      "correctOptionId": "A",
+      "correctOption": "A",
+      "explanation": "Even parity bit calculation: 0101 has two 1s (even), so the parity bit is 0.",
       "isActive": true,
       "questionNumber": 2,
       "challengeNumber": 2
     },
     {
-      "id": "r2-05",
+      "id": "r2-31",
       "round": 2,
-      "category": "Square Numbers",
+      "category": "Two Step Alternation",
       "difficulty": "Easy",
-      "patternText": "1  →  4  →  9  →  16  →  25  →  36  →  ?",
+      "patternText": "10  →  15  →  13  →  18  →  16  →  21  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "49"
+          "text": "17"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "45"
+          "text": "19"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "54"
+          "text": "23"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "64"
+          "text": "26"
         }
       ],
-      "correctOptionId": "A",
-      "correctOption": "A",
-      "explanation": "Square integers: 1², 2², 3², 4², 5², 6². 7² = 49.",
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "Rule is +5 then -2. 21 - 2 = 19.",
       "isActive": true,
       "questionNumber": 3,
       "challengeNumber": 3
     },
     {
-      "id": "r2-37",
+      "id": "r2-12",
       "round": 2,
-      "category": "Double Multiplication Plus One",
-      "difficulty": "Medium",
-      "patternText": "1  →  3  →  7  →  15  →  31  →  63  →  ?",
+      "category": "Binary Bit Shift",
+      "difficulty": "Hard",
+      "patternText": "0001  →  0010  →  0100  →  1000  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "125"
+          "text": "0000"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "127"
+          "text": "1001"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "129"
+          "text": "0001"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "131"
+          "text": "1111"
+        }
+      ],
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Circular 4-bit left shift (ROL). Shifting 1000 left wraps the 1 back to 0001.",
+      "isActive": true,
+      "questionNumber": 4,
+      "challengeNumber": 4
+    },
+    {
+      "id": "r2-09",
+      "round": 2,
+      "category": "Subtractive Doubling",
+      "difficulty": "Medium",
+      "patternText": "100  →  96  →  88  →  72  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "48"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "40"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "56"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "32"
         }
       ],
       "correctOptionId": "B",
       "correctOption": "B",
-      "explanation": "Rule is (n × 2) + 1. (63 × 2) + 1 = 126 + 1 = 127.",
+      "explanation": "Subtracting doubling powers of 2: -4, -8, -16, -32. 72 - 32 = 40.",
       "isActive": true,
-      "questionNumber": 4,
-      "challengeNumber": 4
+      "questionNumber": 5,
+      "challengeNumber": 5
+    },
+    {
+      "id": "r2-19",
+      "round": 2,
+      "category": "Geometric Fraction",
+      "difficulty": "Medium",
+      "patternText": "64  →  32  →  16  →  8  →  4  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "0"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "1"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "2"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "-2"
+        }
+      ],
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Each step divides by 2. 4 ÷ 2 = 2.",
+      "isActive": true,
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r2-40",
+      "round": 2,
+      "category": "Square Root Cascade",
+      "difficulty": "Easy",
+      "patternText": "625  →  25  →  5  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "1"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "√5"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "2.5"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "0"
+        }
+      ],
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "Iterative square root: √625 = 25, √25 = 5, √5 = √5.",
+      "isActive": true,
+      "questionNumber": 7,
+      "challengeNumber": 7
+    },
+    {
+      "id": "r2-11",
+      "round": 2,
+      "category": "Cube Sequence",
+      "difficulty": "Medium",
+      "patternText": "1  →  8  →  27  →  64  →  125  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "196"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "216"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "256"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "343"
+        }
+      ],
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "Cube sequence: 1³, 2³, 3³, 4³, 5³. 6³ = 216.",
+      "isActive": true,
+      "questionNumber": 8,
+      "challengeNumber": 8
+    },
+    {
+      "id": "r2-43",
+      "round": 2,
+      "category": "Alternating Negatives",
+      "difficulty": "Easy",
+      "patternText": "1  →  -2  →  4  →  -8  →  16  →  -32  →  ?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "-64"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "48"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "64"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "-48"
+        }
+      ],
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Multiply by -2 each step. -32 × -2 = +64.",
+      "isActive": true,
+      "questionNumber": 9,
+      "challengeNumber": 9
     },
     {
       "id": "r2-22",
@@ -510,181 +687,6 @@
       "correctOption": "B",
       "explanation": "25 divided by 7 is 3 with remainder 4. 25 = (7 × 3) + 4.",
       "isActive": true,
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
-      "id": "r2-29",
-      "round": 2,
-      "category": "Digit Sum Addition",
-      "difficulty": "Hard",
-      "patternText": "18  →  27  →  36  →  45  →  54  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "60"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "63"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "66"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "72"
-        }
-      ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Multiples of 9 whose digits sum to 9. 54 + 9 = 63.",
-      "isActive": true,
-      "questionNumber": 6,
-      "challengeNumber": 6
-    },
-    {
-      "id": "r2-17",
-      "round": 2,
-      "category": "Triangular Numbers",
-      "difficulty": "Medium",
-      "patternText": "1  →  3  →  6  →  10  →  15  →  21  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "26"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "28"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "30"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "36"
-        }
-      ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Triangular numbers (n*(n+1)/2): +2, +3, +4, +5, +6, +7. 21 + 7 = 28.",
-      "isActive": true,
-      "questionNumber": 7,
-      "challengeNumber": 7
-    },
-    {
-      "id": "r2-03",
-      "round": 2,
-      "category": "Hexadecimal Step",
-      "difficulty": "Hard",
-      "patternText": "0x10  →  0x20  →  0x40  →  0x80  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "0x90"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "0xA0"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "0xC0"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "0x100"
-        }
-      ],
-      "correctOptionId": "D",
-      "correctOption": "D",
-      "explanation": "Hex values doubled: 16, 32, 64, 128 (0x80). Next is 256 in decimal, which is 0x100 in hex.",
-      "isActive": true,
-      "questionNumber": 8,
-      "challengeNumber": 8
-    },
-    {
-      "id": "r2-39",
-      "round": 2,
-      "category": "Code Output Simulation",
-      "difficulty": "Medium",
-      "patternText": "for(i=0; i<4; i++) { x = x * 2 + 1; } (start x=0): 0 → 1 → 3 → 7 → ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "11"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "14"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "15"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "17"
-        }
-      ],
-      "correctOptionId": "C",
-      "correctOption": "C",
-      "explanation": "4th iteration: 7 * 2 + 1 = 15.",
-      "isActive": true,
-      "questionNumber": 9,
-      "challengeNumber": 9
-    },
-    {
-      "id": "r2-46",
-      "round": 2,
-      "category": "Palindromic Digits",
-      "difficulty": "Easy",
-      "patternText": "11  →  22  →  33  →  44  →  55  →  ?",
-      "options": [
-        {
-          "id": "A",
-          "key": "A",
-          "text": "60"
-        },
-        {
-          "id": "B",
-          "key": "B",
-          "text": "66"
-        },
-        {
-          "id": "C",
-          "key": "C",
-          "text": "77"
-        },
-        {
-          "id": "D",
-          "key": "D",
-          "text": "65"
-        }
-      ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Repdigit sequence adding 11 each time. 55 + 11 = 66.",
-      "isActive": true,
       "questionNumber": 10,
       "challengeNumber": 10
     }
@@ -717,160 +719,30 @@
       "challengeNumber": 1
     },
     {
-      "id": "r3-16",
+      "id": "r3-18",
       "round": 3,
-      "title": "Caesar Shift (+1)",
-      "category": "Caesar Cipher",
-      "difficulty": "Easy",
-      "code": "GZFEST",
-      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
-      "correctCode": "FYEDRS",
+      "title": "Morse Code Word",
+      "category": "Morse Code",
+      "difficulty": "Medium",
+      "code": "-.-. --- -.. .",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+      "correctCode": "CODE",
       "alternateCodes": [
-        "fyedrs"
+        "code"
       ],
-      "explanation": "G-1=F, Z-1=Y, F-1=E, E-1=D, S-1=R, T-1=S -> FYEDRS",
+      "explanation": "Translates to C-O-D-E.",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "fyedrs"
+        "code"
       ],
-      "puzzle": "GZFEST",
-      "correctAnswer": "FYEDRS",
+      "puzzle": "-.-. --- -.. .",
+      "correctAnswer": "CODE",
       "acceptedAnswers": [
-        "fyedrs"
+        "code"
       ],
       "questionNumber": 2,
       "challengeNumber": 2
-    },
-    {
-      "id": "r3-30",
-      "round": 3,
-      "title": "A1Z26 Numerical Cipher",
-      "category": "Alphabetical Mapping",
-      "difficulty": "Easy",
-      "code": "16  1  3  11  5  20",
-      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
-      "correctCode": "PACKET",
-      "alternateCodes": [
-        "packet"
-      ],
-      "explanation": "P-A-C-K-E-T: A formatted unit of data carried by a packet-switched network.",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "packet"
-      ],
-      "puzzle": "16  1  3  11  5  20",
-      "correctAnswer": "PACKET",
-      "acceptedAnswers": [
-        "packet"
-      ],
-      "questionNumber": 3,
-      "challengeNumber": 3
-    },
-    {
-      "id": "r3-22",
-      "round": 3,
-      "title": "Caesar Shift (+5)",
-      "category": "Caesar Cipher",
-      "difficulty": "Medium",
-      "code": "HTSIJ",
-      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
-      "correctCode": "CONDE",
-      "alternateCodes": [
-        "conde"
-      ],
-      "explanation": "H-5=C, T-5=O, S-5=N... wait: H(8)-5=C, T(20)-5=O, S(19)-5=N, I(9)-5=D, J(10)-5=E -> CONDE? Let's check: H-5=C, T-5=O, X? If code is HTSIJ -> C-O-N-D-E.",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "conde"
-      ],
-      "puzzle": "HTSIJ",
-      "correctAnswer": "CONDE",
-      "acceptedAnswers": [
-        "conde"
-      ],
-      "questionNumber": 4,
-      "challengeNumber": 4
-    },
-    {
-      "id": "r3-43",
-      "round": 3,
-      "title": "Hexadecimal ASCII Code",
-      "category": "Hex Encoding",
-      "difficulty": "Medium",
-      "code": "50  49  4E  47",
-      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
-      "correctCode": "PING",
-      "alternateCodes": [
-        "ping"
-      ],
-      "explanation": "P-I-N-G: Network utility used to test the reachability of a host.",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "ping"
-      ],
-      "puzzle": "50  49  4E  47",
-      "correctAnswer": "PING",
-      "acceptedAnswers": [
-        "ping"
-      ],
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
-      "id": "r3-10",
-      "round": 3,
-      "title": "Polybius Square Matrix",
-      "category": "Polybius Grid",
-      "difficulty": "Hard",
-      "code": "13  42  11  13  25",
-      "hint": "The coordinates reference a character grid. Determine row and column intersections to find each character.",
-      "correctCode": "CRACK",
-      "alternateCodes": [
-        "crack"
-      ],
-      "explanation": "13=C, 42=R, 11=A, 13=C, 25=K -> CRACK",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "crack"
-      ],
-      "puzzle": "13  42  11  13  25",
-      "correctAnswer": "CRACK",
-      "acceptedAnswers": [
-        "crack"
-      ],
-      "questionNumber": 6,
-      "challengeNumber": 6
-    },
-    {
-      "id": "r3-35",
-      "round": 3,
-      "title": "Atbash Inverse Alphabet",
-      "category": "Inverse Cipher",
-      "difficulty": "Hard",
-      "code": "XZXSV",
-      "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
-      "correctCode": "CACHE",
-      "alternateCodes": [
-        "cache"
-      ],
-      "explanation": "X->C, Z->A, X->C, S->H, V->E -> CACHE",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "cache"
-      ],
-      "puzzle": "XZXSV",
-      "correctAnswer": "CACHE",
-      "acceptedAnswers": [
-        "cache"
-      ],
-      "questionNumber": 7,
-      "challengeNumber": 7
     },
     {
       "id": "r3-42",
@@ -895,62 +767,195 @@
       "acceptedAnswers": [
         "connect"
       ],
+      "questionNumber": 3,
+      "challengeNumber": 3
+    },
+    {
+      "id": "r3-04",
+      "round": 3,
+      "title": "Caesar Shift (+3)",
+      "category": "Caesar Cipher",
+      "difficulty": "Easy",
+      "code": "KHOOR",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+      "correctCode": "HELLO",
+      "alternateCodes": [
+        "hello"
+      ],
+      "explanation": "K-3=H, H-3=E, O-3=L, O-3=L, R-3=O -> HELLO",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "hello"
+      ],
+      "puzzle": "KHOOR",
+      "correctAnswer": "HELLO",
+      "acceptedAnswers": [
+        "hello"
+      ],
+      "questionNumber": 4,
+      "challengeNumber": 4
+    },
+    {
+      "id": "r3-11",
+      "round": 3,
+      "title": "ROT13 Caesar Rotation",
+      "category": "Caesar Cipher",
+      "difficulty": "Medium",
+      "code": "CLGUBA",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+      "correctCode": "PYTHON",
+      "alternateCodes": [
+        "python"
+      ],
+      "explanation": "C+13=P, L+13=Y, G+13=T, U+13=H, B+13=O, A+13=N -> PYTHON",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "python"
+      ],
+      "puzzle": "CLGUBA",
+      "correctAnswer": "PYTHON",
+      "acceptedAnswers": [
+        "python"
+      ],
+      "questionNumber": 5,
+      "challengeNumber": 5
+    },
+    {
+      "id": "r3-05",
+      "round": 3,
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
+      "difficulty": "Hard",
+      "code": "01000011 01011001 01000010 01000101 01010010",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+      "correctCode": "CYBER",
+      "alternateCodes": [
+        "cyber"
+      ],
+      "explanation": "67=C, 89=Y, 66=B, 69=E, 82=R -> CYBER",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "cyber"
+      ],
+      "puzzle": "01000011 01011001 01000010 01000101 01010010",
+      "correctAnswer": "CYBER",
+      "acceptedAnswers": [
+        "cyber"
+      ],
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r3-24",
+      "round": 3,
+      "title": "Phone Keypad T9 Code",
+      "category": "Telephone Keypad",
+      "difficulty": "Easy",
+      "code": "7 - 4 - 6 - 4",
+      "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
+      "correctCode": "RING",
+      "alternateCodes": [
+        "ring"
+      ],
+      "explanation": "7=R, 4=I, 6=N, 4=G -> RING",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "ring"
+      ],
+      "puzzle": "7 - 4 - 6 - 4",
+      "correctAnswer": "RING",
+      "acceptedAnswers": [
+        "ring"
+      ],
+      "questionNumber": 7,
+      "challengeNumber": 7
+    },
+    {
+      "id": "r3-25",
+      "round": 3,
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
+      "difficulty": "Hard",
+      "code": "01010001 01010101 01000101 01010011 01010100",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+      "correctCode": "QUEST",
+      "alternateCodes": [
+        "quest"
+      ],
+      "explanation": "81=Q, 85=U, 69=E, 83=S, 84=T -> QUEST",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "quest"
+      ],
+      "puzzle": "01010001 01010101 01000101 01010011 01010100",
+      "correctAnswer": "QUEST",
+      "acceptedAnswers": [
+        "quest"
+      ],
       "questionNumber": 8,
       "challengeNumber": 8
     },
     {
-      "id": "r3-13",
+      "id": "r3-44",
       "round": 3,
-      "title": "A1Z26 Numerical Cipher",
-      "category": "Alphabetical Mapping",
+      "title": "Reverse String Cipher",
+      "category": "Reversal",
       "difficulty": "Easy",
-      "code": "8 - 1 - 3 - 11",
-      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
-      "correctCode": "HACK",
+      "code": "THGIRPYPC",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+      "correctCode": "COPYRIGHT",
       "alternateCodes": [
-        "hack"
+        "copyright",
+        "cpyright"
       ],
-      "explanation": "8=H, 1=A, 3=C, 11=K -> HACK",
+      "explanation": "T-H-G-I-R-P-Y-P-C reversed is C-P-Y-R-I-G-H-T (or COPYRIGHT).",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "hack"
+        "copyright",
+        "cpyright"
       ],
-      "puzzle": "8 - 1 - 3 - 11",
-      "correctAnswer": "HACK",
+      "puzzle": "THGIRPYPC",
+      "correctAnswer": "COPYRIGHT",
       "acceptedAnswers": [
-        "hack"
+        "copyright",
+        "cpyright"
       ],
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r3-31",
+      "id": "r3-36",
       "round": 3,
-      "title": "Keyboard QWERTY Shift Right",
-      "category": "Keyboard Cipher",
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
       "difficulty": "Hard",
-      "code": "ESDR",
-      "hint": "Each character is displaced on a standard QWERTY keyboard. Trace the physical shift to decode the word.",
-      "correctCode": "WASE",
+      "code": "01010011 01010001 01001100",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+      "correctCode": "SQL",
       "alternateCodes": [
-        "wase"
+        "sql"
       ],
-      "explanation": "Shifting left on keyboard row yields WASE.",
+      "explanation": "Structured Query Language: S-Q-L.",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "wase"
+        "sql"
       ],
-      "puzzle": "ESDR",
-      "correctAnswer": "WASE",
+      "puzzle": "01010011 01010001 01001100",
+      "correctAnswer": "SQL",
       "acceptedAnswers": [
-        "wase"
+        "sql"
       ],
       "questionNumber": 10,
       "challengeNumber": 10
     }
   ],
   "roundSubmissions": [],
-  "updatedAt": "2026-09-18T06:35:42.221Z"
+  "updatedAt": "2026-09-18T06:55:51.328Z"
 }
