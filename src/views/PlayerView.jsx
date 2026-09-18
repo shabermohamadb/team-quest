@@ -650,7 +650,7 @@ export default function PlayerView({
             <div className="flex items-center justify-between pb-2 border-b border-[#1E283D]">
               <span className="text-xs font-mono uppercase tracking-wider font-bold text-amber-400 flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5" />
-                CRACK THE ENCRYPTED CIPHER
+                🔐 CRACK THE ENCRYPTED CIPHER
               </span>
               <span className="text-xs font-mono text-zinc-400">
                 {currentChallenge?.category || 'Cryptic Escape Room'}
@@ -662,24 +662,26 @@ export default function PlayerView({
               {currentChallenge?.title || 'Cipher Challenge'}
             </h3>
 
-            {/* Cipher Code Block */}
-            <div className="p-5 rounded-xl bg-[#090D16] border-2 border-amber-500/40 text-center shadow-inner">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block mb-1 font-bold">
-                ENCRYPTED MESSAGE
+            {/* Cipher Code Block: ENCRYPTED PUZZLE */}
+            <div className="p-5 md:p-6 rounded-xl bg-[#090D16] border-2 border-amber-500/50 text-center shadow-inner">
+              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mb-1 font-bold">
+                ENCRYPTED PUZZLE
               </span>
               <div className="font-mono text-2xl md:text-4xl font-black text-amber-300 tracking-widest select-all py-1">
-                {currentChallenge?.code || 'ENCRYPTED'}
+                {currentChallenge?.puzzle || currentChallenge?.code || 'ENCRYPTED'}
               </div>
             </div>
 
-            {/* Hint Box */}
+            {/* Hint Box (Visually secondary to puzzle) */}
             {currentChallenge?.hint && (
-              <div className="p-3 rounded-lg bg-[#0D1527] border border-[#1E293B] text-xs font-mono text-slate-300 flex items-start gap-2">
-                <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-cyan-400 mr-1.5">HINT / PROTOCOL:</strong>
-                  {currentChallenge.hint}
+              <div className="p-3.5 rounded-lg bg-[#0A0E18] border border-[#182338] text-xs font-mono text-slate-300 space-y-1">
+                <div className="flex items-center gap-1.5 text-cyan-400/90 font-bold text-[11px] uppercase tracking-wider">
+                  <HelpCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>HINT / PROTOCOL</span>
                 </div>
+                <p className="text-slate-300 text-xs md:text-sm leading-relaxed pl-5">
+                  {currentChallenge.hint}
+                </p>
               </div>
             )}
 
@@ -727,7 +729,7 @@ export default function PlayerView({
             </div>
 
             <div className="text-xs text-slate-300 font-mono">
-              DISCUSS WITH YOUR TEAM. Decrypt the message and enter the exact code.
+              DISCUSS WITH YOUR TEAM. Decrypt the message and enter the final code.
             </div>
 
             {isTeamLocked ? (

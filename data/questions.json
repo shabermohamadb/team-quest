@@ -23,12 +23,7 @@
       "clue1": "Developers commonly use this platform to collaborate on code repositories.",
       "clue2": "Developers can create repositories, branches and pull requests on this platform.",
       "clue3": "It is widely known by a short name that starts with 'Git' and ends with 'Hub'.",
-      "isActive": true,
-      "clues": [
-        "Developers commonly use this platform to collaborate on code repositories.",
-        "Developers can create repositories, branches and pull requests on this platform.",
-        "It is widely known by a short name that starts with 'Git' and ends with 'Hub'."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-02",
@@ -45,12 +40,7 @@
       "clue1": "Every developer visits this Q&A forum when encountering compile or runtime errors.",
       "clue2": "Users earn reputation points and badges by answering coding questions.",
       "clue3": "Its logo depicts a box overflowing with white rectangular sheets.",
-      "isActive": true,
-      "clues": [
-        "Every developer visits this Q&A forum when encountering compile or runtime errors.",
-        "Users earn reputation points and badges by answering coding questions.",
-        "Its logo depicts a box overflowing with white rectangular sheets."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-03",
@@ -67,12 +57,7 @@
       "clue1": "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
       "clue2": "It includes interactive code playgrounds and detailed browser compatibility matrices.",
       "clue3": "It is maintained by Mozilla and features dinosaur-themed easter eggs.",
-      "isActive": true,
-      "clues": [
-        "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
-        "It includes interactive code playgrounds and detailed browser compatibility matrices.",
-        "It is maintained by Mozilla and features dinosaur-themed easter eggs."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-04",
@@ -88,12 +73,7 @@
       "clue1": "Platform that popularised lightweight containerization using Linux namespaces and cgroups.",
       "clue2": "Packages software and its dependencies into isolated portable images.",
       "clue3": "Its iconic mascot is a smiling blue whale carrying shipping containers.",
-      "isActive": true,
-      "clues": [
-        "Platform that popularised lightweight containerization using Linux namespaces and cgroups.",
-        "Packages software and its dependencies into isolated portable images.",
-        "Its iconic mascot is a smiling blue whale carrying shipping containers."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-05",
@@ -110,12 +90,7 @@
       "clue1": "Originating from Google Borg, this tool automates container deployment and scaling.",
       "clue2": "Concepts include Pods, ConfigMaps, Ingress controllers, and DaemonSets.",
       "clue3": "Its name comes from the Greek word for helmsman or pilot; often abbreviated K8s.",
-      "isActive": true,
-      "clues": [
-        "Originating from Google Borg, this tool automates container deployment and scaling.",
-        "Concepts include Pods, ConfigMaps, Ingress controllers, and DaemonSets.",
-        "Its name comes from the Greek word for helmsman or pilot; often abbreviated K8s."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-06",
@@ -132,12 +107,7 @@
       "clue1": "Blazing-fast in-memory data store frequently employed as a cache and message broker.",
       "clue2": "Supports native data structures like strings, hashes, lists, sets, and sorted sets.",
       "clue3": "Its acronym stands for Remote Dictionary Server.",
-      "isActive": true,
-      "clues": [
-        "Blazing-fast in-memory data store frequently employed as a cache and message broker.",
-        "Supports native data structures like strings, hashes, lists, sets, and sorted sets.",
-        "Its acronym stands for Remote Dictionary Server."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-07",
@@ -154,12 +124,7 @@
       "clue1": "World’s most advanced open-source object-relational database management system.",
       "clue2": "Known for powerful extensions like PostGIS and robust JSONB support.",
       "clue3": "Features an elephant named Slonik as its official mascot.",
-      "isActive": true,
-      "clues": [
-        "World’s most advanced open-source object-relational database management system.",
-        "Known for powerful extensions like PostGIS and robust JSONB support.",
-        "Features an elephant named Slonik as its official mascot."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-08",
@@ -176,12 +141,7 @@
       "clue1": "High-performance event-driven web server and reverse proxy created by Igor Sysoev.",
       "clue2": "Engineered specifically to solve the C10K concurrency problem.",
       "clue3": "Pronounced \"Engine-X\" and commonly paired with PHP-FPM or Node.js backends.",
-      "isActive": true,
-      "clues": [
-        "High-performance event-driven web server and reverse proxy created by Igor Sysoev.",
-        "Engineered specifically to solve the C10K concurrency problem.",
-        "Pronounced \"Engine-X\" and commonly paired with PHP-FPM or Node.js backends."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-09",
@@ -197,12 +157,7 @@
       "clue1": "Monolithic Unix-like kernel released by a Finnish computer science student in 1991.",
       "clue2": "Powers 96% of the top 1 million web servers, Android phones, and all top 500 supercomputers.",
       "clue3": "Associated with Tux the penguin and Linus Torvalds.",
-      "isActive": true,
-      "clues": [
-        "Monolithic Unix-like kernel released by a Finnish computer science student in 1991.",
-        "Powers 96% of the top 1 million web servers, Android phones, and all top 500 supercomputers.",
-        "Associated with Tux the penguin and Linus Torvalds."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-10",
@@ -218,12 +173,7 @@
       "clue1": "Distributed version control system created in 2005 to manage Linux kernel development.",
       "clue2": "Uses Directed Acyclic Graphs (DAGs) and SHA-1/SHA-256 commit hashes.",
       "clue3": "Terminal commands include add, commit, push, rebase, and checkout.",
-      "isActive": true,
-      "clues": [
-        "Distributed version control system created in 2005 to manage Linux kernel development.",
-        "Uses Directed Acyclic Graphs (DAGs) and SHA-1/SHA-256 commit hashes.",
-        "Terminal commands include add, commit, push, rebase, and checkout."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-11",
@@ -239,12 +189,7 @@
       "clue1": "Crowd-favorite web utility for creating, sharing, and price-tracking custom desktop PC builds.",
       "clue2": "Provides automated real-time hardware compatibility checking for sockets and TDP wattage.",
       "clue3": "Its initials are PCPP and it compares pricing across Amazon, Newegg, and Best Buy.",
-      "isActive": true,
-      "clues": [
-        "Crowd-favorite web utility for creating, sharing, and price-tracking custom desktop PC builds.",
-        "Provides automated real-time hardware compatibility checking for sockets and TDP wattage.",
-        "Its initials are PCPP and it compares pricing across Amazon, Newegg, and Best Buy."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-12",
@@ -260,12 +205,7 @@
       "clue1": "High-level interpreted language known for clean indentation-based syntax and readability.",
       "clue2": "Created by Guido van Rossum and named after a British comedy troupe.",
       "clue3": "Dominates machine learning, data science, and uses libraries like NumPy and Pandas.",
-      "isActive": true,
-      "clues": [
-        "High-level interpreted language known for clean indentation-based syntax and readability.",
-        "Created by Guido van Rossum and named after a British comedy troupe.",
-        "Dominates machine learning, data science, and uses libraries like NumPy and Pandas."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-13",
@@ -281,12 +221,7 @@
       "clue1": "Systems programming language that guarantees memory safety without garbage collection.",
       "clue2": "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
       "clue3": "Its mascot is Ferris the Crab, and its package manager is Cargo.",
-      "isActive": true,
-      "clues": [
-        "Systems programming language that guarantees memory safety without garbage collection.",
-        "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
-        "Its mascot is Ferris the Crab, and its package manager is Cargo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-14",
@@ -302,12 +237,7 @@
       "clue1": "Strict syntactical superset of JavaScript that adds optional static typing.",
       "clue2": "Developed by Microsoft and spearheaded by Turbo Pascal architect Anders Hejlsberg.",
       "clue3": "Compiles down to plain JS; uses .ts file extensions.",
-      "isActive": true,
-      "clues": [
-        "Strict syntactical superset of JavaScript that adds optional static typing.",
-        "Developed by Microsoft and spearheaded by Turbo Pascal architect Anders Hejlsberg.",
-        "Compiles down to plain JS; uses .ts file extensions."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-15",
@@ -323,12 +253,7 @@
       "clue1": "Open-source query language for APIs created internally by Facebook in 2012.",
       "clue2": "Clients define the exact shape of the data they need, eliminating over-fetching.",
       "clue3": "Replaces multiple REST endpoints with a single unified POST endpoint.",
-      "isActive": true,
-      "clues": [
-        "Open-source query language for APIs created internally by Facebook in 2012.",
-        "Clients define the exact shape of the data they need, eliminating over-fetching.",
-        "Replaces multiple REST endpoints with a single unified POST endpoint."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-16",
@@ -344,12 +269,7 @@
       "clue1": "Binary instruction format for a stack-based virtual machine in modern web browsers.",
       "clue2": "Enables near-native performance for C, C++, and Rust code directly on web pages.",
       "clue3": "Commonly abbreviated as WASM.",
-      "isActive": true,
-      "clues": [
-        "Binary instruction format for a stack-based virtual machine in modern web browsers.",
-        "Enables near-native performance for C, C++, and Rust code directly on web pages.",
-        "Commonly abbreviated as WASM."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-17",
@@ -365,12 +285,7 @@
       "clue1": "Widely used packet analyzer for network troubleshooting, analysis, and protocol development.",
       "clue2": "Formerly known as Ethereal; visualizes TCP handshakes and VoIP packet streams.",
       "clue3": "Features a blue shark fin silhouette as its logo.",
-      "isActive": true,
-      "clues": [
-        "Widely used packet analyzer for network troubleshooting, analysis, and protocol development.",
-        "Formerly known as Ethereal; visualizes TCP handshakes and VoIP packet streams.",
-        "Features a blue shark fin silhouette as its logo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-18",
@@ -386,12 +301,7 @@
       "clue1": "Open-source high-performance JavaScript and WebAssembly engine written in C++.",
       "clue2": "Created by Google for Chrome; also powers Node.js and Deno runtimes.",
       "clue3": "Named after a powerful eight-cylinder automotive engine.",
-      "isActive": true,
-      "clues": [
-        "Open-source high-performance JavaScript and WebAssembly engine written in C++.",
-        "Created by Google for Chrome; also powers Node.js and Deno runtimes.",
-        "Named after a powerful eight-cylinder automotive engine."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-19",
@@ -407,12 +317,7 @@
       "clue1": "Extensible source-code editor built on Electron and Monaco by Microsoft.",
       "clue2": "Known for its marketplace of extensions, built-in terminal, and Language Server Protocol.",
       "clue3": "Often abbreviated with two letters: VS.",
-      "isActive": true,
-      "clues": [
-        "Extensible source-code editor built on Electron and Monaco by Microsoft.",
-        "Known for its marketplace of extensions, built-in terminal, and Language Server Protocol.",
-        "Often abbreviated with two letters: VS."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-20",
@@ -428,12 +333,7 @@
       "clue1": "Cross-platform runtime environment that executes JavaScript code outside a web browser.",
       "clue2": "Created by Ryan Dahl in 2009 using an event-driven, non-blocking I/O model.",
       "clue3": "Its package ecosystem npm is the largest software registry in the world.",
-      "isActive": true,
-      "clues": [
-        "Cross-platform runtime environment that executes JavaScript code outside a web browser.",
-        "Created by Ryan Dahl in 2009 using an event-driven, non-blocking I/O model.",
-        "Its package ecosystem npm is the largest software registry in the world."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-21",
@@ -449,12 +349,7 @@
       "clue1": "Leading source-available document-oriented NoSQL database system.",
       "clue2": "Stores data in flexible BSON (Binary JSON) documents with dynamic schemas.",
       "clue3": "Its name is derived from the word \"humongous\" and uses a green leaf logo.",
-      "isActive": true,
-      "clues": [
-        "Leading source-available document-oriented NoSQL database system.",
-        "Stores data in flexible BSON (Binary JSON) documents with dynamic schemas.",
-        "Its name is derived from the word \"humongous\" and uses a green leaf logo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-22",
@@ -470,12 +365,7 @@
       "clue1": "Distributed event store and stream-processing platform originated at LinkedIn.",
       "clue2": "Organizes continuous data feeds into partitioned, replicated append-only log topics.",
       "clue3": "Named after writer Franz Kafka because it is an optimized system for writing.",
-      "isActive": true,
-      "clues": [
-        "Distributed event store and stream-processing platform originated at LinkedIn.",
-        "Organizes continuous data feeds into partitioned, replicated append-only log topics.",
-        "Named after writer Franz Kafka because it is an optimized system for writing."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-23",
@@ -491,12 +381,7 @@
       "clue1": "Open-source Infrastructure-as-Code software tool created by HashiCorp.",
       "clue2": "Allows users to define cloud resources declaratively using HashiCorp Configuration Language (HCL).",
       "clue3": "Famous terminal commands include init, plan, and apply.",
-      "isActive": true,
-      "clues": [
-        "Open-source Infrastructure-as-Code software tool created by HashiCorp.",
-        "Allows users to define cloud resources declaratively using HashiCorp Configuration Language (HCL).",
-        "Famous terminal commands include init, plan, and apply."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-24",
@@ -513,12 +398,7 @@
       "clue1": "Highly configurable modal terminal text editor built to enable efficient text editing.",
       "clue2": "Features normal, insert, visual, and command-line editing modes.",
       "clue3": "A running joke among beginners is how difficult it is to exit with :wq or :q!.",
-      "isActive": true,
-      "clues": [
-        "Highly configurable modal terminal text editor built to enable efficient text editing.",
-        "Features normal, insert, visual, and command-line editing modes.",
-        "A running joke among beginners is how difficult it is to exit with :wq or :q!."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-25",
@@ -534,12 +414,7 @@
       "clue1": "General-purpose programming language created by Bjarne Stroustrup in 1979.",
       "clue2": "Originally titled \"C with Classes\" before adding OOP, templates, and RAII.",
       "clue3": "Its name uses the increment operator from the C programming language.",
-      "isActive": true,
-      "clues": [
-        "General-purpose programming language created by Bjarne Stroustrup in 1979.",
-        "Originally titled \"C with Classes\" before adding OOP, templates, and RAII.",
-        "Its name uses the increment operator from the C programming language."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-26",
@@ -555,12 +430,7 @@
       "clue1": "Statically typed, compiled programming language designed at Google by Pike, Thompson, and Griesemer.",
       "clue2": "Features built-in lightweight concurrency primitives called goroutines and channels.",
       "clue3": "Represented by a cartoon gopher mascot and frequently referred to as Golang.",
-      "isActive": true,
-      "clues": [
-        "Statically typed, compiled programming language designed at Google by Pike, Thompson, and Griesemer.",
-        "Features built-in lightweight concurrency primitives called goroutines and channels.",
-        "Represented by a cartoon gopher mascot and frequently referred to as Golang."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-27",
@@ -576,12 +446,7 @@
       "clue1": "Object-oriented language developed by James Gosling at Sun Microsystems in 1995.",
       "clue2": "Known for the philosophy \"Write Once, Run Anywhere\" via the JVM bytecode.",
       "clue3": "Named after an Indonesian island famous for coffee, and uses a hot coffee cup logo.",
-      "isActive": true,
-      "clues": [
-        "Object-oriented language developed by James Gosling at Sun Microsystems in 1995.",
-        "Known for the philosophy \"Write Once, Run Anywhere\" via the JVM bytecode.",
-        "Named after an Indonesian island famous for coffee, and uses a hot coffee cup logo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-28",
@@ -598,12 +463,7 @@
       "clue1": "Pioneer cloud computing platform launched publicly by an e-commerce giant in 2006.",
       "clue2": "Flagship foundational services include EC2 virtual servers and S3 object storage.",
       "clue3": "Three-letter acronym starting with A for Amazon.",
-      "isActive": true,
-      "clues": [
-        "Pioneer cloud computing platform launched publicly by an e-commerce giant in 2006.",
-        "Flagship foundational services include EC2 virtual servers and S3 object storage.",
-        "Three-letter acronym starting with A for Amazon."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-29",
@@ -619,12 +479,7 @@
       "clue1": "C-language library implementing a small, fast, self-contained SQL database engine.",
       "clue2": "Unlike client-server engines, it reads and writes directly to a single disk file.",
       "clue3": "The most widely deployed database in the world, embedded in every smartphone and browser.",
-      "isActive": true,
-      "clues": [
-        "C-language library implementing a small, fast, self-contained SQL database engine.",
-        "Unlike client-server engines, it reads and writes directly to a single disk file.",
-        "The most widely deployed database in the world, embedded in every smartphone and browser."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-30",
@@ -640,12 +495,7 @@
       "clue1": "Distributed, JSON-based search and analytics engine built on Apache Lucene.",
       "clue2": "Forms the core foundation of the famous ELK observability stack with Logstash and Kibana.",
       "clue3": "Provides near real-time full-text indexing, inverted indexes, and fuzzy searching.",
-      "isActive": true,
-      "clues": [
-        "Distributed, JSON-based search and analytics engine built on Apache Lucene.",
-        "Forms the core foundation of the famous ELK observability stack with Logstash and Kibana.",
-        "Provides near real-time full-text indexing, inverted indexes, and fuzzy searching."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-31",
@@ -661,12 +511,7 @@
       "clue1": "Unix shell and command language written by Brian Fox for the GNU Project.",
       "clue2": "Default shell for most Linux distributions; scripts start with #!/bin/bash shebang.",
       "clue3": "Its name is an acronym for \"Bourne Again SHell\", a pun on Stephen Bourne.",
-      "isActive": true,
-      "clues": [
-        "Unix shell and command language written by Brian Fox for the GNU Project.",
-        "Default shell for most Linux distributions; scripts start with #!/bin/bash shebang.",
-        "Its name is an acronym for \"Bourne Again SHell\", a pun on Stephen Bourne."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-32",
@@ -682,12 +527,7 @@
       "clue1": "Declarative frontend JavaScript library for building component-based user interfaces.",
       "clue2": "Introduced JSX syntax and virtual DOM diffing to web development.",
       "clue3": "Developed by Jordan Walke at Meta (Facebook) and features an atom orbital logo.",
-      "isActive": true,
-      "clues": [
-        "Declarative frontend JavaScript library for building component-based user interfaces.",
-        "Introduced JSX syntax and virtual DOM diffing to web development.",
-        "Developed by Jordan Walke at Meta (Facebook) and features an atom orbital logo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-33",
@@ -703,12 +543,7 @@
       "clue1": "Collaborative platform for API design, mock servers, automated testing, and documentation.",
       "clue2": "Developers use it to compose HTTP GET, POST, and PUT requests with custom auth headers.",
       "clue3": "Its logo depicts an astronaut with wings delivering mail across space.",
-      "isActive": true,
-      "clues": [
-        "Collaborative platform for API design, mock servers, automated testing, and documentation.",
-        "Developers use it to compose HTTP GET, POST, and PUT requests with custom auth headers.",
-        "Its logo depicts an astronaut with wings delivering mail across space."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-34",
@@ -724,12 +559,7 @@
       "clue1": "Open-source automation server enabling developers to build, test, and deploy applications.",
       "clue2": "Forked from the Hudson project in 2011; configurations written in Jenkinsfiles.",
       "clue3": "Its mascot is a mustachioed English butler dressed in black-tie attire.",
-      "isActive": true,
-      "clues": [
-        "Open-source automation server enabling developers to build, test, and deploy applications.",
-        "Forked from the Hudson project in 2011; configurations written in Jenkinsfiles.",
-        "Its mascot is a mustachioed English butler dressed in black-tie attire."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-35",
@@ -744,12 +574,7 @@
       "clue1": "Global reverse proxy, CDN, and DDoS mitigation network protecting millions of websites.",
       "clue2": "Operates 1.1.1.1 DNS, Workers edge serverless compute, and SSL/TLS proxying.",
       "clue3": "Its name combines \"Cloud\" with \"Flare\" and features an orange cloud logo.",
-      "isActive": true,
-      "clues": [
-        "Global reverse proxy, CDN, and DDoS mitigation network protecting millions of websites.",
-        "Operates 1.1.1.1 DNS, Workers edge serverless compute, and SSL/TLS proxying.",
-        "Its name combines \"Cloud\" with \"Flare\" and features an orange cloud logo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-36",
@@ -766,12 +591,7 @@
       "clue1": "Transport layer network protocol designed at Google to replace TCP over UDP.",
       "clue2": "Reduces connection latency by combining cryptographic handshake with transport handshake.",
       "clue3": "Serves as the foundational transport protocol for HTTP/3.",
-      "isActive": true,
-      "clues": [
-        "Transport layer network protocol designed at Google to replace TCP over UDP.",
-        "Reduces connection latency by combining cryptographic handshake with transport handshake.",
-        "Serves as the foundational transport protocol for HTTP/3."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-37",
@@ -787,12 +607,7 @@
       "clue1": "Public-key cryptosystem widely used for secure data transmission and digital signatures.",
       "clue2": "Asymmetric security relies on the practical difficulty of factoring the product of two large prime numbers.",
       "clue3": "Named after the initials of Rivest, Shamir, and Adleman.",
-      "isActive": true,
-      "clues": [
-        "Public-key cryptosystem widely used for secure data transmission and digital signatures.",
-        "Asymmetric security relies on the practical difficulty of factoring the product of two large prime numbers.",
-        "Named after the initials of Rivest, Shamir, and Adleman."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-38",
@@ -808,12 +623,7 @@
       "clue1": "Open standard that provides web browsers with real-time peer-to-peer audio and video streaming.",
       "clue2": "Uses STUN and TURN servers for NAT traversal and SDP for media negotiation.",
       "clue3": "Acronym stands for Web Real-Time Communication.",
-      "isActive": true,
-      "clues": [
-        "Open standard that provides web browsers with real-time peer-to-peer audio and video streaming.",
-        "Uses STUN and TURN servers for NAT traversal and SDP for media negotiation.",
-        "Acronym stands for Web Real-Time Communication."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-39",
@@ -829,12 +639,7 @@
       "clue1": "Mathematical model of computation that manipulates symbols on an infinite strip of tape.",
       "clue2": "Formulated in 1936 to define the fundamental limits of what can be computed algorithmically.",
       "clue3": "Conceived by British mathematician and codebreaker Alan Turing.",
-      "isActive": true,
-      "clues": [
-        "Mathematical model of computation that manipulates symbols on an infinite strip of tape.",
-        "Formulated in 1936 to define the fundamental limits of what can be computed algorithmically.",
-        "Conceived by British mathematician and codebreaker Alan Turing."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-40",
@@ -850,12 +655,7 @@
       "clue1": "Complete DevOps platform delivered as a single application with built-in CI/CD pipelines.",
       "clue2": "Offers self-hosted community editions as an alternative to proprietary code hosts.",
       "clue3": "Uses an origami geometric orange fox as its official logo.",
-      "isActive": true,
-      "clues": [
-        "Complete DevOps platform delivered as a single application with built-in CI/CD pipelines.",
-        "Offers self-hosted community editions as an alternative to proprietary code hosts.",
-        "Uses an origami geometric orange fox as its official logo."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-41",
@@ -871,12 +671,7 @@
       "clue1": "Git code management platform built specifically for professional teams using Atlassian tools.",
       "clue2": "Features deep native integrations with Jira, Confluence, and Trello.",
       "clue3": "Its name evokes placing binary digits into a storage pail.",
-      "isActive": true,
-      "clues": [
-        "Git code management platform built specifically for professional teams using Atlassian tools.",
-        "Features deep native integrations with Jira, Confluence, and Trello.",
-        "Its name evokes placing binary digits into a storage pail."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-42",
@@ -892,12 +687,7 @@
       "clue1": "Family of foundational large language models developed by AI research company Anthropic.",
       "clue2": "Built using Constitutional AI techniques to enhance helpfulness, honesty, and harmlessness.",
       "clue3": "Named in honor of information theory pioneer Claude Shannon.",
-      "isActive": true,
-      "clues": [
-        "Family of foundational large language models developed by AI research company Anthropic.",
-        "Built using Constitutional AI techniques to enhance helpfulness, honesty, and harmlessness.",
-        "Named in honor of information theory pioneer Claude Shannon."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-43",
@@ -912,12 +702,7 @@
       "clue1": "Collaborative cloud-based interface design and vector prototyping tool running in the browser.",
       "clue2": "Revolutionized product design with multiplayer real-time co-editing and auto-layout.",
       "clue3": "Written with a custom WebGL rendering engine in C++ and compiled to WebAssembly.",
-      "isActive": true,
-      "clues": [
-        "Collaborative cloud-based interface design and vector prototyping tool running in the browser.",
-        "Revolutionized product design with multiplayer real-time co-editing and auto-layout.",
-        "Written with a custom WebGL rendering engine in C++ and compiled to WebAssembly."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-44",
@@ -932,12 +717,7 @@
       "clue1": "Open-source systems monitoring and alerting toolkit originally built at SoundCloud in 2012.",
       "clue2": "Uses a pull-based HTTP scraping model to collect multidimensional time-series data.",
       "clue3": "Queries metrics using PromQL and is named after the Greek Titan who brought fire to humanity.",
-      "isActive": true,
-      "clues": [
-        "Open-source systems monitoring and alerting toolkit originally built at SoundCloud in 2012.",
-        "Uses a pull-based HTTP scraping model to collect multidimensional time-series data.",
-        "Queries metrics using PromQL and is named after the Greek Titan who brought fire to humanity."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-45",
@@ -953,12 +733,7 @@
       "clue1": "Multi-platform analytics and interactive dashboard visualization web application.",
       "clue2": "Connects to diverse data sources like InfluxDB, Prometheus, MySQL, and CloudWatch.",
       "clue3": "Famous for dark-themed real-time charts in network operations centers.",
-      "isActive": true,
-      "clues": [
-        "Multi-platform analytics and interactive dashboard visualization web application.",
-        "Connects to diverse data sources like InfluxDB, Prometheus, MySQL, and CloudWatch.",
-        "Famous for dark-themed real-time charts in network operations centers."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-46",
@@ -974,12 +749,7 @@
       "clue1": "Native graph database designed from the ground up to leverage relationships in data.",
       "clue2": "Uses nodes, relationships, properties, and the declarative Cypher query language.",
       "clue3": "Powers recommendation engines, fraud detection rings, and social network analysis.",
-      "isActive": true,
-      "clues": [
-        "Native graph database designed from the ground up to leverage relationships in data.",
-        "Uses nodes, relationships, properties, and the declarative Cypher query language.",
-        "Powers recommendation engines, fraud detection rings, and social network analysis."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-47",
@@ -995,12 +765,7 @@
       "clue1": "High-performance, open-source universal RPC framework initiated by Google.",
       "clue2": "Uses Protocol Buffers (Protobuf) as its Interface Definition Language and payload serialization.",
       "clue3": "Leverages HTTP/2 transport for bi-directional streaming and multiplexing.",
-      "isActive": true,
-      "clues": [
-        "High-performance, open-source universal RPC framework initiated by Google.",
-        "Uses Protocol Buffers (Protobuf) as its Interface Definition Language and payload serialization.",
-        "Leverages HTTP/2 transport for bi-directional streaming and multiplexing."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-48",
@@ -1017,12 +782,7 @@
       "clue1": "Utility-first CSS framework packed with classes like flex, pt-4, text-center, and rotate-90.",
       "clue2": "Created by Adam Wathan; generates scan-based atomic stylesheets via JIT engine.",
       "clue3": "Features a cyan wind wave logo and eliminates traditional custom stylesheet naming.",
-      "isActive": true,
-      "clues": [
-        "Utility-first CSS framework packed with classes like flex, pt-4, text-center, and rotate-90.",
-        "Created by Adam Wathan; generates scan-based atomic stylesheets via JIT engine.",
-        "Features a cyan wind wave logo and eliminates traditional custom stylesheet naming."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-49",
@@ -1038,12 +798,7 @@
       "clue1": "Modular and reusable compiler and toolchain technology suite started by Chris Lattner.",
       "clue2": "Compiles high-level code to an architecture-independent Intermediate Representation (IR).",
       "clue3": "Serves as the backend for Clang, Rust, Swift, and Julia compilers.",
-      "isActive": true,
-      "clues": [
-        "Modular and reusable compiler and toolchain technology suite started by Chris Lattner.",
-        "Compiles high-level code to an architecture-independent Intermediate Representation (IR).",
-        "Serves as the backend for Clang, Rust, Swift, and Julia compilers."
-      ]
+      "isActive": true
     },
     {
       "id": "r1-50",
@@ -1060,12 +815,7 @@
       "clue1": "Conversational AI chatbot launched by OpenAI in November 2022 that sparked the generative AI boom.",
       "clue2": "Fine-tuned from GPT large language models using Reinforcement Learning from Human Feedback (RLHF).",
       "clue3": "The \"GPT\" in its name stands for Generative Pre-trained Transformer.",
-      "isActive": true,
-      "clues": [
-        "Conversational AI chatbot launched by OpenAI in November 2022 that sparked the generative AI boom.",
-        "Fine-tuned from GPT large language models using Reinforcement Learning from Human Feedback (RLHF).",
-        "The \"GPT\" in its name stands for Generative Pre-trained Transformer."
-      ]
+      "isActive": true
     }
   ],
   "round2Patterns": [
@@ -2728,7 +2478,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "19 - 5 - 3 - 21 - 18 - 5",
-      "hint": "A = 1, B = 2, C = 3, D = 4 ... Z = 26",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "SECURE",
       "alternateCodes": [
         "secure"
@@ -2737,6 +2487,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "secure"
+      ],
+      "puzzle": "19 - 5 - 3 - 21 - 18 - 5",
+      "correctAnswer": "SECURE",
+      "acceptedAnswers": [
         "secure"
       ]
     },
@@ -2747,7 +2502,7 @@
       "category": "Matrix Coordinates",
       "difficulty": "Medium",
       "code": "(2,3) (1,5) (4,1)",
-      "hint": "Row then Column in standard 5x5 Polybius grid: (1,1)=A, (1,5)=E, (2,3)=H... Wait: Letter index = (R-1)*5 + C. Letters: 8=H, 5=E, 16=P? Look closely: (2,3) in word M-A-P grid",
+      "hint": "The coordinates reference a character grid. Determine row and column intersections to find each character.",
       "correctCode": "MAP",
       "alternateCodes": [
         "map"
@@ -2756,6 +2511,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "map"
+      ],
+      "puzzle": "(2,3) (1,5) (4,1)",
+      "correctAnswer": "MAP",
+      "acceptedAnswers": [
         "map"
       ]
     },
@@ -2766,7 +2526,7 @@
       "category": "Reversal",
       "difficulty": "Easy",
       "code": "EDOCNERAKRAPS",
-      "hint": "Read the encrypted message completely backwards from right to left.",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
       "correctCode": "SPARKRENACODE",
       "alternateCodes": [
         "sparkrenacode"
@@ -2775,6 +2535,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "sparkrenacode"
+      ],
+      "puzzle": "EDOCNERAKRAPS",
+      "correctAnswer": "SPARKRENACODE",
+      "acceptedAnswers": [
         "sparkrenacode"
       ]
     },
@@ -2785,7 +2550,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Easy",
       "code": "KHOOR",
-      "hint": "Shift each letter backward by 3 positions in the alphabet (D becomes A).",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "HELLO",
       "alternateCodes": [
         "hello"
@@ -2794,6 +2559,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "hello"
+      ],
+      "puzzle": "KHOOR",
+      "correctAnswer": "HELLO",
+      "acceptedAnswers": [
         "hello"
       ]
     },
@@ -2804,7 +2574,7 @@
       "category": "Binary ASCII",
       "difficulty": "Hard",
       "code": "01000011 01011001 01000010 01000101 01010010",
-      "hint": "8-bit binary to ASCII characters: 01000011 = 67 in decimal ('C').",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
       "correctCode": "CYBER",
       "alternateCodes": [
         "cyber"
@@ -2813,6 +2583,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "cyber"
+      ],
+      "puzzle": "01000011 01011001 01000010 01000101 01010010",
+      "correctAnswer": "CYBER",
+      "acceptedAnswers": [
         "cyber"
       ]
     },
@@ -2823,7 +2598,7 @@
       "category": "Hex Encoding",
       "difficulty": "Easy",
       "code": "4B  45  59",
-      "hint": "Hexadecimal to ASCII: 0x4B = 75 in decimal ('K').",
+      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
       "correctCode": "KEY",
       "alternateCodes": [
         "key"
@@ -2832,6 +2607,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "key"
+      ],
+      "puzzle": "4B  45  59",
+      "correctAnswer": "KEY",
+      "acceptedAnswers": [
         "key"
       ]
     },
@@ -2842,7 +2622,7 @@
       "category": "Substitution",
       "difficulty": "Easy",
       "code": "CR4CK3D",
-      "hint": "Classic hacker leetspeak: 4=A, 3=E, 1=I, 0=O, 7=T",
+      "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
       "correctCode": "CRACKED",
       "alternateCodes": [
         "cracked"
@@ -2851,6 +2631,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "cracked"
+      ],
+      "puzzle": "CR4CK3D",
+      "correctAnswer": "CRACKED",
+      "acceptedAnswers": [
         "cracked"
       ]
     },
@@ -2861,7 +2646,7 @@
       "category": "Inverse Cipher",
       "difficulty": "Medium",
       "code": "KZXPV",
-      "hint": "Mirror alphabet: A=Z, B=Y, C=X ... K=P, Z=A",
+      "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
       "correctCode": "PACKE",
       "alternateCodes": [
         "packe"
@@ -2870,6 +2655,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "packe"
+      ],
+      "puzzle": "KZXPV",
+      "correctAnswer": "PACKE",
+      "acceptedAnswers": [
         "packe"
       ]
     },
@@ -2880,7 +2670,7 @@
       "category": "Morse Code",
       "difficulty": "Easy",
       "code": "... --- ...",
-      "hint": "Three short dots, three long dashes, three short dots.",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
       "correctCode": "SOS",
       "alternateCodes": [
         "sos"
@@ -2889,6 +2679,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "sos"
+      ],
+      "puzzle": "... --- ...",
+      "correctAnswer": "SOS",
+      "acceptedAnswers": [
         "sos"
       ]
     },
@@ -2899,7 +2694,7 @@
       "category": "Polybius Grid",
       "difficulty": "Hard",
       "code": "13  42  11  13  25",
-      "hint": "5x5 Grid (1=A-E, 2=F-K...): Row 1 Col 3 = C, Row 4 Col 2 = R",
+      "hint": "The coordinates reference a character grid. Determine row and column intersections to find each character.",
       "correctCode": "CRACK",
       "alternateCodes": [
         "crack"
@@ -2908,6 +2703,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "crack"
+      ],
+      "puzzle": "13  42  11  13  25",
+      "correctAnswer": "CRACK",
+      "acceptedAnswers": [
         "crack"
       ]
     },
@@ -2918,7 +2718,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Medium",
       "code": "CLGUBA",
-      "hint": "Rotate each letter forward by 13 positions in the 26-letter alphabet.",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "PYTHON",
       "alternateCodes": [
         "python"
@@ -2927,6 +2727,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "python"
+      ],
+      "puzzle": "CLGUBA",
+      "correctAnswer": "PYTHON",
+      "acceptedAnswers": [
         "python"
       ]
     },
@@ -2937,7 +2742,7 @@
       "category": "Telephone Keypad",
       "difficulty": "Easy",
       "code": "2 - 6 - 3 - 3",
-      "hint": "Standard phone keypad: 2=ABC, 3=DEF, 6=MNO. Common 4-letter programming term.",
+      "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
       "correctCode": "CODE",
       "alternateCodes": [
         "code"
@@ -2946,6 +2751,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "code"
+      ],
+      "puzzle": "2 - 6 - 3 - 3",
+      "correctAnswer": "CODE",
+      "acceptedAnswers": [
         "code"
       ]
     },
@@ -2956,7 +2766,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "8 - 1 - 3 - 11",
-      "hint": "A=1, B=2, C=3, D=4... Convert the numbers directly into letters.",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "HACK",
       "alternateCodes": [
         "hack"
@@ -2965,6 +2775,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "hack"
+      ],
+      "puzzle": "8 - 1 - 3 - 11",
+      "correctAnswer": "HACK",
+      "acceptedAnswers": [
         "hack"
       ]
     },
@@ -2975,7 +2790,7 @@
       "category": "Binary ASCII",
       "difficulty": "Medium",
       "code": "01000100 01000001 01010100 01000001",
-      "hint": "Four 8-bit bytes in ASCII: 01000100 = 68 ('D').",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
       "correctCode": "DATA",
       "alternateCodes": [
         "data"
@@ -2984,6 +2799,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "data"
+      ],
+      "puzzle": "01000100 01000001 01010100 01000001",
+      "correctAnswer": "DATA",
+      "acceptedAnswers": [
         "data"
       ]
     },
@@ -2994,7 +2814,7 @@
       "category": "Reversal",
       "difficulty": "Easy",
       "code": "XIRTAM",
-      "hint": "Reverse the letters to uncover the name of a famous sci-fi digital world.",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
       "correctCode": "MATRIX",
       "alternateCodes": [
         "matrix"
@@ -3003,6 +2823,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "matrix"
+      ],
+      "puzzle": "XIRTAM",
+      "correctAnswer": "MATRIX",
+      "acceptedAnswers": [
         "matrix"
       ]
     },
@@ -3013,7 +2838,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Easy",
       "code": "GZFEST",
-      "hint": "Shift each letter backwards by exactly 1 position (B becomes A).",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "FYEDRS",
       "alternateCodes": [
         "fyedrs"
@@ -3022,6 +2847,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "fyedrs"
+      ],
+      "puzzle": "GZFEST",
+      "correctAnswer": "FYEDRS",
+      "acceptedAnswers": [
         "fyedrs"
       ]
     },
@@ -3032,7 +2862,7 @@
       "category": "Hex Encoding",
       "difficulty": "Medium",
       "code": "42  59  54  45",
-      "hint": "0x42 = 66 in decimal ('B'), 0x59 = 89 in decimal ('Y').",
+      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
       "correctCode": "BYTE",
       "alternateCodes": [
         "byte"
@@ -3041,6 +2871,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "byte"
+      ],
+      "puzzle": "42  59  54  45",
+      "correctAnswer": "BYTE",
+      "acceptedAnswers": [
         "byte"
       ]
     },
@@ -3051,7 +2886,7 @@
       "category": "Morse Code",
       "difficulty": "Medium",
       "code": "-.-. --- -.. .",
-      "hint": "-.-. = C, --- = O, -.. = D, . = E",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
       "correctCode": "CODE",
       "alternateCodes": [
         "code"
@@ -3060,6 +2895,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "code"
+      ],
+      "puzzle": "-.-. --- -.. .",
+      "correctAnswer": "CODE",
+      "acceptedAnswers": [
         "code"
       ]
     },
@@ -3070,7 +2910,7 @@
       "category": "Substitution",
       "difficulty": "Easy",
       "code": "P455W0RD",
-      "hint": "Replace 4 with A, 5 with S, and 0 with O.",
+      "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
       "correctCode": "PASSWORD",
       "alternateCodes": [
         "password"
@@ -3079,6 +2919,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "password"
+      ],
+      "puzzle": "P455W0RD",
+      "correctAnswer": "PASSWORD",
+      "acceptedAnswers": [
         "password"
       ]
     },
@@ -3089,7 +2934,7 @@
       "category": "Inverse Cipher",
       "difficulty": "Hard",
       "code": "TLKRO",
-      "hint": "Mirror alphabet: T=G, L=O, K=P, R=I, O=L",
+      "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
       "correctCode": "GOPIL",
       "alternateCodes": [
         "gopil"
@@ -3098,6 +2943,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "gopil"
+      ],
+      "puzzle": "TLKRO",
+      "correctAnswer": "GOPIL",
+      "acceptedAnswers": [
         "gopil"
       ]
     },
@@ -3108,7 +2958,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "12 - 15 - 7 - 9 - 3",
-      "hint": "Convert numbers to letters: 12=L, 15=O, 7=G...",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "LOGIC",
       "alternateCodes": [
         "logic"
@@ -3117,6 +2967,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "logic"
+      ],
+      "puzzle": "12 - 15 - 7 - 9 - 3",
+      "correctAnswer": "LOGIC",
+      "acceptedAnswers": [
         "logic"
       ]
     },
@@ -3127,7 +2982,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Medium",
       "code": "HTSIJ",
-      "hint": "Shift each letter backward by 5 positions in the alphabet (F-5 = A).",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "CONDE",
       "alternateCodes": [
         "conde"
@@ -3136,6 +2991,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "conde"
+      ],
+      "puzzle": "HTSIJ",
+      "correctAnswer": "CONDE",
+      "acceptedAnswers": [
         "conde"
       ]
     },
@@ -3146,7 +3006,7 @@
       "category": "Abbreviation",
       "difficulty": "Easy",
       "code": "N-T-W-R-K",
-      "hint": "Insert standard English vowels (E, O) to reconstruct a core computing infrastructure word.",
+      "hint": "The consonants of a well-known technical term are shown. Reconstruct the word by restoring the missing vowels.",
       "correctCode": "NETWORK",
       "alternateCodes": [
         "network"
@@ -3155,6 +3015,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "network"
+      ],
+      "puzzle": "N-T-W-R-K",
+      "correctAnswer": "NETWORK",
+      "acceptedAnswers": [
         "network"
       ]
     },
@@ -3165,7 +3030,7 @@
       "category": "Telephone Keypad",
       "difficulty": "Easy",
       "code": "7 - 4 - 6 - 4",
-      "hint": "Phone keypad: 7=PQRS, 4=GHI, 6=MNO, 4=GHI. A circular mechanical network device.",
+      "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
       "correctCode": "RING",
       "alternateCodes": [
         "ring"
@@ -3174,6 +3039,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "ring"
+      ],
+      "puzzle": "7 - 4 - 6 - 4",
+      "correctAnswer": "RING",
+      "acceptedAnswers": [
         "ring"
       ]
     },
@@ -3184,7 +3054,7 @@
       "category": "Binary ASCII",
       "difficulty": "Hard",
       "code": "01010001 01010101 01000101 01010011 01010100",
-      "hint": "Five bytes: 01010001 = 81 ('Q'), 01010101 = 85 ('U').",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
       "correctCode": "QUEST",
       "alternateCodes": [
         "quest"
@@ -3193,6 +3063,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "quest"
+      ],
+      "puzzle": "01010001 01010101 01000101 01010011 01010100",
+      "correctAnswer": "QUEST",
+      "acceptedAnswers": [
         "quest"
       ]
     },
@@ -3203,7 +3078,7 @@
       "category": "Hex Encoding",
       "difficulty": "Medium",
       "code": "4C  4F  43  4B",
-      "hint": "0x4C = 76 ('L'), 0x4F = 79 ('O'), 0x43 = 67 ('C'), 0x4B = 75 ('K').",
+      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
       "correctCode": "LOCK",
       "alternateCodes": [
         "lock"
@@ -3212,6 +3087,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "lock"
+      ],
+      "puzzle": "4C  4F  43  4B",
+      "correctAnswer": "LOCK",
+      "acceptedAnswers": [
         "lock"
       ]
     },
@@ -3222,7 +3102,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Medium",
       "code": "NPGVIY",
-      "hint": "Rotate each letter forward by 13 positions.",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "ACTIYL",
       "alternateCodes": [
         "actiyl",
@@ -3234,6 +3114,12 @@
       "acceptedCodes": [
         "actiyl",
         "action"
+      ],
+      "puzzle": "NPGVIY",
+      "correctAnswer": "ACTIYL",
+      "acceptedAnswers": [
+        "actiyl",
+        "action"
       ]
     },
     {
@@ -3243,7 +3129,7 @@
       "category": "Reversal",
       "difficulty": "Easy",
       "code": "REFFUB",
-      "hint": "Read from right to left: a contiguous region of memory holding data.",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
       "correctCode": "BUFFER",
       "alternateCodes": [
         "buffer"
@@ -3252,6 +3138,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "buffer"
+      ],
+      "puzzle": "REFFUB",
+      "correctAnswer": "BUFFER",
+      "acceptedAnswers": [
         "buffer"
       ]
     },
@@ -3262,7 +3153,7 @@
       "category": "Morse Code",
       "difficulty": "Medium",
       "code": ".-. ..- ... -",
-      "hint": ".-. = R, ..- = U, ... = S, - = T",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
       "correctCode": "RUST",
       "alternateCodes": [
         "rust"
@@ -3271,6 +3162,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "rust"
+      ],
+      "puzzle": ".-. ..- ... -",
+      "correctAnswer": "RUST",
+      "acceptedAnswers": [
         "rust"
       ]
     },
@@ -3281,7 +3177,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "16  1  3  11  5  20",
-      "hint": "16=P, 1=A, 3=C, 11=K, 5=E, 20=T",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "PACKET",
       "alternateCodes": [
         "packet"
@@ -3290,6 +3186,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "packet"
+      ],
+      "puzzle": "16  1  3  11  5  20",
+      "correctAnswer": "PACKET",
+      "acceptedAnswers": [
         "packet"
       ]
     },
@@ -3300,7 +3201,7 @@
       "category": "Keyboard Cipher",
       "difficulty": "Hard",
       "code": "ESDR",
-      "hint": "Each key was typed one key to the RIGHT on a standard QWERTY keyboard. Shift each left: E->W, S->A, D->S, R->E.",
+      "hint": "Each character is displaced on a standard QWERTY keyboard. Trace the physical shift to decode the word.",
       "correctCode": "WASE",
       "alternateCodes": [
         "wase"
@@ -3309,6 +3210,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "wase"
+      ],
+      "puzzle": "ESDR",
+      "correctAnswer": "WASE",
+      "acceptedAnswers": [
         "wase"
       ]
     },
@@ -3319,7 +3225,7 @@
       "category": "Substitution",
       "difficulty": "Easy",
       "code": "5Y5T3M",
-      "hint": "5=S, 3=E",
+      "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
       "correctCode": "SYSTEM",
       "alternateCodes": [
         "system"
@@ -3328,6 +3234,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "system"
+      ],
+      "puzzle": "5Y5T3M",
+      "correctAnswer": "SYSTEM",
+      "acceptedAnswers": [
         "system"
       ]
     },
@@ -3338,7 +3249,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Medium",
       "code": "ENRVE",
-      "hint": "Each letter was shifted -2. To decrypt, shift each letter FORWARD by 2 (E+2 = G).",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "GPTXG",
       "alternateCodes": [
         "gptxg"
@@ -3347,6 +3258,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "gptxg"
+      ],
+      "puzzle": "ENRVE",
+      "correctAnswer": "GPTXG",
+      "acceptedAnswers": [
         "gptxg"
       ]
     },
@@ -3357,7 +3273,7 @@
       "category": "Hex Encoding",
       "difficulty": "Easy",
       "code": "47  49  54",
-      "hint": "0x47 = 71 ('G'), 0x49 = 73 ('I'), 0x54 = 84 ('T').",
+      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
       "correctCode": "GIT",
       "alternateCodes": [
         "git"
@@ -3366,6 +3282,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "git"
+      ],
+      "puzzle": "47  49  54",
+      "correctAnswer": "GIT",
+      "acceptedAnswers": [
         "git"
       ]
     },
@@ -3376,7 +3297,7 @@
       "category": "Inverse Cipher",
       "difficulty": "Hard",
       "code": "XZXSV",
-      "hint": "Mirror alphabet: X=C, Z=A, S=H, V=E",
+      "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
       "correctCode": "CACHE",
       "alternateCodes": [
         "cache"
@@ -3385,6 +3306,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "cache"
+      ],
+      "puzzle": "XZXSV",
+      "correctAnswer": "CACHE",
+      "acceptedAnswers": [
         "cache"
       ]
     },
@@ -3395,7 +3321,7 @@
       "category": "Binary ASCII",
       "difficulty": "Hard",
       "code": "01010011 01010001 01001100",
-      "hint": "Three bytes: 01010011 = 83 ('S'), 01010001 = 81 ('Q'), 01001100 = 76 ('L').",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
       "correctCode": "SQL",
       "alternateCodes": [
         "sql"
@@ -3404,6 +3330,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "sql"
+      ],
+      "puzzle": "01010011 01010001 01001100",
+      "correctAnswer": "SQL",
+      "acceptedAnswers": [
         "sql"
       ]
     },
@@ -3414,7 +3345,7 @@
       "category": "Reversal",
       "difficulty": "Easy",
       "code": "LEXIP",
-      "hint": "Read backwards: the smallest controllable element of a digital display picture.",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
       "correctCode": "PIXEL",
       "alternateCodes": [
         "pixel"
@@ -3423,6 +3354,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "pixel"
+      ],
+      "puzzle": "LEXIP",
+      "correctAnswer": "PIXEL",
+      "acceptedAnswers": [
         "pixel"
       ]
     },
@@ -3433,7 +3369,7 @@
       "category": "Telephone Keypad",
       "difficulty": "Easy",
       "code": "4 - 6 - 7 - 8",
-      "hint": "Phone keypad: 4=GHI, 6=MNO, 7=PQRS, 8=TUV. A computer connected to a network.",
+      "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
       "correctCode": "HOST",
       "alternateCodes": [
         "host"
@@ -3442,6 +3378,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "host"
+      ],
+      "puzzle": "4 - 6 - 7 - 8",
+      "correctAnswer": "HOST",
+      "acceptedAnswers": [
         "host"
       ]
     },
@@ -3452,7 +3393,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "19  20  1  3  11",
-      "hint": "19=S, 20=T, 1=A, 3=C, 11=K",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "STACK",
       "alternateCodes": [
         "stack"
@@ -3461,6 +3402,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "stack"
+      ],
+      "puzzle": "19  20  1  3  11",
+      "correctAnswer": "STACK",
+      "acceptedAnswers": [
         "stack"
       ]
     },
@@ -3471,7 +3417,7 @@
       "category": "Morse Code",
       "difficulty": "Medium",
       "code": "..- -. .. -..-",
-      "hint": "..- = U, -. = N, .. = I, -..- = X",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
       "correctCode": "UNIX",
       "alternateCodes": [
         "unix"
@@ -3480,6 +3426,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "unix"
+      ],
+      "puzzle": "..- -. .. -..-",
+      "correctAnswer": "UNIX",
+      "acceptedAnswers": [
         "unix"
       ]
     },
@@ -3490,7 +3441,7 @@
       "category": "Base64 Decoding",
       "difficulty": "Hard",
       "code": "Uk9VVEVS",
-      "hint": "Base64 decoded ASCII characters. A hardware device that forwards data packets between networks.",
+      "hint": "The text is encoded using standard Base64 representation. Convert the data block to reveal the keyword.",
       "correctCode": "ROUTER",
       "alternateCodes": [
         "router"
@@ -3499,6 +3450,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "router"
+      ],
+      "puzzle": "Uk9VVEVS",
+      "correctAnswer": "ROUTER",
+      "acceptedAnswers": [
         "router"
       ]
     },
@@ -3509,7 +3465,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Medium",
       "code": "PBIARPG",
-      "hint": "Rotate each letter forward by 13 positions.",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "CONNECT",
       "alternateCodes": [
         "connect"
@@ -3518,6 +3474,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "connect"
+      ],
+      "puzzle": "PBIARPG",
+      "correctAnswer": "CONNECT",
+      "acceptedAnswers": [
         "connect"
       ]
     },
@@ -3528,7 +3489,7 @@
       "category": "Hex Encoding",
       "difficulty": "Medium",
       "code": "50  49  4E  47",
-      "hint": "0x50 = 80 ('P'), 0x49 = 73 ('I'), 0x4E = 78 ('N'), 0x47 = 71 ('G').",
+      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
       "correctCode": "PING",
       "alternateCodes": [
         "ping"
@@ -3537,6 +3498,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "ping"
+      ],
+      "puzzle": "50  49  4E  47",
+      "correctAnswer": "PING",
+      "acceptedAnswers": [
         "ping"
       ]
     },
@@ -3547,7 +3513,7 @@
       "category": "Reversal",
       "difficulty": "Easy",
       "code": "THGIRPYPC",
-      "hint": "Read backwards: legal ownership rights protecting software and code.",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
       "correctCode": "COPYRIGHT",
       "alternateCodes": [
         "copyright",
@@ -3559,6 +3525,12 @@
       "acceptedCodes": [
         "copyright",
         "cpyright"
+      ],
+      "puzzle": "THGIRPYPC",
+      "correctAnswer": "COPYRIGHT",
+      "acceptedAnswers": [
+        "copyright",
+        "cpyright"
       ]
     },
     {
@@ -3568,7 +3540,7 @@
       "category": "Caesar Cipher",
       "difficulty": "Medium",
       "code": "WLER",
-      "hint": "Shift backwards by 4 letters: W-4=S, L-4=H, E-4=A, R-4=N.",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
       "correctCode": "SHAN",
       "alternateCodes": [
         "shan"
@@ -3577,6 +3549,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "shan"
+      ],
+      "puzzle": "WLER",
+      "correctAnswer": "SHAN",
+      "acceptedAnswers": [
         "shan"
       ]
     },
@@ -3587,7 +3564,7 @@
       "category": "Substitution",
       "difficulty": "Easy",
       "code": "T3RM1N4L",
-      "hint": "3=E, 1=I, 4=A",
+      "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
       "correctCode": "TERMINAL",
       "alternateCodes": [
         "terminal"
@@ -3596,6 +3573,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "terminal"
+      ],
+      "puzzle": "T3RM1N4L",
+      "correctAnswer": "TERMINAL",
+      "acceptedAnswers": [
         "terminal"
       ]
     },
@@ -3606,7 +3588,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "3  12  15  21  4",
-      "hint": "3=C, 12=L, 15=O, 21=U, 4=D",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "CLOUD",
       "alternateCodes": [
         "cloud"
@@ -3615,6 +3597,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "cloud"
+      ],
+      "puzzle": "3  12  15  21  4",
+      "correctAnswer": "CLOUD",
+      "acceptedAnswers": [
         "cloud"
       ]
     },
@@ -3625,7 +3612,7 @@
       "category": "Binary ASCII",
       "difficulty": "Hard",
       "code": "01001110 01001111 01000100 01000101",
-      "hint": "Four bytes: 01001110 = 78 ('N'), 01001111 = 79 ('O'), 01000100 = 68 ('D'), 01000101 = 69 ('E').",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
       "correctCode": "NODE",
       "alternateCodes": [
         "node"
@@ -3634,6 +3621,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "node"
+      ],
+      "puzzle": "01001110 01001111 01000100 01000101",
+      "correctAnswer": "NODE",
+      "acceptedAnswers": [
         "node"
       ]
     },
@@ -3644,7 +3636,7 @@
       "category": "Morse Code",
       "difficulty": "Medium",
       "code": "..-. .. .-. . .-- .- .-.. .-..",
-      "hint": "..-. = F, .. = I, .-. = R, . = E, .-- = W, .- = A, .-.. = L, .-.. = L",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
       "correctCode": "FIREWALL",
       "alternateCodes": [
         "firewall"
@@ -3653,6 +3645,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "firewall"
+      ],
+      "puzzle": "..-. .. .-. . .-- .- .-.. .-..",
+      "correctAnswer": "FIREWALL",
+      "acceptedAnswers": [
         "firewall"
       ]
     },
@@ -3663,7 +3660,7 @@
       "category": "Alphabetical Mapping",
       "difficulty": "Easy",
       "code": "23  9  14  14  5  18",
-      "hint": "23=W, 9=I, 14=N, 14=N, 5=E, 18=R",
+      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
       "correctCode": "WINNER",
       "alternateCodes": [
         "winner"
@@ -3672,6 +3669,11 @@
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
+        "winner"
+      ],
+      "puzzle": "23  9  14  14  5  18",
+      "correctAnswer": "WINNER",
+      "acceptedAnswers": [
         "winner"
       ]
     }

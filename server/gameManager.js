@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { calculateRound1Points, calculateRound2Points, calculateRound3Points } from './scorer.js';
 import { validateTextAnswer, validateOptionAnswer, validateReactionAnswer, validateCodeCrackerAnswer, isQuestionConfigured, isAnswerCorrect, normalizeTextAnswer } from './validator.js';
+import { getEnforcedSafeHint } from './hintValidator.js';
 import { participantManager } from './participantManager.js';
 import { defaultStateStore } from './stateStore.js';
 import { logRealtimeEvent } from './logger.js';
@@ -1582,12 +1583,14 @@ export class GameManager {
         roundNumber: 3,
         challengeNumber: this.currentQuestionIndex + 1,
         title: c.title,
+        category: c.category,
         difficulty: c.difficulty,
-        code: c.code,
-        hint: c.hint,
+        code: c.code || c.puzzle,
+        puzzle: c.puzzle || c.code,
+        hint: getEnforcedSafeHint(c),
         prompt: c.prompt,
         timeLimit: c.timeLimit || 45,
-        revealedCode: isAnswerVisible ? c.correctCode : null
+        revealedCode: isAnswerVisible ? (c.correctCode || c.correctAnswer) : null
       };
     }
 

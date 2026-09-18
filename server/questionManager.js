@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getEnforcedSafeHint } from './hintValidator.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -75,9 +76,16 @@ export class QuestionManager {
     // Ensure Round 3 code crackers have codes, hints and isActive flag
     for (const c of this.round3CodeCrackers) {
       if (c.isActive === undefined) c.isActive = true;
+      if (!c.puzzle && c.code) c.puzzle = c.code;
+      if (!c.code && c.puzzle) c.code = c.puzzle;
+      if (!c.correctCode && c.correctAnswer) c.correctCode = c.correctAnswer;
+      if (!c.correctAnswer && c.correctCode) c.correctAnswer = c.correctCode;
+      if (!c.correctCode && c.target) c.correctCode = c.target;
+      if (!c.acceptedAnswers && c.acceptedCodes) c.acceptedAnswers = [...c.acceptedCodes];
+      if (!c.acceptedCodes && c.acceptedAnswers) c.acceptedCodes = [...c.acceptedAnswers];
       if (!c.acceptedCodes && c.alternateCodes) c.acceptedCodes = [...c.alternateCodes];
       if (!c.alternateCodes && c.acceptedCodes) c.alternateCodes = [...c.acceptedCodes];
-      if (!c.correctCode && c.target) c.correctCode = c.target;
+      c.hint = getEnforcedSafeHint(c);
       if (!c.timeLimit) c.timeLimit = 45;
     }
 
@@ -275,9 +283,16 @@ export class QuestionManager {
         newQuestion.correctOptionId = newQuestion.correctOption;
       }
     } else if (r === 3) {
+      if (newQuestion.puzzle && !newQuestion.code) newQuestion.code = newQuestion.puzzle;
+      if (newQuestion.code && !newQuestion.puzzle) newQuestion.puzzle = newQuestion.code;
+      if (newQuestion.correctAnswer && !newQuestion.correctCode) newQuestion.correctCode = newQuestion.correctAnswer;
+      if (newQuestion.correctCode && !newQuestion.correctAnswer) newQuestion.correctAnswer = newQuestion.correctCode;
+      if (newQuestion.acceptedAnswers && !newQuestion.acceptedCodes) newQuestion.acceptedCodes = [...newQuestion.acceptedAnswers];
+      if (newQuestion.acceptedCodes && !newQuestion.acceptedAnswers) newQuestion.acceptedAnswers = [...newQuestion.acceptedCodes];
       if (!newQuestion.acceptedCodes && newQuestion.alternateCodes) {
         newQuestion.acceptedCodes = [...newQuestion.alternateCodes];
       }
+      newQuestion.hint = getEnforcedSafeHint(newQuestion);
       if (!newQuestion.timeLimit) newQuestion.timeLimit = 45;
     }
 
@@ -309,9 +324,16 @@ export class QuestionManager {
         updated.correctOptionId = updated.correctOption;
       }
     } else if (r === 3) {
+      if (updated.puzzle && !updated.code) updated.code = updated.puzzle;
+      if (updated.code && !updated.puzzle) updated.puzzle = updated.code;
+      if (updated.correctAnswer && !updated.correctCode) updated.correctCode = updated.correctAnswer;
+      if (updated.correctCode && !updated.correctAnswer) updated.correctAnswer = updated.correctCode;
+      if (updated.acceptedAnswers && !updated.acceptedCodes) updated.acceptedCodes = [...updated.acceptedAnswers];
+      if (updated.acceptedCodes && !updated.acceptedAnswers) updated.acceptedAnswers = [...updated.acceptedCodes];
       if (updated.alternateCodes && !updated.acceptedCodes) {
         updated.acceptedCodes = [...updated.alternateCodes];
       }
+      updated.hint = getEnforcedSafeHint(updated);
     }
 
     list[idx] = updated;

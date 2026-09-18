@@ -1524,710 +1524,1210 @@ const round2Patterns = [
 // ==========================================
 const round3CodeCrackers = [
   {
-    id: 'r3-01',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '19 - 5 - 3 - 21 - 18 - 5',
-    hint: 'A = 1, B = 2, C = 3, D = 4 ... Z = 26',
-    correctCode: 'SECURE',
-    alternateCodes: ['secure'],
-    explanation: '19=S, 5=E, 3=C, 21=U, 18=R, 5=E -> SECURE',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-01",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "19 - 5 - 3 - 21 - 18 - 5",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "SECURE",
+    "alternateCodes": [
+      "secure"
+    ],
+    "explanation": "19=S, 5=E, 3=C, 21=U, 18=R, 5=E -> SECURE",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "secure"
+    ],
+    "puzzle": "19 - 5 - 3 - 21 - 18 - 5",
+    "correctAnswer": "SECURE",
+    "acceptedAnswers": [
+      "secure"
+    ]
   },
   {
-    id: 'r3-02',
-    round: 3,
-    title: 'Coordinate Grid Cipher',
-    category: 'Matrix Coordinates',
-    difficulty: 'Medium',
-    code: '(2,3) (1,5) (4,1)',
-    hint: 'Row then Column in standard 5x5 Polybius grid: (1,1)=A, (1,5)=E, (2,3)=H... Wait: Letter index = (R-1)*5 + C. Letters: 8=H, 5=E, 16=P? Look closely: (2,3) in word M-A-P grid',
-    correctCode: 'MAP',
-    alternateCodes: ['map'],
-    explanation: 'Coordinates on the team quest locator map evaluate directly to MAP.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-02",
+    "round": 3,
+    "title": "Coordinate Grid Cipher",
+    "category": "Matrix Coordinates",
+    "difficulty": "Medium",
+    "code": "(2,3) (1,5) (4,1)",
+    "hint": "The coordinates reference a character grid. Determine row and column intersections to find each character.",
+    "correctCode": "MAP",
+    "alternateCodes": [
+      "map"
+    ],
+    "explanation": "Coordinates on the team quest locator map evaluate directly to MAP.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "map"
+    ],
+    "puzzle": "(2,3) (1,5) (4,1)",
+    "correctAnswer": "MAP",
+    "acceptedAnswers": [
+      "map"
+    ]
   },
   {
-    id: 'r3-03',
-    round: 3,
-    title: 'Reverse String Cipher',
-    category: 'Reversal',
-    difficulty: 'Easy',
-    code: 'EDOCNERAKRAPS',
-    hint: 'Read the encrypted message completely backwards from right to left.',
-    correctCode: 'SPARKRENACODE',
-    alternateCodes: ['sparkrenacode'],
-    explanation: 'Reversing EDOCNERAKRAPS yields SPARKRENACODE.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-03",
+    "round": 3,
+    "title": "Reverse String Cipher",
+    "category": "Reversal",
+    "difficulty": "Easy",
+    "code": "EDOCNERAKRAPS",
+    "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+    "correctCode": "SPARKRENACODE",
+    "alternateCodes": [
+      "sparkrenacode"
+    ],
+    "explanation": "Reversing EDOCNERAKRAPS yields SPARKRENACODE.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "sparkrenacode"
+    ],
+    "puzzle": "EDOCNERAKRAPS",
+    "correctAnswer": "SPARKRENACODE",
+    "acceptedAnswers": [
+      "sparkrenacode"
+    ]
   },
   {
-    id: 'r3-04',
-    round: 3,
-    title: 'Caesar Shift (+3)',
-    category: 'Caesar Cipher',
-    difficulty: 'Easy',
-    code: 'KHOOR',
-    hint: 'Shift each letter backward by 3 positions in the alphabet (D becomes A).',
-    correctCode: 'HELLO',
-    alternateCodes: ['hello'],
-    explanation: 'K-3=H, H-3=E, O-3=L, O-3=L, R-3=O -> HELLO',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-04",
+    "round": 3,
+    "title": "Caesar Shift (+3)",
+    "category": "Caesar Cipher",
+    "difficulty": "Easy",
+    "code": "KHOOR",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "HELLO",
+    "alternateCodes": [
+      "hello"
+    ],
+    "explanation": "K-3=H, H-3=E, O-3=L, O-3=L, R-3=O -> HELLO",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "hello"
+    ],
+    "puzzle": "KHOOR",
+    "correctAnswer": "HELLO",
+    "acceptedAnswers": [
+      "hello"
+    ]
   },
   {
-    id: 'r3-05',
-    round: 3,
-    title: 'ASCII Binary Byte Stream',
-    category: 'Binary ASCII',
-    difficulty: 'Hard',
-    code: '01000011 01011001 01000010 01000101 01010010',
-    hint: '8-bit binary to ASCII characters: 01000011 = 67 in decimal (\'C\').',
-    correctCode: 'CYBER',
-    alternateCodes: ['cyber'],
-    explanation: '67=C, 89=Y, 66=B, 69=E, 82=R -> CYBER',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-05",
+    "round": 3,
+    "title": "ASCII Binary Byte Stream",
+    "category": "Binary ASCII",
+    "difficulty": "Hard",
+    "code": "01000011 01011001 01000010 01000101 01010010",
+    "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+    "correctCode": "CYBER",
+    "alternateCodes": [
+      "cyber"
+    ],
+    "explanation": "67=C, 89=Y, 66=B, 69=E, 82=R -> CYBER",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "cyber"
+    ],
+    "puzzle": "01000011 01011001 01000010 01000101 01010010",
+    "correctAnswer": "CYBER",
+    "acceptedAnswers": [
+      "cyber"
+    ]
   },
   {
-    id: 'r3-06',
-    round: 3,
-    title: 'Hexadecimal ASCII Code',
-    category: 'Hex Encoding',
-    difficulty: 'Easy',
-    code: '4B  45  59',
-    hint: 'Hexadecimal to ASCII: 0x4B = 75 in decimal (\'K\').',
-    correctCode: 'KEY',
-    alternateCodes: ['key'],
-    explanation: '0x4B=\'K\', 0x45=\'E\', 0x59=\'Y\' -> KEY',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-06",
+    "round": 3,
+    "title": "Hexadecimal ASCII Code",
+    "category": "Hex Encoding",
+    "difficulty": "Easy",
+    "code": "4B  45  59",
+    "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
+    "correctCode": "KEY",
+    "alternateCodes": [
+      "key"
+    ],
+    "explanation": "0x4B='K', 0x45='E', 0x59='Y' -> KEY",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "key"
+    ],
+    "puzzle": "4B  45  59",
+    "correctAnswer": "KEY",
+    "acceptedAnswers": [
+      "key"
+    ]
   },
   {
-    id: 'r3-07',
-    round: 3,
-    title: 'Leetspeak Hacker Code',
-    category: 'Substitution',
-    difficulty: 'Easy',
-    code: 'CR4CK3D',
-    hint: 'Classic hacker leetspeak: 4=A, 3=E, 1=I, 0=O, 7=T',
-    correctCode: 'CRACKED',
-    alternateCodes: ['cracked'],
-    explanation: 'Replace digits 4 and 3 with corresponding vowels A and E -> CRACKED',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-07",
+    "round": 3,
+    "title": "Leetspeak Hacker Code",
+    "category": "Substitution",
+    "difficulty": "Easy",
+    "code": "CR4CK3D",
+    "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
+    "correctCode": "CRACKED",
+    "alternateCodes": [
+      "cracked"
+    ],
+    "explanation": "Replace digits 4 and 3 with corresponding vowels A and E -> CRACKED",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "cracked"
+    ],
+    "puzzle": "CR4CK3D",
+    "correctAnswer": "CRACKED",
+    "acceptedAnswers": [
+      "cracked"
+    ]
   },
   {
-    id: 'r3-08',
-    round: 3,
-    title: 'Atbash Inverse Alphabet',
-    category: 'Inverse Cipher',
-    difficulty: 'Medium',
-    code: 'KZXPV',
-    hint: 'Mirror alphabet: A=Z, B=Y, C=X ... K=P, Z=A',
-    correctCode: 'PACKE',
-    alternateCodes: ['packe'],
-    explanation: 'K->P, Z->A, X->C, P->K, V->E -> PACKE',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-08",
+    "round": 3,
+    "title": "Atbash Inverse Alphabet",
+    "category": "Inverse Cipher",
+    "difficulty": "Medium",
+    "code": "KZXPV",
+    "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
+    "correctCode": "PACKE",
+    "alternateCodes": [
+      "packe"
+    ],
+    "explanation": "K->P, Z->A, X->C, P->K, V->E -> PACKE",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "packe"
+    ],
+    "puzzle": "KZXPV",
+    "correctAnswer": "PACKE",
+    "acceptedAnswers": [
+      "packe"
+    ]
   },
   {
-    id: 'r3-09',
-    round: 3,
-    title: 'International Morse Code',
-    category: 'Morse Code',
-    difficulty: 'Easy',
-    code: '... --- ...',
-    hint: 'Three short dots, three long dashes, three short dots.',
-    correctCode: 'SOS',
-    alternateCodes: ['sos'],
-    explanation: '... is S, --- is O, ... is S -> SOS',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-09",
+    "round": 3,
+    "title": "International Morse Code",
+    "category": "Morse Code",
+    "difficulty": "Easy",
+    "code": "... --- ...",
+    "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+    "correctCode": "SOS",
+    "alternateCodes": [
+      "sos"
+    ],
+    "explanation": "... is S, --- is O, ... is S -> SOS",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "sos"
+    ],
+    "puzzle": "... --- ...",
+    "correctAnswer": "SOS",
+    "acceptedAnswers": [
+      "sos"
+    ]
   },
   {
-    id: 'r3-10',
-    round: 3,
-    title: 'Polybius Square Matrix',
-    category: 'Polybius Grid',
-    difficulty: 'Hard',
-    code: '13  42  11  13  25',
-    hint: '5x5 Grid (1=A-E, 2=F-K...): Row 1 Col 3 = C, Row 4 Col 2 = R',
-    correctCode: 'CRACK',
-    alternateCodes: ['crack'],
-    explanation: '13=C, 42=R, 11=A, 13=C, 25=K -> CRACK',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-10",
+    "round": 3,
+    "title": "Polybius Square Matrix",
+    "category": "Polybius Grid",
+    "difficulty": "Hard",
+    "code": "13  42  11  13  25",
+    "hint": "The coordinates reference a character grid. Determine row and column intersections to find each character.",
+    "correctCode": "CRACK",
+    "alternateCodes": [
+      "crack"
+    ],
+    "explanation": "13=C, 42=R, 11=A, 13=C, 25=K -> CRACK",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "crack"
+    ],
+    "puzzle": "13  42  11  13  25",
+    "correctAnswer": "CRACK",
+    "acceptedAnswers": [
+      "crack"
+    ]
   },
   {
-    id: 'r3-11',
-    round: 3,
-    title: 'ROT13 Caesar Rotation',
-    category: 'Caesar Cipher',
-    difficulty: 'Medium',
-    code: 'CLGUBA',
-    hint: 'Rotate each letter forward by 13 positions in the 26-letter alphabet.',
-    correctCode: 'PYTHON',
-    alternateCodes: ['python'],
-    explanation: 'C+13=P, L+13=Y, G+13=T, U+13=H, B+13=O, A+13=N -> PYTHON',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-11",
+    "round": 3,
+    "title": "ROT13 Caesar Rotation",
+    "category": "Caesar Cipher",
+    "difficulty": "Medium",
+    "code": "CLGUBA",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "PYTHON",
+    "alternateCodes": [
+      "python"
+    ],
+    "explanation": "C+13=P, L+13=Y, G+13=T, U+13=H, B+13=O, A+13=N -> PYTHON",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "python"
+    ],
+    "puzzle": "CLGUBA",
+    "correctAnswer": "PYTHON",
+    "acceptedAnswers": [
+      "python"
+    ]
   },
   {
-    id: 'r3-12',
-    round: 3,
-    title: 'Phone Keypad T9 Code',
-    category: 'Telephone Keypad',
-    difficulty: 'Easy',
-    code: '2 - 6 - 3 - 3',
-    hint: 'Standard phone keypad: 2=ABC, 3=DEF, 6=MNO. Common 4-letter programming term.',
-    correctCode: 'CODE',
-    alternateCodes: ['code'],
-    explanation: '2=C, 6=O, 3=D, 3=E -> CODE',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-12",
+    "round": 3,
+    "title": "Phone Keypad T9 Code",
+    "category": "Telephone Keypad",
+    "difficulty": "Easy",
+    "code": "2 - 6 - 3 - 3",
+    "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
+    "correctCode": "CODE",
+    "alternateCodes": [
+      "code"
+    ],
+    "explanation": "2=C, 6=O, 3=D, 3=E -> CODE",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "code"
+    ],
+    "puzzle": "2 - 6 - 3 - 3",
+    "correctAnswer": "CODE",
+    "acceptedAnswers": [
+      "code"
+    ]
   },
   {
-    id: 'r3-13',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '8 - 1 - 3 - 11',
-    hint: 'A=1, B=2, C=3, D=4... Convert the numbers directly into letters.',
-    correctCode: 'HACK',
-    alternateCodes: ['hack'],
-    explanation: '8=H, 1=A, 3=C, 11=K -> HACK',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-13",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "8 - 1 - 3 - 11",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "HACK",
+    "alternateCodes": [
+      "hack"
+    ],
+    "explanation": "8=H, 1=A, 3=C, 11=K -> HACK",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "hack"
+    ],
+    "puzzle": "8 - 1 - 3 - 11",
+    "correctAnswer": "HACK",
+    "acceptedAnswers": [
+      "hack"
+    ]
   },
   {
-    id: 'r3-14',
-    round: 3,
-    title: 'ASCII Binary Byte Stream',
-    category: 'Binary ASCII',
-    difficulty: 'Medium',
-    code: '01000100 01000001 01010100 01000001',
-    hint: 'Four 8-bit bytes in ASCII: 01000100 = 68 (\'D\').',
-    correctCode: 'DATA',
-    alternateCodes: ['data'],
-    explanation: '68=D, 65=A, 84=T, 65=A -> DATA',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-14",
+    "round": 3,
+    "title": "ASCII Binary Byte Stream",
+    "category": "Binary ASCII",
+    "difficulty": "Medium",
+    "code": "01000100 01000001 01010100 01000001",
+    "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+    "correctCode": "DATA",
+    "alternateCodes": [
+      "data"
+    ],
+    "explanation": "68=D, 65=A, 84=T, 65=A -> DATA",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "data"
+    ],
+    "puzzle": "01000100 01000001 01010100 01000001",
+    "correctAnswer": "DATA",
+    "acceptedAnswers": [
+      "data"
+    ]
   },
   {
-    id: 'r3-15',
-    round: 3,
-    title: 'Reverse String Cipher',
-    category: 'Reversal',
-    difficulty: 'Easy',
-    code: 'XIRTAM',
-    hint: 'Reverse the letters to uncover the name of a famous sci-fi digital world.',
-    correctCode: 'MATRIX',
-    alternateCodes: ['matrix'],
-    explanation: 'X-I-R-T-A-M reversed is M-A-T-R-I-X.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-15",
+    "round": 3,
+    "title": "Reverse String Cipher",
+    "category": "Reversal",
+    "difficulty": "Easy",
+    "code": "XIRTAM",
+    "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+    "correctCode": "MATRIX",
+    "alternateCodes": [
+      "matrix"
+    ],
+    "explanation": "X-I-R-T-A-M reversed is M-A-T-R-I-X.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "matrix"
+    ],
+    "puzzle": "XIRTAM",
+    "correctAnswer": "MATRIX",
+    "acceptedAnswers": [
+      "matrix"
+    ]
   },
   {
-    id: 'r3-16',
-    round: 3,
-    title: 'Caesar Shift (+1)',
-    category: 'Caesar Cipher',
-    difficulty: 'Easy',
-    code: 'GZFEST',
-    hint: 'Shift each letter backwards by exactly 1 position (B becomes A).',
-    correctCode: 'FYEDRS',
-    alternateCodes: ['fyedrs'],
-    explanation: 'G-1=F, Z-1=Y, F-1=E, E-1=D, S-1=R, T-1=S -> FYEDRS',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-16",
+    "round": 3,
+    "title": "Caesar Shift (+1)",
+    "category": "Caesar Cipher",
+    "difficulty": "Easy",
+    "code": "GZFEST",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "FYEDRS",
+    "alternateCodes": [
+      "fyedrs"
+    ],
+    "explanation": "G-1=F, Z-1=Y, F-1=E, E-1=D, S-1=R, T-1=S -> FYEDRS",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "fyedrs"
+    ],
+    "puzzle": "GZFEST",
+    "correctAnswer": "FYEDRS",
+    "acceptedAnswers": [
+      "fyedrs"
+    ]
   },
   {
-    id: 'r3-17',
-    round: 3,
-    title: 'Hexadecimal ASCII Code',
-    category: 'Hex Encoding',
-    difficulty: 'Medium',
-    code: '42  59  54  45',
-    hint: '0x42 = 66 in decimal (\'B\'), 0x59 = 89 in decimal (\'Y\').',
-    correctCode: 'BYTE',
-    alternateCodes: ['byte'],
-    explanation: '0x42=B, 0x59=Y, 0x54=T, 0x45=E -> BYTE',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-17",
+    "round": 3,
+    "title": "Hexadecimal ASCII Code",
+    "category": "Hex Encoding",
+    "difficulty": "Medium",
+    "code": "42  59  54  45",
+    "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
+    "correctCode": "BYTE",
+    "alternateCodes": [
+      "byte"
+    ],
+    "explanation": "0x42=B, 0x59=Y, 0x54=T, 0x45=E -> BYTE",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "byte"
+    ],
+    "puzzle": "42  59  54  45",
+    "correctAnswer": "BYTE",
+    "acceptedAnswers": [
+      "byte"
+    ]
   },
   {
-    id: 'r3-18',
-    round: 3,
-    title: 'Morse Code Word',
-    category: 'Morse Code',
-    difficulty: 'Medium',
-    code: '-.-. --- -.. .',
-    hint: '-.-. = C, --- = O, -.. = D, . = E',
-    correctCode: 'CODE',
-    alternateCodes: ['code'],
-    explanation: 'Translates to C-O-D-E.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-18",
+    "round": 3,
+    "title": "Morse Code Word",
+    "category": "Morse Code",
+    "difficulty": "Medium",
+    "code": "-.-. --- -.. .",
+    "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+    "correctCode": "CODE",
+    "alternateCodes": [
+      "code"
+    ],
+    "explanation": "Translates to C-O-D-E.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "code"
+    ],
+    "puzzle": "-.-. --- -.. .",
+    "correctAnswer": "CODE",
+    "acceptedAnswers": [
+      "code"
+    ]
   },
   {
-    id: 'r3-19',
-    round: 3,
-    title: 'Leetspeak Hacker Code',
-    category: 'Substitution',
-    difficulty: 'Easy',
-    code: 'P455W0RD',
-    hint: 'Replace 4 with A, 5 with S, and 0 with O.',
-    correctCode: 'PASSWORD',
-    alternateCodes: ['password'],
-    explanation: 'P-A-S-S-W-O-R-D',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-19",
+    "round": 3,
+    "title": "Leetspeak Hacker Code",
+    "category": "Substitution",
+    "difficulty": "Easy",
+    "code": "P455W0RD",
+    "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
+    "correctCode": "PASSWORD",
+    "alternateCodes": [
+      "password"
+    ],
+    "explanation": "P-A-S-S-W-O-R-D",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "password"
+    ],
+    "puzzle": "P455W0RD",
+    "correctAnswer": "PASSWORD",
+    "acceptedAnswers": [
+      "password"
+    ]
   },
   {
-    id: 'r3-20',
-    round: 3,
-    title: 'Atbash Inverse Alphabet',
-    category: 'Inverse Cipher',
-    difficulty: 'Hard',
-    code: 'TLKRO',
-    hint: 'Mirror alphabet: T=G, L=O, K=P, R=I, O=L',
-    correctCode: 'GOPIL',
-    alternateCodes: ['gopil'],
-    explanation: 'T->G, L->O, K->P, R->I, O->L -> GOPIL',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-20",
+    "round": 3,
+    "title": "Atbash Inverse Alphabet",
+    "category": "Inverse Cipher",
+    "difficulty": "Hard",
+    "code": "TLKRO",
+    "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
+    "correctCode": "GOPIL",
+    "alternateCodes": [
+      "gopil"
+    ],
+    "explanation": "T->G, L->O, K->P, R->I, O->L -> GOPIL",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "gopil"
+    ],
+    "puzzle": "TLKRO",
+    "correctAnswer": "GOPIL",
+    "acceptedAnswers": [
+      "gopil"
+    ]
   },
   {
-    id: 'r3-21',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '12 - 15 - 7 - 9 - 3',
-    hint: 'Convert numbers to letters: 12=L, 15=O, 7=G...',
-    correctCode: 'LOGIC',
-    alternateCodes: ['logic'],
-    explanation: '12=L, 15=O, 7=G, 9=I, 3=C -> LOGIC',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-21",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "12 - 15 - 7 - 9 - 3",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "LOGIC",
+    "alternateCodes": [
+      "logic"
+    ],
+    "explanation": "12=L, 15=O, 7=G, 9=I, 3=C -> LOGIC",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "logic"
+    ],
+    "puzzle": "12 - 15 - 7 - 9 - 3",
+    "correctAnswer": "LOGIC",
+    "acceptedAnswers": [
+      "logic"
+    ]
   },
   {
-    id: 'r3-22',
-    round: 3,
-    title: 'Caesar Shift (+5)',
-    category: 'Caesar Cipher',
-    difficulty: 'Medium',
-    code: 'HTSIJ',
-    hint: 'Shift each letter backward by 5 positions in the alphabet (F-5 = A).',
-    correctCode: 'CODEE',
-    alternateCodes: ['codee'],
-    explanation: 'H-5=C, T-5=O, S-5=N... wait: H(8)-5=C, T(20)-5=O, S(19)-5=N, I(9)-5=D, J(10)-5=E -> CONDE? Let\'s check: H-5=C, T-5=O, X? If code is HTSIJ -> C-O-N-D-E.',
-    correctCode: 'CONDE',
-    alternateCodes: ['conde'],
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-22",
+    "round": 3,
+    "title": "Caesar Shift (+5)",
+    "category": "Caesar Cipher",
+    "difficulty": "Medium",
+    "code": "HTSIJ",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "CONDE",
+    "alternateCodes": [
+      "conde"
+    ],
+    "explanation": "H-5=C, T-5=O, S-5=N... wait: H(8)-5=C, T(20)-5=O, S(19)-5=N, I(9)-5=D, J(10)-5=E -> CONDE? Let's check: H-5=C, T-5=O, X? If code is HTSIJ -> C-O-N-D-E.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "conde"
+    ],
+    "puzzle": "HTSIJ",
+    "correctAnswer": "CONDE",
+    "acceptedAnswers": [
+      "conde"
+    ]
   },
   {
-    id: 'r3-23',
-    round: 3,
-    title: 'Vowel Deletion Cipher',
-    category: 'Abbreviation',
-    difficulty: 'Easy',
-    code: 'N-T-W-R-K',
-    hint: 'Insert standard English vowels (E, O) to reconstruct a core computing infrastructure word.',
-    correctCode: 'NETWORK',
-    alternateCodes: ['network'],
-    explanation: 'Inserting missing vowels yields NETWORK.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-23",
+    "round": 3,
+    "title": "Vowel Deletion Cipher",
+    "category": "Abbreviation",
+    "difficulty": "Easy",
+    "code": "N-T-W-R-K",
+    "hint": "The consonants of a well-known technical term are shown. Reconstruct the word by restoring the missing vowels.",
+    "correctCode": "NETWORK",
+    "alternateCodes": [
+      "network"
+    ],
+    "explanation": "Inserting missing vowels yields NETWORK.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "network"
+    ],
+    "puzzle": "N-T-W-R-K",
+    "correctAnswer": "NETWORK",
+    "acceptedAnswers": [
+      "network"
+    ]
   },
   {
-    id: 'r3-24',
-    round: 3,
-    title: 'Phone Keypad T9 Code',
-    category: 'Telephone Keypad',
-    difficulty: 'Easy',
-    code: '7 - 4 - 6 - 4',
-    hint: 'Phone keypad: 7=PQRS, 4=GHI, 6=MNO, 4=GHI. A circular mechanical network device.',
-    correctCode: 'RING',
-    alternateCodes: ['ring'],
-    explanation: '7=R, 4=I, 6=N, 4=G -> RING',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-24",
+    "round": 3,
+    "title": "Phone Keypad T9 Code",
+    "category": "Telephone Keypad",
+    "difficulty": "Easy",
+    "code": "7 - 4 - 6 - 4",
+    "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
+    "correctCode": "RING",
+    "alternateCodes": [
+      "ring"
+    ],
+    "explanation": "7=R, 4=I, 6=N, 4=G -> RING",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "ring"
+    ],
+    "puzzle": "7 - 4 - 6 - 4",
+    "correctAnswer": "RING",
+    "acceptedAnswers": [
+      "ring"
+    ]
   },
   {
-    id: 'r3-25',
-    round: 3,
-    title: 'ASCII Binary Byte Stream',
-    category: 'Binary ASCII',
-    difficulty: 'Hard',
-    code: '01010001 01010101 01000101 01010011 01010100',
-    hint: 'Five bytes: 01010001 = 81 (\'Q\'), 01010101 = 85 (\'U\').',
-    correctCode: 'QUEST',
-    alternateCodes: ['quest'],
-    explanation: '81=Q, 85=U, 69=E, 83=S, 84=T -> QUEST',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-25",
+    "round": 3,
+    "title": "ASCII Binary Byte Stream",
+    "category": "Binary ASCII",
+    "difficulty": "Hard",
+    "code": "01010001 01010101 01000101 01010011 01010100",
+    "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+    "correctCode": "QUEST",
+    "alternateCodes": [
+      "quest"
+    ],
+    "explanation": "81=Q, 85=U, 69=E, 83=S, 84=T -> QUEST",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "quest"
+    ],
+    "puzzle": "01010001 01010101 01000101 01010011 01010100",
+    "correctAnswer": "QUEST",
+    "acceptedAnswers": [
+      "quest"
+    ]
   },
   {
-    id: 'r3-26',
-    round: 3,
-    title: 'Hexadecimal ASCII Code',
-    category: 'Hex Encoding',
-    difficulty: 'Medium',
-    code: '4C  4F  43  4B',
-    hint: '0x4C = 76 (\'L\'), 0x4F = 79 (\'O\'), 0x43 = 67 (\'C\'), 0x4B = 75 (\'K\').',
-    correctCode: 'LOCK',
-    alternateCodes: ['lock'],
-    explanation: 'Decodes to L-O-C-K.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-26",
+    "round": 3,
+    "title": "Hexadecimal ASCII Code",
+    "category": "Hex Encoding",
+    "difficulty": "Medium",
+    "code": "4C  4F  43  4B",
+    "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
+    "correctCode": "LOCK",
+    "alternateCodes": [
+      "lock"
+    ],
+    "explanation": "Decodes to L-O-C-K.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "lock"
+    ],
+    "puzzle": "4C  4F  43  4B",
+    "correctAnswer": "LOCK",
+    "acceptedAnswers": [
+      "lock"
+    ]
   },
   {
-    id: 'r3-27',
-    round: 3,
-    title: 'ROT13 Caesar Rotation',
-    category: 'Caesar Cipher',
-    difficulty: 'Medium',
-    code: 'NPGVIY',
-    hint: 'Rotate each letter forward by 13 positions.',
-    correctCode: 'ACTIYL',
-    alternateCodes: ['actiyl', 'action'],
-    explanation: 'N(14)+13=A, P(16)+13=C, G(7)+13=T, V(22)+13=I, I(9)+13=V, Y(25)+13=L -> ACTIYL',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-27",
+    "round": 3,
+    "title": "ROT13 Caesar Rotation",
+    "category": "Caesar Cipher",
+    "difficulty": "Medium",
+    "code": "NPGVIY",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "ACTIYL",
+    "alternateCodes": [
+      "actiyl",
+      "action"
+    ],
+    "explanation": "N(14)+13=A, P(16)+13=C, G(7)+13=T, V(22)+13=I, I(9)+13=V, Y(25)+13=L -> ACTIYL",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "actiyl",
+      "action"
+    ],
+    "puzzle": "NPGVIY",
+    "correctAnswer": "ACTIYL",
+    "acceptedAnswers": [
+      "actiyl",
+      "action"
+    ]
   },
   {
-    id: 'r3-28',
-    round: 3,
-    title: 'Reverse String Cipher',
-    category: 'Reversal',
-    difficulty: 'Easy',
-    code: 'REFFUB',
-    hint: 'Read from right to left: a contiguous region of memory holding data.',
-    correctCode: 'BUFFER',
-    alternateCodes: ['buffer'],
-    explanation: 'R-E-F-F-U-B reversed is B-U-F-F-E-R.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-28",
+    "round": 3,
+    "title": "Reverse String Cipher",
+    "category": "Reversal",
+    "difficulty": "Easy",
+    "code": "REFFUB",
+    "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+    "correctCode": "BUFFER",
+    "alternateCodes": [
+      "buffer"
+    ],
+    "explanation": "R-E-F-F-U-B reversed is B-U-F-F-E-R.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "buffer"
+    ],
+    "puzzle": "REFFUB",
+    "correctAnswer": "BUFFER",
+    "acceptedAnswers": [
+      "buffer"
+    ]
   },
   {
-    id: 'r3-29',
-    round: 3,
-    title: 'Morse Code Word',
-    category: 'Morse Code',
-    difficulty: 'Medium',
-    code: '.-. ..- ... -',
-    hint: '.-. = R, ..- = U, ... = S, - = T',
-    correctCode: 'RUST',
-    alternateCodes: ['rust'],
-    explanation: 'Decodes to R-U-S-T, the memory-safe systems programming language.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-29",
+    "round": 3,
+    "title": "Morse Code Word",
+    "category": "Morse Code",
+    "difficulty": "Medium",
+    "code": ".-. ..- ... -",
+    "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+    "correctCode": "RUST",
+    "alternateCodes": [
+      "rust"
+    ],
+    "explanation": "Decodes to R-U-S-T, the memory-safe systems programming language.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "rust"
+    ],
+    "puzzle": ".-. ..- ... -",
+    "correctAnswer": "RUST",
+    "acceptedAnswers": [
+      "rust"
+    ]
   },
   {
-    id: 'r3-30',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '16  1  3  11  5  20',
-    hint: '16=P, 1=A, 3=C, 11=K, 5=E, 20=T',
-    correctCode: 'PACKET',
-    alternateCodes: ['packet'],
-    explanation: 'P-A-C-K-E-T: A formatted unit of data carried by a packet-switched network.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-30",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "16  1  3  11  5  20",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "PACKET",
+    "alternateCodes": [
+      "packet"
+    ],
+    "explanation": "P-A-C-K-E-T: A formatted unit of data carried by a packet-switched network.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "packet"
+    ],
+    "puzzle": "16  1  3  11  5  20",
+    "correctAnswer": "PACKET",
+    "acceptedAnswers": [
+      "packet"
+    ]
   },
   {
-    id: 'r3-31',
-    round: 3,
-    title: 'Keyboard QWERTY Shift Right',
-    category: 'Keyboard Cipher',
-    difficulty: 'Hard',
-    code: 'ESDR',
-    hint: 'Each key was typed one key to the RIGHT on a standard QWERTY keyboard. Shift each left: E->W, S->A, D->S, R->E.',
-    correctCode: 'WASE',
-    alternateCodes: ['wase'],
-    explanation: 'Shifting left on keyboard row yields WASE.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-31",
+    "round": 3,
+    "title": "Keyboard QWERTY Shift Right",
+    "category": "Keyboard Cipher",
+    "difficulty": "Hard",
+    "code": "ESDR",
+    "hint": "Each character is displaced on a standard QWERTY keyboard. Trace the physical shift to decode the word.",
+    "correctCode": "WASE",
+    "alternateCodes": [
+      "wase"
+    ],
+    "explanation": "Shifting left on keyboard row yields WASE.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "wase"
+    ],
+    "puzzle": "ESDR",
+    "correctAnswer": "WASE",
+    "acceptedAnswers": [
+      "wase"
+    ]
   },
   {
-    id: 'r3-32',
-    round: 3,
-    title: 'Leetspeak Hacker Code',
-    category: 'Substitution',
-    difficulty: 'Easy',
-    code: '5Y5T3M',
-    hint: '5=S, 3=E',
-    correctCode: 'SYSTEM',
-    alternateCodes: ['system'],
-    explanation: 'S-Y-S-T-E-M',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-32",
+    "round": 3,
+    "title": "Leetspeak Hacker Code",
+    "category": "Substitution",
+    "difficulty": "Easy",
+    "code": "5Y5T3M",
+    "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
+    "correctCode": "SYSTEM",
+    "alternateCodes": [
+      "system"
+    ],
+    "explanation": "S-Y-S-T-E-M",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "system"
+    ],
+    "puzzle": "5Y5T3M",
+    "correctAnswer": "SYSTEM",
+    "acceptedAnswers": [
+      "system"
+    ]
   },
   {
-    id: 'r3-33',
-    round: 3,
-    title: 'Caesar Shift (-2)',
-    category: 'Caesar Cipher',
-    difficulty: 'Medium',
-    code: 'ENRVE',
-    hint: 'Each letter was shifted -2. To decrypt, shift each letter FORWARD by 2 (E+2 = G).',
-    correctCode: 'GPTXG',
-    alternateCodes: ['gptxg'],
-    explanation: 'E+2=G, N+2=P, R+2=T, V+2=X, E+2=G -> GPTXG',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-33",
+    "round": 3,
+    "title": "Caesar Shift (-2)",
+    "category": "Caesar Cipher",
+    "difficulty": "Medium",
+    "code": "ENRVE",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "GPTXG",
+    "alternateCodes": [
+      "gptxg"
+    ],
+    "explanation": "E+2=G, N+2=P, R+2=T, V+2=X, E+2=G -> GPTXG",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "gptxg"
+    ],
+    "puzzle": "ENRVE",
+    "correctAnswer": "GPTXG",
+    "acceptedAnswers": [
+      "gptxg"
+    ]
   },
   {
-    id: 'r3-34',
-    round: 3,
-    title: 'Hexadecimal ASCII Code',
-    category: 'Hex Encoding',
-    difficulty: 'Easy',
-    code: '47  49  54',
-    hint: '0x47 = 71 (\'G\'), 0x49 = 73 (\'I\'), 0x54 = 84 (\'T\').',
-    correctCode: 'GIT',
-    alternateCodes: ['git'],
-    explanation: 'G-I-T: The ubiquitous version control tool.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-34",
+    "round": 3,
+    "title": "Hexadecimal ASCII Code",
+    "category": "Hex Encoding",
+    "difficulty": "Easy",
+    "code": "47  49  54",
+    "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
+    "correctCode": "GIT",
+    "alternateCodes": [
+      "git"
+    ],
+    "explanation": "G-I-T: The ubiquitous version control tool.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "git"
+    ],
+    "puzzle": "47  49  54",
+    "correctAnswer": "GIT",
+    "acceptedAnswers": [
+      "git"
+    ]
   },
   {
-    id: 'r3-35',
-    round: 3,
-    title: 'Atbash Inverse Alphabet',
-    category: 'Inverse Cipher',
-    difficulty: 'Hard',
-    code: 'XZXSV',
-    hint: 'Mirror alphabet: X=C, Z=A, S=H, V=E',
-    correctCode: 'CACHE',
-    alternateCodes: ['cache'],
-    explanation: 'X->C, Z->A, X->C, S->H, V->E -> CACHE',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-35",
+    "round": 3,
+    "title": "Atbash Inverse Alphabet",
+    "category": "Inverse Cipher",
+    "difficulty": "Hard",
+    "code": "XZXSV",
+    "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
+    "correctCode": "CACHE",
+    "alternateCodes": [
+      "cache"
+    ],
+    "explanation": "X->C, Z->A, X->C, S->H, V->E -> CACHE",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "cache"
+    ],
+    "puzzle": "XZXSV",
+    "correctAnswer": "CACHE",
+    "acceptedAnswers": [
+      "cache"
+    ]
   },
   {
-    id: 'r3-36',
-    round: 3,
-    title: 'ASCII Binary Byte Stream',
-    category: 'Binary ASCII',
-    difficulty: 'Hard',
-    code: '01010011 01010001 01001100',
-    hint: 'Three bytes: 01010011 = 83 (\'S\'), 01010001 = 81 (\'Q\'), 01001100 = 76 (\'L\').',
-    correctCode: 'SQL',
-    alternateCodes: ['sql'],
-    explanation: 'Structured Query Language: S-Q-L.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-36",
+    "round": 3,
+    "title": "ASCII Binary Byte Stream",
+    "category": "Binary ASCII",
+    "difficulty": "Hard",
+    "code": "01010011 01010001 01001100",
+    "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+    "correctCode": "SQL",
+    "alternateCodes": [
+      "sql"
+    ],
+    "explanation": "Structured Query Language: S-Q-L.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "sql"
+    ],
+    "puzzle": "01010011 01010001 01001100",
+    "correctAnswer": "SQL",
+    "acceptedAnswers": [
+      "sql"
+    ]
   },
   {
-    id: 'r3-37',
-    round: 3,
-    title: 'Reverse String Cipher',
-    category: 'Reversal',
-    difficulty: 'Easy',
-    code: 'LEXIP',
-    hint: 'Read backwards: the smallest controllable element of a digital display picture.',
-    correctCode: 'PIXEL',
-    alternateCodes: ['pixel'],
-    explanation: 'L-E-X-I-P reversed is P-I-X-E-L.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-37",
+    "round": 3,
+    "title": "Reverse String Cipher",
+    "category": "Reversal",
+    "difficulty": "Easy",
+    "code": "LEXIP",
+    "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+    "correctCode": "PIXEL",
+    "alternateCodes": [
+      "pixel"
+    ],
+    "explanation": "L-E-X-I-P reversed is P-I-X-E-L.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "pixel"
+    ],
+    "puzzle": "LEXIP",
+    "correctAnswer": "PIXEL",
+    "acceptedAnswers": [
+      "pixel"
+    ]
   },
   {
-    id: 'r3-38',
-    round: 3,
-    title: 'Phone Keypad T9 Code',
-    category: 'Telephone Keypad',
-    difficulty: 'Easy',
-    code: '4 - 6 - 7 - 8',
-    hint: 'Phone keypad: 4=GHI, 6=MNO, 7=PQRS, 8=TUV. A computer connected to a network.',
-    correctCode: 'HOST',
-    alternateCodes: ['host'],
-    explanation: '4=H, 6=O, 7=S, 8=T -> HOST',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-38",
+    "round": 3,
+    "title": "Phone Keypad T9 Code",
+    "category": "Telephone Keypad",
+    "difficulty": "Easy",
+    "code": "4 - 6 - 7 - 8",
+    "hint": "The digits correspond to a standard phone keypad layout. Match each digit to its letter grouping.",
+    "correctCode": "HOST",
+    "alternateCodes": [
+      "host"
+    ],
+    "explanation": "4=H, 6=O, 7=S, 8=T -> HOST",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "host"
+    ],
+    "puzzle": "4 - 6 - 7 - 8",
+    "correctAnswer": "HOST",
+    "acceptedAnswers": [
+      "host"
+    ]
   },
   {
-    id: 'r3-39',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '19  20  1  3  11',
-    hint: '19=S, 20=T, 1=A, 3=C, 11=K',
-    correctCode: 'STACK',
-    alternateCodes: ['stack'],
-    explanation: 'S-T-A-C-K: Last-In, First-Out data structure.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-39",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "19  20  1  3  11",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "STACK",
+    "alternateCodes": [
+      "stack"
+    ],
+    "explanation": "S-T-A-C-K: Last-In, First-Out data structure.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "stack"
+    ],
+    "puzzle": "19  20  1  3  11",
+    "correctAnswer": "STACK",
+    "acceptedAnswers": [
+      "stack"
+    ]
   },
   {
-    id: 'r3-40',
-    round: 3,
-    title: 'Morse Code Word',
-    category: 'Morse Code',
-    difficulty: 'Medium',
-    code: '..- -. .. -..-',
-    hint: '..- = U, -. = N, .. = I, -..- = X',
-    correctCode: 'UNIX',
-    alternateCodes: ['unix'],
-    explanation: 'Decodes to U-N-I-X.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-40",
+    "round": 3,
+    "title": "Morse Code Word",
+    "category": "Morse Code",
+    "difficulty": "Medium",
+    "code": "..- -. .. -..-",
+    "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+    "correctCode": "UNIX",
+    "alternateCodes": [
+      "unix"
+    ],
+    "explanation": "Decodes to U-N-I-X.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "unix"
+    ],
+    "puzzle": "..- -. .. -..-",
+    "correctAnswer": "UNIX",
+    "acceptedAnswers": [
+      "unix"
+    ]
   },
   {
-    id: 'r3-41',
-    round: 3,
-    title: 'Base64 Decryption Snippet',
-    category: 'Base64 Decoding',
-    difficulty: 'Hard',
-    code: 'Uk9VVEVS',
-    hint: 'Base64 decoded ASCII characters. A hardware device that forwards data packets between networks.',
-    correctCode: 'ROUTER',
-    alternateCodes: ['router'],
-    explanation: 'Base64 decoding of "Uk9VVEVS" yields ROUTER.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-41",
+    "round": 3,
+    "title": "Base64 Decryption Snippet",
+    "category": "Base64 Decoding",
+    "difficulty": "Hard",
+    "code": "Uk9VVEVS",
+    "hint": "The text is encoded using standard Base64 representation. Convert the data block to reveal the keyword.",
+    "correctCode": "ROUTER",
+    "alternateCodes": [
+      "router"
+    ],
+    "explanation": "Base64 decoding of \"Uk9VVEVS\" yields ROUTER.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "router"
+    ],
+    "puzzle": "Uk9VVEVS",
+    "correctAnswer": "ROUTER",
+    "acceptedAnswers": [
+      "router"
+    ]
   },
   {
-    id: 'r3-42',
-    round: 3,
-    title: 'ROT13 Caesar Rotation',
-    category: 'Caesar Cipher',
-    difficulty: 'Medium',
-    code: 'PBIARPG',
-    hint: 'Rotate each letter forward by 13 positions.',
-    correctCode: 'CONNECT',
-    alternateCodes: ['connect'],
-    explanation: 'P+13=C, B+13=O, I+13=V? P=16 -> C(3), B=2 -> O(15), I=9 -> V(22)? Wait: C(3)+13=P, O(15)+13=B, N(14)+13=A, N(14)+13=A, E(5)+13=R, C(3)+13=P, T(20)+13=G -> P-B-A-A-R-P-G! If word is PBIARPG -> CONNECT.',
-    correctCode: 'CONNECT',
-    alternateCodes: ['connect'],
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-42",
+    "round": 3,
+    "title": "ROT13 Caesar Rotation",
+    "category": "Caesar Cipher",
+    "difficulty": "Medium",
+    "code": "PBIARPG",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "CONNECT",
+    "alternateCodes": [
+      "connect"
+    ],
+    "explanation": "P+13=C, B+13=O, I+13=V? P=16 -> C(3), B=2 -> O(15), I=9 -> V(22)? Wait: C(3)+13=P, O(15)+13=B, N(14)+13=A, N(14)+13=A, E(5)+13=R, C(3)+13=P, T(20)+13=G -> P-B-A-A-R-P-G! If word is PBIARPG -> CONNECT.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "connect"
+    ],
+    "puzzle": "PBIARPG",
+    "correctAnswer": "CONNECT",
+    "acceptedAnswers": [
+      "connect"
+    ]
   },
   {
-    id: 'r3-43',
-    round: 3,
-    title: 'Hexadecimal ASCII Code',
-    category: 'Hex Encoding',
-    difficulty: 'Medium',
-    code: '50  49  4E  47',
-    hint: '0x50 = 80 (\'P\'), 0x49 = 73 (\'I\'), 0x4E = 78 (\'N\'), 0x47 = 71 (\'G\').',
-    correctCode: 'PING',
-    alternateCodes: ['ping'],
-    explanation: 'P-I-N-G: Network utility used to test the reachability of a host.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-43",
+    "round": 3,
+    "title": "Hexadecimal ASCII Code",
+    "category": "Hex Encoding",
+    "difficulty": "Medium",
+    "code": "50  49  4E  47",
+    "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
+    "correctCode": "PING",
+    "alternateCodes": [
+      "ping"
+    ],
+    "explanation": "P-I-N-G: Network utility used to test the reachability of a host.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "ping"
+    ],
+    "puzzle": "50  49  4E  47",
+    "correctAnswer": "PING",
+    "acceptedAnswers": [
+      "ping"
+    ]
   },
   {
-    id: 'r3-44',
-    round: 3,
-    title: 'Reverse String Cipher',
-    category: 'Reversal',
-    difficulty: 'Easy',
-    code: 'THGIRPYPC',
-    hint: 'Read backwards: legal ownership rights protecting software and code.',
-    correctCode: 'CPYRIGHT',
-    alternateCodes: ['cpyright', 'copyright'],
-    explanation: 'T-H-G-I-R-P-Y-P-C reversed is C-P-Y-R-I-G-H-T (or COPYRIGHT).',
-    correctCode: 'COPYRIGHT',
-    alternateCodes: ['copyright', 'cpyright'],
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-44",
+    "round": 3,
+    "title": "Reverse String Cipher",
+    "category": "Reversal",
+    "difficulty": "Easy",
+    "code": "THGIRPYPC",
+    "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+    "correctCode": "COPYRIGHT",
+    "alternateCodes": [
+      "copyright",
+      "cpyright"
+    ],
+    "explanation": "T-H-G-I-R-P-Y-P-C reversed is C-P-Y-R-I-G-H-T (or COPYRIGHT).",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "copyright",
+      "cpyright"
+    ],
+    "puzzle": "THGIRPYPC",
+    "correctAnswer": "COPYRIGHT",
+    "acceptedAnswers": [
+      "copyright",
+      "cpyright"
+    ]
   },
   {
-    id: 'r3-45',
-    round: 3,
-    title: 'Caesar Shift (+4)',
-    category: 'Caesar Cipher',
-    difficulty: 'Medium',
-    code: 'WLER',
-    hint: 'Shift backwards by 4 letters: W-4=S, L-4=H, E-4=A, R-4=N.',
-    correctCode: 'SHAN',
-    alternateCodes: ['shan'],
-    explanation: 'W(23)-4=S(19), L(12)-4=H(8), E(5)-4=A(1), R(18)-4=N(14) -> SHAN',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-45",
+    "round": 3,
+    "title": "Caesar Shift (+4)",
+    "category": "Caesar Cipher",
+    "difficulty": "Medium",
+    "code": "WLER",
+    "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+    "correctCode": "SHAN",
+    "alternateCodes": [
+      "shan"
+    ],
+    "explanation": "W(23)-4=S(19), L(12)-4=H(8), E(5)-4=A(1), R(18)-4=N(14) -> SHAN",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "shan"
+    ],
+    "puzzle": "WLER",
+    "correctAnswer": "SHAN",
+    "acceptedAnswers": [
+      "shan"
+    ]
   },
   {
-    id: 'r3-46',
-    round: 3,
-    title: 'Leetspeak Hacker Code',
-    category: 'Substitution',
-    difficulty: 'Easy',
-    code: 'T3RM1N4L',
-    hint: '3=E, 1=I, 4=A',
-    correctCode: 'TERMINAL',
-    alternateCodes: ['terminal'],
-    explanation: 'T-E-R-M-I-N-A-L: The developer command prompt interface.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-46",
+    "round": 3,
+    "title": "Leetspeak Hacker Code",
+    "category": "Substitution",
+    "difficulty": "Easy",
+    "code": "T3RM1N4L",
+    "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
+    "correctCode": "TERMINAL",
+    "alternateCodes": [
+      "terminal"
+    ],
+    "explanation": "T-E-R-M-I-N-A-L: The developer command prompt interface.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "terminal"
+    ],
+    "puzzle": "T3RM1N4L",
+    "correctAnswer": "TERMINAL",
+    "acceptedAnswers": [
+      "terminal"
+    ]
   },
   {
-    id: 'r3-47',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '3  12  15  21  4',
-    hint: '3=C, 12=L, 15=O, 21=U, 4=D',
-    correctCode: 'CLOUD',
-    alternateCodes: ['cloud'],
-    explanation: 'C-L-O-U-D: Remote server infrastructure.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-47",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "3  12  15  21  4",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "CLOUD",
+    "alternateCodes": [
+      "cloud"
+    ],
+    "explanation": "C-L-O-U-D: Remote server infrastructure.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "cloud"
+    ],
+    "puzzle": "3  12  15  21  4",
+    "correctAnswer": "CLOUD",
+    "acceptedAnswers": [
+      "cloud"
+    ]
   },
   {
-    id: 'r3-48',
-    round: 3,
-    title: 'ASCII Binary Byte Stream',
-    category: 'Binary ASCII',
-    difficulty: 'Hard',
-    code: '01001110 01001111 01000100 01000101',
-    hint: 'Four bytes: 01001110 = 78 (\'N\'), 01001111 = 79 (\'O\'), 01000100 = 68 (\'D\'), 01000101 = 69 (\'E\').',
-    correctCode: 'NODE',
-    alternateCodes: ['node'],
-    explanation: 'N-O-D-E: A point in a network graph or tree.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-48",
+    "round": 3,
+    "title": "ASCII Binary Byte Stream",
+    "category": "Binary ASCII",
+    "difficulty": "Hard",
+    "code": "01001110 01001111 01000100 01000101",
+    "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+    "correctCode": "NODE",
+    "alternateCodes": [
+      "node"
+    ],
+    "explanation": "N-O-D-E: A point in a network graph or tree.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "node"
+    ],
+    "puzzle": "01001110 01001111 01000100 01000101",
+    "correctAnswer": "NODE",
+    "acceptedAnswers": [
+      "node"
+    ]
   },
   {
-    id: 'r3-49',
-    round: 3,
-    title: 'Morse Code Word',
-    category: 'Morse Code',
-    difficulty: 'Medium',
-    code: '..-. .. .-. . .-- .- .-.. .-..',
-    hint: '..-. = F, .. = I, .-. = R, . = E, .-- = W, .- = A, .-.. = L, .-.. = L',
-    correctCode: 'FIREWALL',
-    alternateCodes: ['firewall'],
-    explanation: 'F-I-R-E-W-A-L-L: Network security defense barrier.',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-49",
+    "round": 3,
+    "title": "Morse Code Word",
+    "category": "Morse Code",
+    "difficulty": "Medium",
+    "code": "..-. .. .-. . .-- .- .-.. .-..",
+    "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+    "correctCode": "FIREWALL",
+    "alternateCodes": [
+      "firewall"
+    ],
+    "explanation": "F-I-R-E-W-A-L-L: Network security defense barrier.",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "firewall"
+    ],
+    "puzzle": "..-. .. .-. . .-- .- .-.. .-..",
+    "correctAnswer": "FIREWALL",
+    "acceptedAnswers": [
+      "firewall"
+    ]
   },
   {
-    id: 'r3-50',
-    round: 3,
-    title: 'A1Z26 Numerical Cipher',
-    category: 'Alphabetical Mapping',
-    difficulty: 'Easy',
-    code: '23  9  14  14  5  18',
-    hint: '23=W, 9=I, 14=N, 14=N, 5=E, 18=R',
-    correctCode: 'WINNER',
-    alternateCodes: ['winner'],
-    explanation: 'W-I-N-N-E-R: The ultimate champion of Team Quest!',
-    timeLimit: 45,
-    isActive: true
+    "id": "r3-50",
+    "round": 3,
+    "title": "A1Z26 Numerical Cipher",
+    "category": "Alphabetical Mapping",
+    "difficulty": "Easy",
+    "code": "23  9  14  14  5  18",
+    "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
+    "correctCode": "WINNER",
+    "alternateCodes": [
+      "winner"
+    ],
+    "explanation": "W-I-N-N-E-R: The ultimate champion of Team Quest!",
+    "timeLimit": 45,
+    "isActive": true,
+    "acceptedCodes": [
+      "winner"
+    ],
+    "puzzle": "23  9  14  14  5  18",
+    "correctAnswer": "WINNER",
+    "acceptedAnswers": [
+      "winner"
+    ]
   }
 ];
 

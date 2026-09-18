@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { X, Check, Eye, AlertCircle, Save, Plus, Trash2 } from 'lucide-react';
+import { X, Check, Eye, AlertCircle, Save, Plus, Trash2, ShieldCheck, AlertTriangle } from 'lucide-react';
 import DifficultyBadge from './DifficultyBadge';
+import { validateSafeHint, getEnforcedSafeHint } from '../utils/safeHint';
 
 export function QuestionPreviewModal({ question, onClose }) {
   if (!question) return null;
 
   const isR1 = question.round === 1 || question.clue1;
   const isR2 = question.round === 2 || question.options;
-  const isR3 = question.round === 3 || question.code;
+  const isR3 = question.round === 3 || question.code || question.puzzle;
+
+  const [r3PreviewMode, setR3PreviewMode] = useState('player'); // 'player' | 'host'
 
   return (
     <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -93,25 +96,108 @@ export function QuestionPreviewModal({ question, onClose }) {
 
           {/* ROUND 3 PREVIEW */}
           {isR3 && (
-            <div className="space-y-2 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-              <span className="text-rose-400 font-bold block text-[11px]">CIPHER CHALLENGE</span>
-              <div className="text-base font-bold text-amber-300 tracking-wider py-1">
-                {question.code}
-              </div>
-              {question.hint && (
-                <p><strong className="text-cyan-400">Hint:</strong> {question.hint}</p>
-              )}
-              <div className="pt-2 border-t border-slate-800 text-emerald-400 font-bold">
-                Decoded Code: {question.correctCode}
-              </div>
-              {question.alternateCodes?.length > 0 && (
-                <div className="text-slate-400 text-[11px]">
-                  Accepted Codes: {question.alternateCodes.join(', ')}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between pb-1">
+                <span className="text-amber-400 font-bold block text-xs tracking-wider">
+                  CODE CRACKER
+                </span>
+                <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-[10px]">
+                  <button
+                    type="button"
+                    onClick={() => setR3PreviewMode('player')}
+                    className={`px-2.5 py-1 rounded font-bold transition-all ${
+                      r3PreviewMode === 'player'
+                        ? 'bg-amber-500 text-black shadow-sm'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    PLAYER PREVIEW
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setR3PreviewMode('host')}
+                    className={`px-2.5 py-1 rounded font-bold transition-all ${
+                      r3PreviewMode === 'host'
+                        ? 'bg-amber-500 text-black shadow-sm'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    HOST OVERVIEW
+                  </button>
                 </div>
-              )}
-              {question.explanation && (
-                <div className="text-slate-400 text-[11px]">
-                  Explanation: {question.explanation}
+              </div>
+
+              {r3PreviewMode === 'player' ? (
+                /* Player Preview: Answer is 100% HIDDEN */
+                <div className="space-y-3 bg-[#0A0F1D] p-4 rounded-xl border border-amber-500/30">
+                  <div>
+                    <span className="text-slate-400 text-[10px] uppercase font-bold block mb-1">
+                      PUZZLE
+                    </span>
+                    <div className="p-4 rounded-lg bg-[#060911] border border-[#1E293B] text-center font-mono text-xl md:text-2xl font-black text-amber-300 tracking-widest select-all">
+                      {question.puzzle || question.code}
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-lg bg-[#0D1527] border border-[#1E293B] text-xs font-mono text-slate-300 space-y-1">
+                    <span className="text-cyan-400 font-bold block text-[11px] uppercase tracking-wider">
+                      HINT / PROTOCOL
+                    </span>
+                    <p className="text-slate-300 text-xs leading-relaxed">
+                      {getEnforcedSafeHint(question)}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1.5 pt-1">
+                    <span className="text-slate-400 text-[10px] uppercase font-bold block">
+                      ENTER DECRYPTED CODE
+                    </span>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        disabled
+                        placeholder="ENTER DECRYPTED CODE..."
+                        className="flex-1 bg-[#090D16] border border-[#222E46] px-3.5 py-2.5 rounded-lg text-xs font-mono uppercase text-zinc-500"
+                      />
+                      <button
+                        type="button"
+                        disabled
+                        className="px-5 py-2.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold uppercase cursor-not-allowed"
+                      >
+                        SUBMIT
+                      </button>
+                    </div>
+                  </div>
+                  <div className="text-[10px] text-zinc-500 italic text-right">
+                    🔒 Correct answer is hidden in contestant view.
+                  </div>
+                </div>
+              ) : (
+                /* Host View: Details for Host */
+                <div className="space-y-2 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                  <span className="text-rose-400 font-bold block text-[11px]">ADMIN REFERENCE</span>
+                  <div>
+                    <span className="text-slate-400 text-[10px] uppercase block">Encrypted Puzzle</span>
+                    <div className="text-base font-bold text-amber-300 tracking-wider py-1 font-mono">
+                      {question.puzzle || question.code}
+                    </div>
+                  </div>
+                  {question.hint && (
+                    <p><strong className="text-cyan-400">Configured Hint:</strong> {question.hint}</p>
+                  )}
+                  <div className="pt-2 border-t border-slate-800 text-emerald-400 font-bold">
+                    Correct Answer: {question.correctAnswer || question.correctCode}
+                  </div>
+                  {(question.acceptedAnswers || question.alternateCodes)?.length > 0 && (
+                    <div className="text-slate-400 text-[11px]">
+                      Accepted Alternates: {(question.acceptedAnswers || question.alternateCodes).join(', ')}
+                    </div>
+                  )}
+                  {question.explanation && (
+                    <div className="text-slate-400 text-[11px]">
+                      Explanation: {question.explanation}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -134,6 +220,7 @@ export function QuestionPreviewModal({ question, onClose }) {
 export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
   const isEditing = Boolean(question?.id);
   const targetRound = question?.round || round || 1;
+  const [showPlayerPreview, setShowPlayerPreview] = useState(false);
 
   const [formData, setFormData] = useState(() => {
     if (question) {
@@ -145,8 +232,10 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
         title: question.title || question.website || '',
         category: question.category || question.domain || '',
         website: question.website || '',
-        correctAnswer: question.correctAnswer || '',
-        acceptedAnswersText: Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers.join(', ') : '',
+        correctAnswer: question.correctAnswer || question.correctCode || '',
+        acceptedAnswersText: Array.isArray(question.acceptedAnswers)
+          ? question.acceptedAnswers.join(', ')
+          : (Array.isArray(question.alternateCodes) ? question.alternateCodes.join(', ') : ''),
         clue1: question.clue1 || question.clues?.[0] || '',
         clue2: question.clue2 || question.clues?.[1] || '',
         clue3: question.clue3 || question.clues?.[2] || '',
@@ -156,10 +245,13 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
         optionC: question.options?.find(o => (o.id || o.key) === 'C')?.text || '',
         optionD: question.options?.find(o => (o.id || o.key) === 'D')?.text || '',
         correctOptionId: question.correctOptionId || question.correctOption || 'A',
-        code: question.code || '',
+        code: question.code || question.puzzle || '',
+        puzzle: question.puzzle || question.code || '',
         hint: question.hint || '',
-        correctCode: question.correctCode || '',
-        alternateCodesText: Array.isArray(question.alternateCodes) ? question.alternateCodes.join(', ') : '',
+        correctCode: question.correctCode || question.correctAnswer || '',
+        alternateCodesText: Array.isArray(question.alternateCodes)
+          ? question.alternateCodes.join(', ')
+          : (Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers.join(', ') : ''),
         explanation: question.explanation || '',
         isActive: question.isActive !== false
       };
@@ -183,6 +275,7 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
       optionD: '',
       correctOptionId: 'A',
       code: '',
+      puzzle: '',
       hint: '',
       correctCode: '',
       alternateCodesText: '',
@@ -190,6 +283,13 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
       isActive: true
     };
   });
+
+  const hintValidation = validateSafeHint(
+    formData.hint,
+    formData.correctCode || formData.correctAnswer,
+    (formData.alternateCodesText || '').split(',').map(s => s.trim())
+  );
+  const hintWordCount = (formData.hint || '').trim().split(/\s+/).filter(Boolean).length;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -215,11 +315,15 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
       ];
       result.correctOption = result.correctOptionId;
     } else if (targetRound === 3) {
+      result.puzzle = result.code;
+      result.correctAnswer = result.correctCode;
       result.alternateCodes = result.alternateCodesText
         .split(',')
         .map(s => s.trim())
         .filter(Boolean);
       result.acceptedCodes = result.alternateCodes;
+      result.acceptedAnswers = result.alternateCodes;
+      result.hint = getEnforcedSafeHint(result);
       result.timeLimit = 45;
     }
 
@@ -471,9 +575,23 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
             </div>
           )}
 
-          {/* ROUND 3 FIELDS */}
+          {/* ROUND 3 FIELDS: CODE CRACKER */}
           {targetRound === 3 && (
-            <div className="space-y-3">
+            <div className="space-y-4 bg-slate-900/40 p-4 rounded-xl border border-slate-800">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span className="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                  🔐 CODE CRACKER
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowPlayerPreview(!showPlayerPreview)}
+                  className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-mono text-[10px] font-bold flex items-center gap-1.5 transition-all"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  {showPlayerPreview ? 'HIDE PLAYER PREVIEW' : 'PREVIEW PLAYER VIEW'}
+                </button>
+              </div>
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-slate-400 block mb-1">Title</label>
@@ -494,53 +612,74 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white"
-                    placeholder="e.g. Numerical Cipher"
+                    placeholder="e.g. Alphabetical Mapping"
                   />
                 </div>
               </div>
 
+              {/* Puzzle */}
               <div>
-                <label className="text-amber-400 block mb-1">Encrypted Cipher Text / Code</label>
+                <label className="text-amber-400 block mb-1 font-bold">Puzzle</label>
                 <input
                   type="text"
                   required
                   value={formData.code}
-                  onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-amber-300 font-bold"
+                  onChange={(e) => setFormData({ ...formData, code: e.target.value, puzzle: e.target.value })}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-amber-300 font-bold font-mono"
                   placeholder="e.g. 19 - 5 - 3 - 21 - 18 - 5"
                 />
               </div>
 
+              {/* Hint */}
               <div>
-                <label className="text-cyan-400 block mb-1">Hint for Teams</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-cyan-400 font-bold">Hint</label>
+                  {hintValidation.isSafe ? (
+                    <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3" />
+                      Safe Clue ({hintWordCount} words)
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-rose-400 flex items-center gap-1 font-bold">
+                      <AlertTriangle className="w-3 h-3" />
+                      Unsafe: Leaks Answer! Safe fallback will be applied.
+                    </span>
+                  )}
+                </div>
                 <input
                   type="text"
                   value={formData.hint}
                   onChange={(e) => setFormData({ ...formData, hint: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white"
-                  placeholder="e.g. A = 1, B = 2, C = 3 ... Z = 26"
+                  className={`w-full bg-slate-900 border rounded-lg px-3 py-2 text-white ${
+                    hintValidation.isSafe ? 'border-slate-700' : 'border-rose-500/80'
+                  }`}
+                  placeholder="Directional clue (max 25 words, no answers or mappings)"
                 />
+                <p className="text-[10px] text-zinc-500 mt-1">
+                  Give direction on how to approach the puzzle. Do not expose characters, decimal values, or solutions.
+                </p>
               </div>
 
+              {/* Correct Answer & Accepted Answers */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-emerald-400 block mb-1">Correct Passcode</label>
+                  <label className="text-emerald-400 block mb-1 font-bold">Correct Answer</label>
                   <input
                     type="text"
                     required
                     value={formData.correctCode}
-                    onChange={(e) => setFormData({ ...formData, correctCode: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-emerald-400 font-bold"
+                    onChange={(e) => setFormData({ ...formData, correctCode: e.target.value, correctAnswer: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-emerald-400 font-bold font-mono"
                     placeholder="e.g. SECURE"
                   />
                 </div>
                 <div>
-                  <label className="text-slate-400 block mb-1">Alternate Codes (Comma-separated)</label>
+                  <label className="text-slate-400 block mb-1 font-bold">Accepted Answers</label>
                   <input
                     type="text"
                     value={formData.alternateCodesText}
-                    onChange={(e) => setFormData({ ...formData, alternateCodesText: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                    onChange={(e) => setFormData({ ...formData, alternateCodesText: e.target.value, acceptedAnswersText: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono"
                     placeholder="e.g. secure, SECURE"
                   />
                 </div>
@@ -556,6 +695,66 @@ export function QuestionEditModal({ question, round = 1, onSave, onClose }) {
                   placeholder="How the cipher resolves"
                 />
               </div>
+
+              {/* LIVE PLAYER PREVIEW (ANSWER STRICTLY HIDDEN) */}
+              {showPlayerPreview && (
+                <div className="p-4 rounded-xl bg-[#070A12] border-2 border-amber-500/50 space-y-3 animate-reveal">
+                  <div className="flex items-center justify-between pb-1 border-b border-[#1E283D]">
+                    <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+                      <Eye className="w-3.5 h-3.5 text-amber-400" />
+                      PLAYER PREVIEW (CONTESTANT SCREEN)
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                      🔒 CORRECT ANSWER HIDDEN
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block mb-1 font-bold">
+                      PUZZLE
+                    </span>
+                    <div className="p-3.5 rounded-lg bg-[#090D16] border border-amber-500/30 text-center font-mono text-lg font-black text-amber-300 tracking-widest select-all">
+                      {formData.code || '[ENCRYPTED PUZZLE]'}
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-[#0D1527] border border-[#1E293B] text-xs font-mono text-slate-300 space-y-1">
+                    <span className="text-cyan-400 font-bold block text-[10px] uppercase tracking-wider">
+                      HINT / PROTOCOL
+                    </span>
+                    <p className="text-slate-300 text-xs">
+                      {getEnforcedSafeHint({
+                        category: formData.category,
+                        title: formData.title,
+                        hint: formData.hint,
+                        correctAnswer: formData.correctCode,
+                        acceptedAnswers: (formData.alternateCodesText || '').split(',').map(s => s.trim())
+                      })}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1 pt-1">
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block font-bold">
+                      ENTER DECRYPTED CODE
+                    </span>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        disabled
+                        placeholder="ENTER DECRYPTED CODE..."
+                        className="flex-1 bg-[#090D16] border border-[#222E46] px-3 py-2 rounded-lg text-xs font-mono uppercase text-zinc-500"
+                      />
+                      <button
+                        type="button"
+                        disabled
+                        className="px-4 py-2 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold uppercase cursor-not-allowed"
+                      >
+                        SUBMIT
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
