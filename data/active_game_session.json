@@ -2,8 +2,8 @@
   "gameSessionId": "session_1789752839827_fvp24rc",
   "gameCode": "QUEST-2026",
   "adminPin": "12345",
-  "stateVersion": 397,
-  "state": "ROUND_1_CLUE_2",
+  "stateVersion": 414,
+  "state": "ROUND_1_CLUE_1",
   "previousState": null,
   "teamCount": 4,
   "teams": {
@@ -97,15 +97,15 @@
     "4": false
   },
   "currentRoundNumber": 1,
-  "currentQuestionIndex": 3,
-  "activeClueNumber": 2,
+  "currentQuestionIndex": 6,
+  "activeClueNumber": 1,
   "revealedClues": [
     true,
-    true,
+    false,
     false
   ],
   "timeRemaining": 45,
-  "clueStartedAt": 1789753138247,
+  "clueStartedAt": 1789753527144,
   "clueDuration": 45,
   "isTimerRunning": true,
   "pausedRemaining": 30,
@@ -962,5 +962,5 @@
     }
   ],
   "roundSubmissions": [],
-  "updatedAt": "2026-09-18T17:38:58.247Z"
+  "updatedAt": "2026-09-18T17:45:27.144Z"
 }
