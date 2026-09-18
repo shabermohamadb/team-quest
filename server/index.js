@@ -165,29 +165,115 @@ io.on('connection', (socket) => {
   });
 
   // Admin Game Lifecycle
-  socket.on('admin_start_game', () => gameManager.startGame());
-  socket.on('admin_reveal_clue_2', () => gameManager.revealClue2());
-  socket.on('admin_reveal_clue_3', () => gameManager.revealClue3());
-  socket.on('admin_reveal_r1_answer', () => gameManager.revealRound1AnswerEarly());
-  socket.on('admin_show_r1_answer', () => gameManager.revealRound1AnswerEarly());
-  socket.on('admin_show_r1_result', () => gameManager.showRound1Result());
-  socket.on('admin_end_round_1', () => gameManager.completeRound1());
+  socket.on('admin_start_game', (data, cb) => {
+    gameManager.startGame();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_reveal_clue_2', (data, cb) => {
+    gameManager.revealClue2();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_reveal_clue_3', (data, cb) => {
+    gameManager.revealClue3();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_reveal_r1_answer', (data, cb) => {
+    gameManager.revealRound1AnswerEarly();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_show_r1_answer', (data, cb) => {
+    gameManager.revealRound1AnswerEarly();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_show_r1_result', (data, cb) => {
+    gameManager.showRound1Result();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_end_round_1', (data, cb) => {
+    gameManager.completeRound1();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
 
-  socket.on('admin_start_r2', () => gameManager.startRound2Sequence());
-  socket.on('admin_show_r2_result', () => gameManager.showRound2Result());
+  socket.on('admin_start_r2', (data, cb) => {
+    gameManager.startRound2Sequence();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_start_round_2', (data, cb) => {
+    gameManager.startRound2Sequence();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_show_r2_result', (data, cb) => {
+    gameManager.showRound2Result();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
 
-  socket.on('admin_start_r3', () => gameManager.startRound3Sequence());
-  socket.on('admin_show_r3_result', () => gameManager.showRound3Result());
+  socket.on('admin_start_r3', (data, cb) => {
+    gameManager.startRound3Sequence();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_start_round_3', (data, cb) => {
+    gameManager.startRound3Sequence();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_show_r3_result', (data, cb) => {
+    gameManager.showRound3Result();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
 
-  socket.on('admin_show_final_results', () => gameManager.showFinalResults());
-  socket.on('admin_start_tiebreaker', () => gameManager.startTiebreaker());
+  socket.on('admin_show_final_results', (data, cb) => {
+    gameManager.showFinalResults();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_start_tiebreaker', (data, cb) => {
+    gameManager.startTiebreaker();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
 
-  socket.on('admin_pause_game', () => gameManager.pauseGame());
-  socket.on('admin_resume_game', () => gameManager.resumeGame());
-  socket.on('admin_skip_question', () => gameManager.skipQuestion());
-  socket.on('admin_skip_round', () => gameManager.skipRound());
-  socket.on('admin_next_question', () => gameManager.nextQuestion());
-  socket.on('admin_reset_game', () => gameManager.resetGame());
+  socket.on('admin_pause_game', (data, cb) => {
+    gameManager.pauseGame();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_resume_game', (data, cb) => {
+    gameManager.resumeGame();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_skip_question', (data, cb) => {
+    gameManager.skipQuestion();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_skip_round', (data, cb) => {
+    gameManager.skipRound();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_next_question', (data, cb) => {
+    gameManager.nextQuestion();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_reset_game', (data, cb) => {
+    gameManager.resetGame();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
 
   socket.on('admin_reset_teams', () => {
     teamManager.resetAllTeams();
@@ -228,7 +314,7 @@ io.on('connection', (socket) => {
 
   // Dynamic Team & Participant Management
   socket.on('admin_set_team_count', (data, callback) => {
-    const teamCount = data?.teamCount ?? data;
+    const teamCount = data?.teamCount ?? data?.count ?? data;
     const res = gameManager.setTeamCount(teamCount);
     if (typeof callback === 'function') callback(res);
   });
@@ -239,6 +325,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('admin_add_participants_bulk', (data, callback) => {
+    const res = gameManager.addParticipantsBulk(data?.names || []);
+    if (typeof callback === 'function') callback(res);
+  });
+  socket.on('admin_bulk_add_participants', (data, callback) => {
     const res = gameManager.addParticipantsBulk(data?.names || []);
     if (typeof callback === 'function') callback(res);
   });

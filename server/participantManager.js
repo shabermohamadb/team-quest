@@ -239,11 +239,19 @@ export class ParticipantManager {
       }
     }
 
+    const sizes = Object.values(rosters).map(r => r.length);
+    const minSize = sizes.length ? Math.min(...sizes) : 0;
+    const maxSize = sizes.length ? Math.max(...sizes) : 0;
+    const isBalanced = (maxSize - minSize) <= 1;
+
     return {
       rosters,
       unassigned,
       teamCount: count,
-      totalParticipants: this.participants.length
+      totalParticipants: this.participants.length,
+      isBalanced,
+      minSize,
+      maxSize
     };
   }
 

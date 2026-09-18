@@ -38,6 +38,18 @@ export default {
           light: '#FB7185',
           dark: '#E11D48',
           bg: '#4C0519'
+        },
+        team5: {
+          DEFAULT: '#A855F7',
+          light: '#C084FC',
+          dark: '#7E22CE',
+          bg: '#3B0764'
+        },
+        team6: {
+          DEFAULT: '#38BDF8',
+          light: '#7DD3FC',
+          dark: '#0284C7',
+          bg: '#0C4A6E'
         }
       },
       fontFamily: {
@@ -53,11 +65,16 @@ export default {
           '0%, 100%': { transform: 'translateX(0)' },
           '20%, 60%': { transform: 'translateX(-6px)' },
           '40%, 80%': { transform: 'translateX(6px)' }
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.85)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
         }
       },
       animation: {
         reveal: 'reveal 0.25s ease-out forwards',
-        shake: 'shake 0.4s ease-in-out'
+        shake: 'shake 0.4s ease-in-out',
+        'scale-in': 'scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards'
       }
     },
   },

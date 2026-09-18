@@ -8,6 +8,7 @@ import confetti from 'canvas-confetti';
 import Timer from '../components/Timer';
 import TeamBadge from '../components/TeamBadge';
 import DifficultyBadge from '../components/DifficultyBadge';
+import CountdownOverlay from '../components/CountdownOverlay';
 import { MasterWinnerReveal } from '../components/MasterWinnerReveal';
 import { TEAMS, ROUNDS } from '../utils/constants';
 import { sounds } from '../utils/sound';
@@ -192,21 +193,29 @@ export default function PlayerView({
     });
   };
 
+  if (!gameState) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center min-h-[60vh] text-center p-6 space-y-4 animate-reveal">
+        <div className="w-10 h-10 rounded-full border-2 border-amber-500 border-t-transparent animate-spin mx-auto" />
+        <div>
+          <span className="text-sm font-mono uppercase tracking-widest text-amber-400 font-bold block">
+            TEAM QUEST
+          </span>
+          <p className="text-xs font-mono text-slate-400 mt-1">
+            SYNCING GAME STATE...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const isResuming = typeof gameState?.resumeCountdownRemaining === 'number' && gameState.resumeCountdownRemaining > 0;
+
   return (
     <div className="max-w-4xl mx-auto py-4 px-3 md:px-4 space-y-5">
-      {/* SYNCHRONIZED START COUNTDOWN (SECTION 9) */}
+      {/* SYNCHRONIZED START COUNTDOWN (SECTION 9 & 34) */}
       {isStartCountdown && (
-        <div className="fixed inset-0 z-50 bg-[#090D16]/98 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 animate-reveal">
-          <span className="text-sm font-mono uppercase tracking-widest text-amber-400 font-bold mb-4 animate-pulse">
-            GET READY
-          </span>
-          <div className="text-8xl md:text-9xl font-black font-mono text-amber-400 animate-pulse">
-            {(gameState?.startCountdownRemaining ?? 3) > 0 ? (gameState?.startCountdownRemaining ?? 3) : 'GO!'}
-          </div>
-          <span className="text-slate-400 text-sm font-mono mt-6">
-            Get ready with your team!
-          </span>
-        </div>
+        <CountdownOverlay secondsRemaining={gameState?.startCountdownRemaining ?? 3} />
       )}
 
       {/* ROUND 1 INTRO BANNER */}
@@ -266,16 +275,20 @@ export default function PlayerView({
         </div>
       )}
 
-      {/* GAME PAUSED OVERLAY (SECTION 25) */}
-      {isPaused && (
+      {/* GAME PAUSED / RESUMING OVERLAY (SECTION 22) */}
+      {(isPaused || isResuming) && (
         <div className="bg-amber-950/30 border-2 border-amber-500/60 rounded-xl p-5 text-center flex items-center justify-center gap-3 animate-pulse">
           <Pause className="w-6 h-6 text-amber-400" />
           <div>
             <h3 className="text-base font-bold font-mono text-amber-400 uppercase">
-              GAME PAUSED BY HOST
+              {isResuming
+                ? `RESUMING IN ${gameState.resumeCountdownRemaining}...`
+                : 'GAME PAUSED BY HOST'}
             </h3>
             <span className="text-xs font-mono text-zinc-400">
-              Please wait for the host to resume...
+              {isResuming
+                ? 'Get ready with your team!'
+                : 'Please wait for the host to resume...'}
             </span>
           </div>
         </div>
@@ -491,7 +504,11 @@ export default function PlayerView({
                   {feedback && !feedback.isCorrect && (
                     <div className="p-3 rounded-md text-xs font-mono flex items-center gap-2 bg-rose-950/40 text-rose-300 border border-rose-600/40 animate-reveal">
                       <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
-                      <span>{feedback.error || '✕ INCORRECT · 0 POINTS'}</span>
+                      <span>
+                        {cooldownRemaining > 0
+                          ? `✕ INCORRECT · 0 POINTS · TRY AGAIN IN ${cooldownRemaining}s`
+                          : (feedback.error || '✕ INCORRECT · 0 POINTS')}
+                      </span>
                     </div>
                   )}
                 </form>
@@ -612,7 +629,11 @@ export default function PlayerView({
                 {feedback && !feedback.isCorrect && (
                   <div className="p-3 rounded-md text-xs font-mono flex items-center gap-2 bg-rose-950/40 text-rose-300 border border-rose-600/40 animate-reveal">
                     <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
-                    <span>{feedback.error || '✕ INCORRECT OPTION · 0 POINTS'}</span>
+                    <span>
+                      {cooldownRemaining > 0
+                        ? `✕ INCORRECT OPTION · 0 POINTS · TRY AGAIN IN ${cooldownRemaining}s`
+                        : (feedback.error || '✕ INCORRECT OPTION · 0 POINTS')}
+                    </span>
                   </div>
                 )}
               </form>
@@ -756,7 +777,11 @@ export default function PlayerView({
                 {feedback && !feedback.isCorrect && (
                   <div className="p-3 rounded-md text-xs font-mono flex items-center gap-2 bg-rose-950/40 text-rose-300 border border-rose-600/40 animate-reveal">
                     <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
-                    <span>{feedback.error || '✕ WRONG CODE · 0 POINTS · TRY AGAIN IN 5s'}</span>
+                    <span>
+                      {cooldownRemaining > 0
+                        ? `✕ WRONG CODE · 0 POINTS · TRY AGAIN IN ${cooldownRemaining}s`
+                        : (feedback.error || '✕ WRONG CODE · 0 POINTS')}
+                    </span>
                   </div>
                 )}
               </form>

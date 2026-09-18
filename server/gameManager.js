@@ -138,7 +138,8 @@ export class GameManager {
     if (this.questionsFrozen || this.state !== GAME_STATES.LOBBY) {
       return { success: false, error: 'Cannot change team count while game is in progress' };
     }
-    const num = Number(count);
+    const raw = (typeof count === 'object' && count !== null) ? (count.teamCount ?? count.count) : count;
+    const num = Number(raw);
     if (![4, 5, 6].includes(num)) {
       return { success: false, error: 'Team count must be 4, 5, or 6' };
     }
@@ -259,6 +260,7 @@ export class GameManager {
         team: null
       });
     }
+    socket.join(this.gameCode);
     // Immediately emit current sanitized state with active teamCount & teamsStatus
     const sockData = this.connectedSockets.get(socket.id);
     const team = sockData?.team || null;

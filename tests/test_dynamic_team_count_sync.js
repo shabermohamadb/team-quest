@@ -38,6 +38,7 @@ async function runTests() {
 
     admin.emit('admin_reset_game');
     admin.emit('admin_reset_teams');
+    await new Promise((r) => admin.emit('admin_set_team_count', { count: 4 }, r));
     await wait(300);
 
     // 2. Verify REST endpoints return single source of truth

@@ -5,6 +5,7 @@ import LoginLobbyView from './views/LoginLobbyView';
 import PlayerView from './views/PlayerView';
 import AdminView from './views/AdminView';
 import AdminErrorBoundary from './components/AdminErrorBoundary';
+import GameErrorBoundary from './components/GameErrorBoundary';
 import { GAME_STATES } from './utils/constants';
 
 function getInitialView() {
@@ -133,11 +134,33 @@ export default function App() {
       });
     };
 
+    const onStartCountdownTick = (data) => {
+      setGameState((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          startCountdownRemaining: data.secondsRemaining
+        };
+      });
+    };
+
+    const onResumeCountdownTick = (data) => {
+      setGameState((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          resumeCountdownRemaining: data.secondsRemaining
+        };
+      });
+    };
+
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('game_state_update', onGameStateUpdate);
     socket.on('game_session_reset', onGameSessionReset);
     socket.on('timer_tick', onTimerTick);
+    socket.on('start_countdown_tick', onStartCountdownTick);
+    socket.on('resume_countdown_tick', onResumeCountdownTick);
 
     if (socket.connected) {
       onConnect();
@@ -149,6 +172,8 @@ export default function App() {
       socket.off('game_state_update', onGameStateUpdate);
       socket.off('game_session_reset', onGameSessionReset);
       socket.off('timer_tick', onTimerTick);
+      socket.off('start_countdown_tick', onStartCountdownTick);
+      socket.off('resume_countdown_tick', onResumeCountdownTick);
     };
   }, []);
 
@@ -292,7 +317,7 @@ export default function App() {
       {/* VIEW ROUTING */}
       <div className="flex-1 flex flex-col">
         {activeView === 'player' && (
-          <>
+          <GameErrorBoundary>
             {showActivePlayerView ? (
               <PlayerView
                 gameState={gameState}
@@ -310,7 +335,7 @@ export default function App() {
                 onJoinTeam={handleJoinTeam}
               />
             )}
-          </>
+          </GameErrorBoundary>
         )}
 
         {activeView === 'admin' && (
