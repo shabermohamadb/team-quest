@@ -7,6 +7,7 @@ import { getEnforcedSafeHint } from './hintValidator.js';
 import { participantManager } from './participantManager.js';
 import { defaultStateStore } from './stateStore.js';
 import { logRealtimeEvent } from './logger.js';
+import { dbManager } from './database.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -107,7 +108,7 @@ export class GameManager {
     this.settings = {
       round1TimerDuration: 30,
       round2TimerDuration: 30,
-      round3TimerDuration: 45,
+      round3TimerDuration: 30,
       cooldownSeconds: 5,
       fifthPlacePoints: 5,
       sixthPlacePoints: 3,
@@ -118,19 +119,48 @@ export class GameManager {
 
     this.matchHistory = [];
     this.connectedSockets = new Map(); // socketId -> { team, isAdmin, isDisplay }
+    this.adminTokens = new Set(); // Active authorized admin session tokens
 
     this.stateStore = defaultStateStore;
     this.stateVersion = 1;
-
-    this.generateGameQuestions({ preserveFirstTestQuestion: true });
 
     // Restore state from durable store if available
     const saved = this.stateStore.loadState();
     if (saved && saved.gameSessionId) {
       this._restoreFromStore(saved);
-    } else {
-      this._saveToStore();
     }
+
+    // Ensure active game and dynamic teams exist in authoritative SQLite DB
+    try {
+      dbManager.createGame({
+        id: this.gameSessionId,
+        gameCode: this.gameCode,
+        teamCount: this.teamCount,
+        status: this.state,
+        currentRound: this.currentRoundNumber,
+        currentQuestionIndex: this.currentQuestionIndex,
+        currentClue: this.activeClueNumber
+      });
+      dbManager.syncTeams(this.gameSessionId, this.teamCount);
+      const dbScores = dbManager.getTeamScores(this.gameSessionId);
+      if (dbScores && dbScores.rows && dbScores.rows.length > 0) {
+        for (const [t, s] of Object.entries(dbScores.scores)) {
+          if (this.totalScores[t] === undefined || this.totalScores[t] === 0) {
+            this.totalScores[t] = s;
+          }
+        }
+        for (const [t, rs] of Object.entries(dbScores.roundScores)) {
+          if (!this.roundScores[t] || (this.roundScores[t].r1 === 0 && this.roundScores[t].r2 === 0 && this.roundScores[t].r3 === 0)) {
+            this.roundScores[t] = { ...rs };
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[GameManager] Warning initializing SQLite game session:', err.message);
+    }
+
+    this.generateGameQuestions({ preserveFirstTestQuestion: true });
+    this._saveToStore();
   }
 
   _saveToStore() {
@@ -149,6 +179,7 @@ export class GameManager {
         totalScores: this.totalScores,
         roundScores: this.roundScores,
         teamLocks: this.teamLocks,
+        teamSolvedAtClue: this.teamSolvedAtClue,
         teamCooldowns: this.teamCooldowns,
         teamSubmissionLocks: this.teamSubmissionLocks,
         currentRoundNumber: this.currentRoundNumber,
@@ -168,8 +199,19 @@ export class GameManager {
         roundSubmissions: this.roundSubmissions,
         finalResults: this.finalResults
       });
+
+      // Keep SQLite games table in sync
+      dbManager.updateGameState(this.gameSessionId, {
+        status: this.state,
+        teamCount: this.teamCount,
+        currentRound: this.currentRoundNumber,
+        currentQuestionIndex: this.currentQuestionIndex,
+        currentClue: this.activeClueNumber,
+        isPaused: this.isPaused,
+        timerDuration: this.timeRemaining
+      });
     } catch (e) {
-      console.error('[GameManager] Failed to persist state to store:', e.message);
+      console.error('[GameManager] Failed to persist state to store/SQLite:', e.message);
     }
   }
 
@@ -186,6 +228,7 @@ export class GameManager {
       if (saved.totalScores) this.totalScores = { ...saved.totalScores };
       if (saved.roundScores) this.roundScores = { ...saved.roundScores };
       if (saved.teamLocks) this.teamLocks = { ...saved.teamLocks };
+      if (saved.teamSolvedAtClue) this.teamSolvedAtClue = { ...saved.teamSolvedAtClue };
       if (saved.teamCooldowns) this.teamCooldowns = { ...saved.teamCooldowns };
       if (saved.teamSubmissionLocks) this.teamSubmissionLocks = { ...saved.teamSubmissionLocks };
       if (typeof saved.currentRoundNumber === 'number') this.currentRoundNumber = saved.currentRoundNumber;
@@ -209,12 +252,14 @@ export class GameManager {
     this.totalScores = {};
     this.roundScores = {};
     this.teamLocks = {};
+    this.teamSolvedAtClue = {};
     this.teamCooldowns = {};
     this.teamSubmissionLocks = {};
     for (let t = 1; t <= this.teamCount; t++) {
       this.totalScores[t] = 0;
       this.roundScores[t] = { r1: 0, r2: 0, r3: 0 };
       this.teamLocks[t] = false;
+      this.teamSolvedAtClue[t] = null;
       this.teamCooldowns[t] = 0;
       this.teamSubmissionLocks[t] = false;
     }
@@ -232,6 +277,14 @@ export class GameManager {
     this.teamCount = num;
     this.teamManager.setTeamCount(num);
     this._initTeamState();
+
+    try {
+      dbManager.updateGameState(this.gameSessionId, { teamCount: num });
+      dbManager.syncTeams(this.gameSessionId, num);
+    } catch (e) {
+      console.warn('[GameManager] Warning syncing teams in SQLite:', e.message);
+    }
+
     this.broadcastState();
     console.log(`[GameManager] Dynamic team count set to ${num} TEAMS`);
     return { success: true, teamCount: num };
@@ -369,10 +422,35 @@ export class GameManager {
     socket.emit('game_state_update', this.getPlayerSanitizedState(team));
   }
 
-  handleAdminAuth(socket, { pin }) {
-    if (pin && pin !== this.adminPin) {
-      return { success: false, error: 'Invalid Admin PIN' };
+  generateAdminToken() {
+    const token = 'admin_sec_' + Date.now() + '_' + Math.random().toString(36).substring(2, 14);
+    this.adminTokens.add(token);
+    return token;
+  }
+
+  isValidAdminToken(token) {
+    if (!token || typeof token !== 'string') return false;
+    return this.adminTokens.has(token);
+  }
+
+  revokeAdminToken(token) {
+    if (token) {
+      this.adminTokens.delete(token);
     }
+  }
+
+  handleAdminAuth(socket, { pin, token } = {}) {
+    const isPinValid = Boolean(pin && pin === this.adminPin);
+    const isTokenValid = Boolean(token && this.isValidAdminToken(token));
+
+    // If pin provided, check it; if token provided, check it.
+    // If neither was provided, or if the provided credentials fail, reject:
+    if (!isPinValid && !isTokenValid) {
+      return { success: false, error: 'Invalid Admin PIN or Session' };
+    }
+
+    const sessionToken = isTokenValid ? token : this.generateAdminToken();
+
     this.connectedSockets.set(socket.id, {
       isAdmin: true,
       isDisplay: false,
@@ -381,7 +459,7 @@ export class GameManager {
     socket.join('admin_room');
     socket.join(this.gameCode);
     this.sendAdminState(socket);
-    return { success: true };
+    return { success: true, role: 'admin', token: sessionToken };
   }
 
   handleDisplayJoin(socket) {
@@ -397,7 +475,9 @@ export class GameManager {
     socket.emit('game_state_update', displayState);
   }
 
-  handlePlayerJoin(socket, { gameCode, team }) {
+  handlePlayerJoin(socket, payload = {}) {
+    const gameCode = payload.gameCode;
+    const team = payload.team ?? payload.teamId;
     if (gameCode && gameCode.trim().toUpperCase() !== this.gameCode) {
       return { success: false, error: 'Invalid Game Code' };
     }
@@ -619,6 +699,25 @@ export class GameManager {
       if (history.length > 50) history = history.slice(-50);
       fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2), 'utf8');
       console.log(`[GameManager] Game history record saved for session ${this.gameSessionId}`);
+
+      // Save to SQLite game_history
+      try {
+        const winnerInfo = this.getFinalWinnerInfo();
+        dbManager.saveGameFinalResult({
+          gameId: this.gameSessionId,
+          gameCode: this.gameCode,
+          teamCount: this.teamCount,
+          round1Scores: Object.fromEntries(Object.entries(this.roundScores).map(([t, s]) => [t, s.r1])),
+          round2Scores: Object.fromEntries(Object.entries(this.roundScores).map(([t, s]) => [t, s.r2])),
+          round3Scores: Object.fromEntries(Object.entries(this.roundScores).map(([t, s]) => [t, s.r3])),
+          finalScores: { ...this.totalScores },
+          winner: winnerInfo?.winner ? `Team ${winnerInfo.winner}` : 'TIE',
+          winnerDetails: winnerInfo || {},
+          completedAt: record.completedAt
+        });
+      } catch (dbErr) {
+        console.error('[DB] Error saving game history to SQLite:', dbErr.message);
+      }
     } catch (err) {
       console.error('[GameManager] Failed to save game history record:', err);
     }
@@ -901,7 +1000,7 @@ export class GameManager {
       console.error(`[SERVER CONFIG ERROR] ${this.questionConfigError}`);
     }
 
-    const duration = c?.timeLimit || this.settings.round3TimerDuration || 45;
+    const duration = this.settings.round3TimerDuration || 30;
     this.state = GAME_STATES.ROUND_3_INTRO;
     this.timeRemaining = duration;
     this.clueStartedAt = null;
@@ -920,8 +1019,7 @@ export class GameManager {
     this.state = GAME_STATES.ROUND_3_ACTIVE;
     console.log('[SERVER] Game state changed to ROUND_3_ACTIVE (LIVE)');
 
-    const c = this.getCurrentRound3CodeCracker();
-    const duration = c?.timeLimit || this.settings.round3TimerDuration || 45;
+    const duration = this.settings.round3TimerDuration || 30;
 
     this.startChallengeTimer(duration, () => {
       this.showRound3Result();
@@ -1256,8 +1354,33 @@ export class GameManager {
         const points = calculateRound1Points(q.difficulty, this.activeClueNumber, rank, this.settings);
 
         this.teamLocks[team] = true;
+        this.teamSolvedAtClue[team] = this.activeClueNumber;
         this.totalScores[team] += points;
         this.roundScores[team].r1 += points;
+
+        // Persist score event & lock in SQLite
+        try {
+          dbManager.recordScoreEvent({
+            gameId: this.gameSessionId,
+            teamId: team,
+            round: 1,
+            questionId: q.id,
+            clueNumber: this.activeClueNumber,
+            points,
+            isCorrect: 1,
+            submittedAnswer: answer
+          });
+          dbManager.recordTeamLock({
+            gameId: this.gameSessionId,
+            teamId: team,
+            questionId: q.id,
+            status: 'SOLVED',
+            solvedClue: this.activeClueNumber,
+            pointsAwarded: points
+          });
+        } catch (dbErr) {
+          console.error('[DB] Error recording Round 1 score/lock in SQLite:', dbErr.message);
+        }
 
         const sub = {
           team,
@@ -1270,7 +1393,14 @@ export class GameManager {
         };
         this.roundSubmissions.push(sub);
 
-        this.broadcastState();
+        // Check if all active teams have solved early
+        const allSolved = Array.from({ length: this.teamCount }, (_, i) => i + 1).every(t => this.teamLocks[t]);
+        if (allSolved) {
+          console.log(`[GameManager] All ${this.teamCount} teams have solved Question ${this.currentQuestionIndex + 1} early on Clue ${this.activeClueNumber}! Triggering immediate answer reveal.`);
+          this.revealRound1Answer();
+        } else {
+          this.broadcastState();
+        }
 
         return {
           success: true,
@@ -1279,6 +1409,22 @@ export class GameManager {
           rank
         };
       } else {
+        // Record incorrect submission event in SQLite
+        try {
+          dbManager.recordScoreEvent({
+            gameId: this.gameSessionId,
+            teamId: team,
+            round: 1,
+            questionId: q.id,
+            clueNumber: this.activeClueNumber,
+            points: 0,
+            isCorrect: 0,
+            submittedAnswer: answer
+          });
+        } catch (dbErr) {
+          console.error('[DB] Error recording Round 1 incorrect event in SQLite:', dbErr.message);
+        }
+
         // Incorrect: 5s cooldown
         const cooldownDuration = this.settings.cooldownSeconds || 5;
         this.teamCooldowns[team] = Date.now() + (cooldownDuration * 1000);
@@ -1347,6 +1493,30 @@ export class GameManager {
         this.totalScores[team] += points;
         this.roundScores[team].r2 += points;
 
+        // Persist score event & lock in SQLite
+        try {
+          dbManager.recordScoreEvent({
+            gameId: this.gameSessionId,
+            teamId: team,
+            round: 2,
+            questionId: pattern.id,
+            clueNumber: null,
+            points,
+            isCorrect: 1,
+            submittedAnswer: validation.selectedOptionId || selectedOptionId
+          });
+          dbManager.recordTeamLock({
+            gameId: this.gameSessionId,
+            teamId: team,
+            questionId: pattern.id,
+            status: 'SOLVED',
+            solvedClue: null,
+            pointsAwarded: points
+          });
+        } catch (dbErr) {
+          console.error('[DB] Error recording Round 2 score/lock in SQLite:', dbErr.message);
+        }
+
         this.roundSubmissions.push({
           team,
           optionKey: validation.selectedOptionId || selectedOptionId,
@@ -1356,7 +1526,14 @@ export class GameManager {
           timestamp: Date.now()
         });
 
-        this.broadcastState();
+        // Check if all active teams have solved early
+        const allSolved = Array.from({ length: this.teamCount }, (_, i) => i + 1).every(t => this.teamLocks[t]);
+        if (allSolved) {
+          console.log(`[GameManager] All ${this.teamCount} teams have solved Pattern ${this.currentQuestionIndex + 1} early! Triggering immediate result.`);
+          this.showRound2Result();
+        } else {
+          this.broadcastState();
+        }
 
         return {
           success: true,
@@ -1365,6 +1542,22 @@ export class GameManager {
           rank
         };
       } else {
+        // Record incorrect submission event in SQLite
+        try {
+          dbManager.recordScoreEvent({
+            gameId: this.gameSessionId,
+            teamId: team,
+            round: 2,
+            questionId: pattern.id,
+            clueNumber: null,
+            points: 0,
+            isCorrect: 0,
+            submittedAnswer: validation.selectedOptionId || selectedOptionId
+          });
+        } catch (dbErr) {
+          console.error('[DB] Error recording Round 2 incorrect event in SQLite:', dbErr.message);
+        }
+
         const cooldownDuration = this.settings.cooldownSeconds || 5;
         this.teamCooldowns[team] = Date.now() + (cooldownDuration * 1000);
         this.broadcastState();
@@ -1446,6 +1639,30 @@ export class GameManager {
         this.totalScores[team] += points;
         this.roundScores[team].r3 += points;
 
+        // Persist score event & lock in SQLite
+        try {
+          dbManager.recordScoreEvent({
+            gameId: this.gameSessionId,
+            teamId: team,
+            round: 3,
+            questionId: challenge.id,
+            clueNumber: null,
+            points,
+            isCorrect: 1,
+            submittedAnswer: code
+          });
+          dbManager.recordTeamLock({
+            gameId: this.gameSessionId,
+            teamId: team,
+            questionId: challenge.id,
+            status: 'SOLVED',
+            solvedClue: null,
+            pointsAwarded: points
+          });
+        } catch (dbErr) {
+          console.error('[DB] Error recording Round 3 score/lock in SQLite:', dbErr.message);
+        }
+
         this.roundSubmissions.push({
           team,
           code,
@@ -1455,7 +1672,14 @@ export class GameManager {
           timestamp: Date.now()
         });
 
-        this.broadcastState();
+        // Check if all active teams have solved early
+        const allSolved = Array.from({ length: this.teamCount }, (_, i) => i + 1).every(t => this.teamLocks[t]);
+        if (allSolved) {
+          console.log(`[GameManager] All ${this.teamCount} teams have solved Code Cracker ${this.currentQuestionIndex + 1} early! Triggering immediate result.`);
+          this.showRound3Result();
+        } else {
+          this.broadcastState();
+        }
 
         return {
           success: true,
@@ -1464,6 +1688,22 @@ export class GameManager {
           rank
         };
       } else {
+        // Record incorrect submission event in SQLite
+        try {
+          dbManager.recordScoreEvent({
+            gameId: this.gameSessionId,
+            teamId: team,
+            round: 3,
+            questionId: challenge.id,
+            clueNumber: null,
+            points: 0,
+            isCorrect: 0,
+            submittedAnswer: code
+          });
+        } catch (dbErr) {
+          console.error('[DB] Error recording Round 3 incorrect event in SQLite:', dbErr.message);
+        }
+
         const cooldownDuration = this.settings.cooldownSeconds || 5;
         this.teamCooldowns[team] = Date.now() + (cooldownDuration * 1000);
         this.broadcastState();
@@ -1490,15 +1730,42 @@ export class GameManager {
     const statuses = {};
     for (let team = 1; team <= this.teamCount; team++) {
       const isLocked = Boolean(this.teamLocks[team]);
+      const solvedClue = this.teamSolvedAtClue ? this.teamSolvedAtClue[team] : null;
+      const sub = this.roundSubmissions.find(s => s.team === team && s.isCorrect);
       const cooldownUntil = this.teamCooldowns[team] || 0;
       const cooldownSec = Math.max(0, Math.ceil((cooldownUntil - now) / 1000));
 
       if (isLocked) {
-        statuses[team] = { state: 'SOLVED', label: '✓ SOLVED', cooldownSec: 0 };
+        const clueText = solvedClue ? `CLUE ${solvedClue}` : (sub?.clueNumber ? `CLUE ${sub.clueNumber}` : null);
+        const pointsText = sub ? `(+${sub.points} pts)` : '';
+        const label = clueText ? `✓ SOLVED (${clueText})` : '✓ SOLVED';
+        const detail = clueText ? `SOLVED ON ${clueText} ${pointsText}`.trim() : `SOLVED ${pointsText}`.trim();
+        statuses[team] = {
+          state: 'SOLVED',
+          label,
+          detail,
+          solvedAtClue: solvedClue || sub?.clueNumber || null,
+          points: sub ? sub.points : 0,
+          cooldownSec: 0
+        };
       } else if (cooldownSec > 0) {
-        statuses[team] = { state: 'COOLDOWN', label: `COOLDOWN (${cooldownSec}s)`, cooldownSec };
+        statuses[team] = {
+          state: 'COOLDOWN',
+          label: `COOLDOWN (${cooldownSec}s)`,
+          detail: `COOLDOWN (${cooldownSec}s)`,
+          solvedAtClue: null,
+          points: 0,
+          cooldownSec
+        };
       } else {
-        statuses[team] = { state: 'ACTIVE', label: 'ACTIVE', cooldownSec: 0 };
+        statuses[team] = {
+          state: 'ACTIVE',
+          label: 'ACTIVE',
+          detail: 'ACTIVE',
+          solvedAtClue: null,
+          points: 0,
+          cooldownSec: 0
+        };
       }
     }
     return statuses;
@@ -1510,10 +1777,12 @@ export class GameManager {
     this.teamLocks = {};
     this.teamCooldowns = {};
     this.teamSubmissionLocks = {};
+    this.teamSolvedAtClue = {};
     for (let team = 1; team <= this.teamCount; team++) {
       this.teamLocks[team] = false;
       this.teamCooldowns[team] = 0;
       this.teamSubmissionLocks[team] = false;
+      this.teamSolvedAtClue[team] = null;
     }
     this.roundSubmissions = [];
   }
@@ -1598,23 +1867,26 @@ export class GameManager {
     let myTeamData = null;
     if (playerTeam) {
       const isLocked = Boolean(this.teamLocks[playerTeam]);
+      const solvedClue = (this.teamSolvedAtClue && this.teamSolvedAtClue[playerTeam]) || null;
       const mySub = this.roundSubmissions.find(s => s.team === playerTeam && s.isCorrect);
       const now = Date.now();
       const cooldownUntil = this.teamCooldowns[playerTeam] || 0;
       const cooldownRemaining = Math.max(0, Math.ceil((cooldownUntil - now) / 1000));
 
       let status = 'WAITING';
-      if (isLocked) status = 'LOCKED';
+      if (isLocked) status = 'SOLVED';
       else if (cooldownRemaining > 0) status = 'WRONG';
 
       myTeamData = {
         id: playerTeam,
         isLocked,
+        solvedAtClue: solvedClue || (mySub?.clueNumber) || null,
         cooldownRemaining,
         status,
         mySubmission: mySub ? {
           isCorrect: true,
-          points: mySub.points
+          points: mySub.points,
+          clueNumber: mySub.clueNumber || solvedClue
         } : null
       };
     }
@@ -1687,7 +1959,7 @@ export class GameManager {
     };
   }
 
-  // Full Administrative state
+  // Full Administrative state (Cockpit Optimized: streams high-priority live controls, excludes bulk repo dumps)
   getAdminFullState() {
     const displayState = this.getDisplayState();
     const r3 = this.getCurrentRound3Reaction();
@@ -1696,10 +1968,7 @@ export class GameManager {
       ...displayState,
       teamCount: this.teamCount,
       adminPin: this.adminPin,
-      round1Questions: this.r1Questions,
-      round2Patterns: this.r2Patterns,
-      round3Reactions: this.r3Reactions,
-      round3CodeCrackers: this.r3CodeCrackers,
+      // Active question objects for current round
       round1Question: this.getCurrentRound1Question(),
       round2Pattern: this.getCurrentRound2Pattern(),
       round3Challenge: r3,
@@ -1708,6 +1977,8 @@ export class GameManager {
         prompt: r3.title || r3.targetLabel || r3.prompt,
         target: r3.targetValue || r3.targetLabel || r3.correctCode
       } : null,
+      // Active selected round questions (only the 10 chosen questions, not 50 repo dump)
+      round1Questions: this.selectedRound1Questions || [],
       publicTeams: Object.values(this.teamManager.getPublicTeamStatus()).map(t => ({
         id: t.id,
         name: t.name,
@@ -1727,14 +1998,22 @@ export class GameManager {
       finalResults: this.getFinalWinnerInfo(),
       questionsFrozen: this.questionsFrozen,
       teamSetupFrozen: this.questionsFrozen,
-      participants: this.participantManager.getParticipants(),
-      rosters: this.participantManager.getRosters(this.teamCount),
+      participantCount: this.participantManager.getParticipants().length,
       questionBankStats: this.questionManager.getBankStats(),
       selectedQuestionsSummary: {
         round1: (this.selectedRound1Questions || []).map(q => ({ id: q.id, title: q.website || q.domain || q.id, difficulty: q.difficulty })),
         round2: (this.selectedRound2Questions || []).map(q => ({ id: q.id, title: q.title || q.category || q.id, difficulty: q.difficulty })),
         round3: (this.selectedRound3Questions || []).map(q => ({ id: q.id, title: q.title || q.category || q.id, difficulty: q.difficulty }))
       }
+    };
+  }
+
+  getAdminParticipantsAndRosters() {
+    return {
+      success: true,
+      participantCount: this.participantManager.getParticipants().length,
+      participants: this.participantManager.getParticipants(),
+      rosters: this.participantManager.getRosters(this.teamCount)
     };
   }
 
@@ -1769,6 +2048,32 @@ export class GameManager {
       this.settings = { ...this.settings, ...newSettings };
       this.broadcastState();
     }
+  }
+
+  setRoundTiming(payload = {}) {
+    const rawRound = payload.round ?? payload.roundNumber;
+    const rawDur = payload.duration ?? payload.seconds ?? payload.time;
+    const allowedDurations = [15, 20, 30, 45, 60];
+
+    const dur = Number(rawDur);
+    if (!allowedDurations.includes(dur)) {
+      return { success: false, error: `Invalid duration: ${rawDur}. Allowed options: 15, 20, 30, 45, 60.` };
+    }
+
+    const round = Number(rawRound);
+    if (round === 1) {
+      this.settings.round1TimerDuration = dur;
+    } else if (round === 2) {
+      this.settings.round2TimerDuration = dur;
+    } else if (round === 3) {
+      this.settings.round3TimerDuration = dur;
+    } else {
+      return { success: false, error: `Invalid round: ${rawRound}. Allowed: 1, 2, 3.` };
+    }
+
+    console.log(`[GameManager] Round ${round} timing set to ${dur}s`);
+    this.broadcastState();
+    return { success: true, round, duration: dur, settings: this.settings };
   }
 
   sendAdminState(socket) {

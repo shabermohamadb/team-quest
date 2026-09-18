@@ -35,7 +35,7 @@ import {
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
-import socket from '../utils/socket';
+import socket, { getApiUrl } from '../utils/socket';
 import { TEAMS, GAME_STATES, ROUND_NAMES } from '../utils/constants';
 import TeamBadge from '../components/TeamBadge';
 import DifficultyBadge from '../components/DifficultyBadge';
@@ -48,6 +48,7 @@ import { soundEffects } from '../utils/sound';
 
 export default function AdminView({ onSwitchView }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [authError, setAuthError] = useState('');
   const [activeTab, setActiveTab] = useState('live'); // 'live' | 'teams' | 'questions' | 'leaderboard' | 'settings'
@@ -59,6 +60,11 @@ export default function AdminView({ onSwitchView }) {
   const [countdownRemaining, setCountdownRemaining] = useState(null);
   const [liveTimer, setLiveTimer] = useState(null);
   const [resumeRemaining, setResumeRemaining] = useState(null);
+
+  // Lazy loaded roster and participant data
+  const [participantsList, setParticipantsList] = useState([]);
+  const [rostersData, setRostersData] = useState({});
+  const [teamsLoading, setTeamsLoading] = useState(false);
 
   // Question Bank & Selection Management
   const [qBankData, setQBankData] = useState(null);
@@ -82,9 +88,26 @@ export default function AdminView({ onSwitchView }) {
     });
   };
 
+  const fetchParticipantsAndRosters = () => {
+    setTeamsLoading(true);
+    socket.emit('admin_get_participants_and_rosters', {}, (res) => {
+      setTeamsLoading(false);
+      if (res?.success) {
+        if (Array.isArray(res.participants)) setParticipantsList(res.participants);
+        if (res.rosters) setRostersData(res.rosters);
+      }
+    });
+  };
+
   useEffect(() => {
     if (isAuthenticated && activeTab === 'questions') {
       fetchQuestionBank();
+    }
+  }, [isAuthenticated, activeTab]);
+
+  useEffect(() => {
+    if (isAuthenticated && activeTab === 'teams') {
+      fetchParticipantsAndRosters();
     }
   }, [isAuthenticated, activeTab]);
 
@@ -142,37 +165,96 @@ export default function AdminView({ onSwitchView }) {
     });
   };
 
-  // Authenticate with admin PIN
-  const handleLogin = (e) => {
+  // Authenticate with admin PIN using fast lightweight REST endpoint
+  const handleLogin = async (e) => {
     e?.preventDefault();
+    if (isAuthenticating) return;
+    const cleanPin = pinInput.trim();
+    if (!cleanPin) {
+      setAuthError('Please enter admin password');
+      return;
+    }
+
+    setIsAuthenticating(true);
     setAuthError('');
-    socket.emit('admin_auth', { pin: pinInput }, (res) => {
-      if (res?.success) {
-        setIsAuthenticated(true);
-        sessionStorage.setItem('team_quest_admin_pin', pinInput);
+
+    try {
+      const response = await fetch(getApiUrl('/api/admin/login'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: cleanPin })
+      });
+
+      const res = await response.json();
+
+      if (res?.success && res.token) {
+        sessionStorage.setItem('team_quest_admin_token', res.token);
+        sessionStorage.setItem('team_quest_admin_pin', cleanPin);
+
+        // Connect socket now that admin is authenticated
+        if (!socket.connected) {
+          socket.connect();
+        }
+
+        socket.emit('admin_auth', { token: res.token, pin: cleanPin }, (authRes) => {
+          setIsAuthenticating(false);
+          if (authRes?.success) {
+            setIsAuthenticated(true);
+          } else {
+            setAuthError(authRes?.error || 'Authentication failed');
+          }
+        });
       } else {
-        setAuthError(res?.error || 'Invalid Admin PIN');
+        setIsAuthenticating(false);
+        setAuthError(res?.error || 'Invalid Admin Password');
       }
-    });
+    } catch (err) {
+      // Fallback: socket direct auth if REST unreachable
+      if (!socket.connected) {
+        socket.connect();
+      }
+      socket.emit('admin_auth', { pin: cleanPin }, (socketRes) => {
+        setIsAuthenticating(false);
+        if (socketRes?.success) {
+          if (socketRes.token) {
+            sessionStorage.setItem('team_quest_admin_token', socketRes.token);
+          }
+          sessionStorage.setItem('team_quest_admin_pin', cleanPin);
+          setIsAuthenticated(true);
+        } else {
+          setAuthError(socketRes?.error || 'Invalid Admin Password');
+        }
+      });
+    }
   };
 
   // Reconnect if stored in session
   useEffect(() => {
+    const savedToken = sessionStorage.getItem('team_quest_admin_token');
     const savedPin = sessionStorage.getItem('team_quest_admin_pin');
-    if (savedPin) {
-      socket.emit('admin_auth', { pin: savedPin }, (res) => {
+
+    if (savedToken || savedPin) {
+      if (!socket.connected) {
+        socket.connect();
+      }
+
+      socket.emit('admin_auth', { token: savedToken, pin: savedPin }, (res) => {
         if (res?.success) {
           setIsAuthenticated(true);
         } else {
+          sessionStorage.removeItem('team_quest_admin_token');
           sessionStorage.removeItem('team_quest_admin_pin');
+          socket.disconnect();
           setIsAuthenticated(false);
         }
       });
     }
   }, []);
 
-  // Listen for admin state updates & real-time ticks
+  // Listen for admin state updates & real-time ticks ONLY when authenticated
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     const handleAdminUpdate = (data) => {
       console.log('[ADMIN] Received new game state:', data?.state);
       setAdminState(data);
@@ -216,6 +298,9 @@ export default function AdminView({ onSwitchView }) {
     socket.on('timer_tick', handleTimerTick);
     socket.on('resume_countdown_tick', handleResumeTick);
 
+    // Initial state refresh on auth
+    socket.emit('admin_refresh_state');
+
     return () => {
       socket.off('admin_state_update', handleAdminUpdate);
       socket.off('display_state_update', handleAdminUpdate);
@@ -223,7 +308,7 @@ export default function AdminView({ onSwitchView }) {
       socket.off('timer_tick', handleTimerTick);
       socket.off('resume_countdown_tick', handleResumeTick);
     };
-  }, []);
+  }, [isAuthenticated]);
 
   // Game Control Actions
   const handleStartGame = () => {
@@ -357,39 +442,85 @@ export default function AdminView({ onSwitchView }) {
   };
 
   const handleAddParticipant = (name, callback) => {
-    socket.emit('admin_add_participant', { name }, callback);
+    socket.emit('admin_add_participant', { name }, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleAddParticipantsBulk = (names, callback) => {
-    socket.emit('admin_add_participants_bulk', { names }, callback);
+    socket.emit('admin_add_participants_bulk', { names }, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleUpdateParticipant = (id, updates, callback) => {
-    socket.emit('admin_update_participant', { id, ...updates }, callback);
+    socket.emit('admin_update_participant', { id, ...updates }, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleRemoveParticipant = (id, callback) => {
-    socket.emit('admin_remove_participant', { id }, callback);
+    socket.emit('admin_remove_participant', { id }, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleClearParticipants = (callback) => {
-    socket.emit('admin_clear_participants', {}, callback);
+    socket.emit('admin_clear_participants', {}, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleAutoAssignTeams = (callback) => {
-    socket.emit('admin_auto_assign_teams', {}, callback);
+    socket.emit('admin_auto_assign_teams', {}, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleShuffleTeams = (callback) => {
-    socket.emit('admin_shuffle_teams', {}, callback);
+    socket.emit('admin_shuffle_teams', {}, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleMoveParticipant = (participantId, targetTeamId, callback) => {
-    socket.emit('admin_move_participant', { participantId, targetTeamId }, callback);
+    socket.emit('admin_move_participant', { participantId, targetTeamId }, (res) => {
+      if (res?.success) fetchParticipantsAndRosters();
+      if (typeof callback === 'function') callback(res);
+    });
   };
 
   const handleUpdateSettings = (newSettings) => {
     socket.emit('admin_update_settings', newSettings);
+  };
+
+  const handleSetRoundTiming = (round, duration) => {
+    socket.emit('admin_set_round_timing', { round, duration });
+  };
+
+  const handleLogout = () => {
+    const savedToken = sessionStorage.getItem('team_quest_admin_token');
+    if (savedToken) {
+      fetch(getApiUrl('/api/admin/logout'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: savedToken })
+      }).catch(() => {});
+    }
+    sessionStorage.removeItem('team_quest_admin_token');
+    sessionStorage.removeItem('team_quest_admin_pin');
+    socket.disconnect();
+    setIsAuthenticated(false);
+    setPinInput('');
+    setAdminState(null);
+    setLiveTimer(null);
   };
 
   if (!isAuthenticated) {
@@ -432,10 +563,20 @@ export default function AdminView({ onSwitchView }) {
 
             <button
               type="submit"
-              className="w-full bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-black font-black py-3.5 px-4 rounded-xl transition-all font-mono text-sm tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
+              disabled={isAuthenticating || !pinInput.trim()}
+              className="w-full bg-amber-500 hover:bg-amber-400 active:scale-[0.99] disabled:opacity-60 text-black font-black py-3.5 px-4 rounded-xl transition-all font-mono text-sm tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer disabled:cursor-not-allowed"
             >
-              <span>LOGIN</span>
-              <ChevronRight className="w-4 h-4" />
+              {isAuthenticating ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>AUTHENTICATING...</span>
+                </>
+              ) : (
+                <>
+                  <span>LOGIN</span>
+                  <ChevronRight className="w-4 h-4" />
+                </>
+              )}
             </button>
           </form>
 
@@ -469,6 +610,11 @@ export default function AdminView({ onSwitchView }) {
     : `${String(displayTimerSec).padStart(2, '0')}s`;
 
   const currentRound = adminState?.currentRoundNumber ?? 1;
+  const configuredDuration = currentRound === 1
+    ? (adminState?.settings?.round1TimerDuration ?? 30)
+    : (currentRound === 2
+        ? (adminState?.settings?.round2TimerDuration ?? 30)
+        : (adminState?.settings?.round3TimerDuration ?? 30));
   const questionNumber = adminState?.questionNumber ?? (adminState?.currentQuestionIndex !== undefined ? adminState.currentQuestionIndex + 1 : 1);
   const totalQuestions = adminState?.totalQuestions ?? 10;
   const formattedCounter = adminState?.formattedCounter || `QUESTION ${String(questionNumber).padStart(2, '0')} / ${String(totalQuestions).padStart(2, '0')}`;
@@ -490,8 +636,9 @@ export default function AdminView({ onSwitchView }) {
   const publicTeams = Array.isArray(adminState?.publicTeams) ? adminState.publicTeams : [];
   const teamLocks = adminState?.teamLocks || defaultLocks;
   const submissions = Array.isArray(adminState?.roundSubmissions) ? adminState.roundSubmissions : [];
-  const participants = Array.isArray(adminState?.participants) ? adminState.participants : [];
-  const rosters = adminState?.rosters?.rosters || adminState?.rosters || {};
+  const participants = participantsList.length > 0 ? participantsList : (Array.isArray(adminState?.participants) ? adminState.participants : []);
+  const rosters = Object.keys(rostersData).length > 0 ? rostersData : (adminState?.rosters?.rosters || adminState?.rosters || {});
+  const totalParticipantsCount = adminState?.participantCount ?? (adminState?.participants?.length || participants.length);
   const isTeamSetupFrozen = Boolean(adminState?.teamSetupFrozen || adminState?.questionsFrozen || (currentGameState !== GAME_STATES.LOBBY));
 
   const getStatusLabel = () => {
@@ -539,11 +686,17 @@ export default function AdminView({ onSwitchView }) {
             }`}>
               {getStatusLabel()}
             </span>
+            <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#0F172A] border border-slate-700 text-xs font-mono shadow-sm">
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-slate-300 font-bold">TIMER: <span className="text-white">{displayTimerSec}s</span></span>
+              <span className="text-slate-600">·</span>
+              <span className="text-slate-400 text-[11px]">Configured: <span className="text-amber-400 font-bold">{configuredDuration}s</span></span>
+            </div>
             <Timer
               seconds={displayTimerSec}
-              total={adminState?.clueDuration || (currentRound === 3 ? 15 : 30)}
+              total={adminState?.clueDuration || configuredDuration}
               clueStartedAt={adminState?.clueStartedAt}
-              clueDuration={adminState?.clueDuration || (currentRound === 3 ? 15 : 30)}
+              clueDuration={adminState?.clueDuration || configuredDuration}
               isTimerRunning={adminState?.isTimerRunning}
               isPaused={isPaused}
               size="sm"
@@ -602,11 +755,7 @@ export default function AdminView({ onSwitchView }) {
 
           {/* Logout */}
           <button
-            onClick={() => {
-              sessionStorage.removeItem('team_quest_admin_pin');
-              setIsAuthenticated(false);
-              setPinInput('');
-            }}
+            onClick={handleLogout}
             className="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all font-mono border border-slate-700 cursor-pointer"
             title="Log out from Admin Console"
           >
@@ -716,10 +865,15 @@ export default function AdminView({ onSwitchView }) {
                       {formattedCounter}
                     </span>
                   </h2>
-                  <p className="text-xs text-slate-400 font-mono">
-                    {currentRound === 1 && 'Automatic 30s Clue Progression · Progressive Points Tier'}
-                    {currentRound === 2 && 'Pattern Break Logic · Rank Points'}
-                    {currentRound === 3 && 'Reaction Clash · Speed Timestamps'}
+                  <p className="text-xs text-slate-400 font-mono flex flex-wrap items-center gap-2 mt-1">
+                    <span>
+                      {currentRound === 1 && 'Automatic Clue Progression · Progressive Points Tier'}
+                      {currentRound === 2 && 'Pattern Break Logic · Rank Points'}
+                      {currentRound === 3 && 'Reaction Clash · Speed Timestamps'}
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold text-[11px]">
+                      TIMER: {displayTimerSec}s · Configured: {configuredDuration}s (Round {currentRound})
+                    </span>
                   </p>
                 </div>
                 <div className="text-right">
@@ -745,7 +899,7 @@ export default function AdminView({ onSwitchView }) {
                           <h4 className="text-sm font-black text-white font-mono flex items-center gap-2">
                             <span>TEAM CONFIGURATION</span>
                             <span className="text-xs font-mono font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-                              {participants.length} PARTICIPANTS ENTERED
+                              {totalParticipantsCount} PARTICIPANTS ENTERED
                             </span>
                           </h4>
                         </div>
@@ -762,7 +916,7 @@ export default function AdminView({ onSwitchView }) {
                           <button
                             type="button"
                             onClick={handleAutoAssignTeams}
-                            disabled={isTeamSetupFrozen || participants.length === 0}
+                            disabled={isTeamSetupFrozen || totalParticipantsCount === 0}
                             className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-mono text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
                           >
                             <Shuffle className="w-3.5 h-3.5" />
@@ -1194,6 +1348,147 @@ export default function AdminView({ onSwitchView }) {
               </div>
             )}
 
+            {/* ROUND TIMING CONTROL PANEL (ROUND 1, 2, 3) */}
+            <div className="bg-[#0F172A] border border-slate-700/80 rounded-2xl p-5 shadow-lg space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-black text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                      <span>ROUND TIMING</span>
+                      <span className="text-[10px] font-bold text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded">
+                        HOST TIMING CONTROL
+                      </span>
+                    </h3>
+                    <p className="text-xs text-slate-400 font-mono">
+                      Set duration per round. Active countdown is never interrupted mid-question; new timing applies on next clue/question.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 font-mono text-xs self-start sm:self-auto">
+                  <span className="text-slate-400">CURRENT COUNTDOWN:</span>
+                  <span className="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-white font-bold">
+                    {displayTimerSec}s
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* ROUND 1 */}
+                <div className={`p-4 rounded-xl border transition-all ${
+                  currentRound === 1
+                    ? 'bg-[#151D2F] border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.08)]'
+                    : 'bg-[#0B1120] border-slate-800'
+                }`}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-mono font-bold uppercase text-slate-200 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                      ROUND 1 (CLUE HUNT)
+                    </span>
+                    <span className="text-xs font-mono text-amber-400 font-bold">
+                      {adminState?.settings?.round1TimerDuration ?? 30}s
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-slate-400 font-mono mb-2.5">Clue Duration</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[15, 20, 30, 45, 60].map((dur) => {
+                      const isSelected = (adminState?.settings?.round1TimerDuration ?? 30) === dur;
+                      return (
+                        <button
+                          key={dur}
+                          type="button"
+                          onClick={() => handleSetRoundTiming(1, dur)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 ring-1 ring-amber-400 font-black'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
+                          }`}
+                        >
+                          {dur}s
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* ROUND 2 */}
+                <div className={`p-4 rounded-xl border transition-all ${
+                  currentRound === 2
+                    ? 'bg-[#151D2F] border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.08)]'
+                    : 'bg-[#0B1120] border-slate-800'
+                }`}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-mono font-bold uppercase text-slate-200 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                      ROUND 2 (PATTERN BREAK)
+                    </span>
+                    <span className="text-xs font-mono text-cyan-400 font-bold">
+                      {adminState?.settings?.round2TimerDuration ?? 30}s
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-slate-400 font-mono mb-2.5">Pattern Duration</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[15, 20, 30, 45, 60].map((dur) => {
+                      const isSelected = (adminState?.settings?.round2TimerDuration ?? 30) === dur;
+                      return (
+                        <button
+                          key={dur}
+                          type="button"
+                          onClick={() => handleSetRoundTiming(2, dur)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 ring-1 ring-amber-400 font-black'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
+                          }`}
+                        >
+                          {dur}s
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* ROUND 3 */}
+                <div className={`p-4 rounded-xl border transition-all ${
+                  currentRound === 3
+                    ? 'bg-[#151D2F] border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.08)]'
+                    : 'bg-[#0B1120] border-slate-800'
+                }`}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-mono font-bold uppercase text-slate-200 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                      ROUND 3 (CODE CRACKER)
+                    </span>
+                    <span className="text-xs font-mono text-emerald-400 font-bold">
+                      {adminState?.settings?.round3TimerDuration ?? 30}s
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-slate-400 font-mono mb-2.5">Cipher Duration</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[15, 20, 30, 45, 60].map((dur) => {
+                      const isSelected = (adminState?.settings?.round3TimerDuration ?? 30) === dur;
+                      return (
+                        <button
+                          key={dur}
+                          type="button"
+                          onClick={() => handleSetRoundTiming(3, dur)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 ring-1 ring-amber-400 font-black'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
+                          }`}
+                        >
+                          {dur}s
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* REAL-TIME QUESTION TEAM STATUS (SECTION 8) */}
             {isLive && (
               <div className="bg-[#0F172A] border border-slate-700/80 rounded-2xl p-5 shadow-lg">
@@ -1212,6 +1507,7 @@ export default function AdminView({ onSwitchView }) {
                     const statusObj = adminState?.teamQuestionStatuses?.[tid] || {
                       state: adminState?.teamLocks?.[tid] ? 'SOLVED' : 'ACTIVE',
                       label: adminState?.teamLocks?.[tid] ? '✓ SOLVED' : 'ACTIVE',
+                      detail: adminState?.teamLocks?.[tid] ? 'SOLVED' : 'ACTIVE',
                       cooldownSec: 0
                     };
 
@@ -1223,7 +1519,7 @@ export default function AdminView({ onSwitchView }) {
                         key={tid}
                         className={`p-3 rounded-xl border font-mono transition-all flex flex-col justify-between ${
                           isSolved
-                            ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
+                            ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300 shadow-sm'
                             : isCooldown
                             ? 'bg-rose-950/40 border-rose-500/40 text-rose-300'
                             : 'bg-[#161F34] border-slate-700 text-slate-200'
@@ -1240,8 +1536,15 @@ export default function AdminView({ onSwitchView }) {
                           )}
                         </div>
 
-                        <div className="text-xs font-bold tracking-wider uppercase">
-                          {statusObj.label}
+                        <div className="space-y-0.5">
+                          <div className="text-xs font-bold tracking-wider uppercase">
+                            {statusObj.label}
+                          </div>
+                          {isSolved && statusObj.detail && (
+                            <div className="text-[10px] text-emerald-400/90 font-semibold truncate">
+                              {statusObj.detail}
+                            </div>
+                          )}
                         </div>
                       </div>
                     );
@@ -1481,6 +1784,7 @@ export default function AdminView({ onSwitchView }) {
               teamCount={teamCount}
               participants={participants}
               rosters={rosters}
+              scores={scores}
               isLocked={isTeamSetupFrozen}
               onSetTeamCount={handleSetTeamCount}
               onAddParticipant={handleAddParticipant}
@@ -2182,54 +2486,93 @@ export default function AdminView({ onSwitchView }) {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="p-4 rounded-xl bg-[#090D16] border border-slate-800 space-y-1.5">
-                  <label className="text-[11px] font-mono text-slate-400 block font-bold">
-                    ROUND 1 CLUE TIMER
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      min="10"
-                      max="120"
-                      value={adminState?.settings?.round1TimerDuration ?? 30}
-                      onChange={(e) => handleUpdateSettings({ round1TimerDuration: parseInt(e.target.value, 10) || 30 })}
-                      className="w-20 bg-slate-900 border border-slate-700 text-white font-mono font-bold text-sm px-3 py-1.5 rounded-lg focus:outline-none focus:border-amber-500"
-                    />
-                    <span className="text-xs font-mono text-slate-400">seconds</span>
+                <div className="p-4 rounded-xl bg-[#090D16] border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-mono text-slate-300 block font-bold uppercase">
+                      ROUND 1 (CLUE HUNT)
+                    </label>
+                    <span className="text-xs font-mono text-amber-400 font-bold">
+                      {adminState?.settings?.round1TimerDuration ?? 30}s
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {[15, 20, 30, 45, 60].map((dur) => {
+                      const isSelected = (adminState?.settings?.round1TimerDuration ?? 30) === dur;
+                      return (
+                        <button
+                          key={dur}
+                          type="button"
+                          onClick={() => handleSetRoundTiming(1, dur)}
+                          className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-black ring-1 ring-amber-400'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                          }`}
+                        >
+                          {dur}s
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#090D16] border border-slate-800 space-y-1.5">
-                  <label className="text-[11px] font-mono text-slate-400 block font-bold">
-                    ROUND 2 TIMER
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      min="10"
-                      max="120"
-                      value={adminState?.settings?.round2TimerDuration ?? 30}
-                      onChange={(e) => handleUpdateSettings({ round2TimerDuration: parseInt(e.target.value, 10) || 30 })}
-                      className="w-20 bg-slate-900 border border-slate-700 text-white font-mono font-bold text-sm px-3 py-1.5 rounded-lg focus:outline-none focus:border-amber-500"
-                    />
-                    <span className="text-xs font-mono text-slate-400">seconds</span>
+                <div className="p-4 rounded-xl bg-[#090D16] border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-mono text-slate-300 block font-bold uppercase">
+                      ROUND 2 (PATTERN BREAK)
+                    </label>
+                    <span className="text-xs font-mono text-cyan-400 font-bold">
+                      {adminState?.settings?.round2TimerDuration ?? 30}s
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {[15, 20, 30, 45, 60].map((dur) => {
+                      const isSelected = (adminState?.settings?.round2TimerDuration ?? 30) === dur;
+                      return (
+                        <button
+                          key={dur}
+                          type="button"
+                          onClick={() => handleSetRoundTiming(2, dur)}
+                          className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-black ring-1 ring-amber-400'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                          }`}
+                        >
+                          {dur}s
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#090D16] border border-slate-800 space-y-1.5">
-                  <label className="text-[11px] font-mono text-slate-400 block font-bold">
-                    ROUND 3 CHALLENGE
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      min="15"
-                      max="180"
-                      value={adminState?.settings?.round3TimerDuration ?? 45}
-                      onChange={(e) => handleUpdateSettings({ round3TimerDuration: parseInt(e.target.value, 10) || 45 })}
-                      className="w-20 bg-slate-900 border border-slate-700 text-white font-mono font-bold text-sm px-3 py-1.5 rounded-lg focus:outline-none focus:border-amber-500"
-                    />
-                    <span className="text-xs font-mono text-slate-400">seconds</span>
+                <div className="p-4 rounded-xl bg-[#090D16] border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-mono text-slate-300 block font-bold uppercase">
+                      ROUND 3 (CODE CRACKER)
+                    </label>
+                    <span className="text-xs font-mono text-emerald-400 font-bold">
+                      {adminState?.settings?.round3TimerDuration ?? 30}s
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {[15, 20, 30, 45, 60].map((dur) => {
+                      const isSelected = (adminState?.settings?.round3TimerDuration ?? 30) === dur;
+                      return (
+                        <button
+                          key={dur}
+                          type="button"
+                          onClick={() => handleSetRoundTiming(3, dur)}
+                          className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-black ring-1 ring-amber-400'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                          }`}
+                        >
+                          {dur}s
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 

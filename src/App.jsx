@@ -119,8 +119,29 @@ export default function App() {
     };
   }, [activeView, playerTeam]);
 
-  // Initial REST fetch to guarantee instant teamCount & state on page load
+  // Connection & socket management per view
   useEffect(() => {
+    if (activeView === 'admin') {
+      const hasAdminToken = typeof sessionStorage !== 'undefined' && (
+        sessionStorage.getItem('team_quest_admin_token') ||
+        sessionStorage.getItem('team_quest_admin_pin')
+      );
+      if (!hasAdminToken && socket.connected) {
+        socket.disconnect();
+      }
+      return;
+    }
+
+    // For player view, connect socket if currently disconnected
+    if (!socket.connected) {
+      socket.connect();
+    }
+  }, [activeView]);
+
+  // Initial REST fetch to guarantee instant teamCount & state on page load (Players only)
+  useEffect(() => {
+    if (activeView === 'admin') return;
+
     fetch(getApiUrl('/api/game-state'))
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
@@ -129,7 +150,7 @@ export default function App() {
         }
       })
       .catch(() => {});
-  }, []);
+  }, [activeView]);
 
   // Socket connection & state updates
   useEffect(() => {
@@ -138,6 +159,9 @@ export default function App() {
       setShowDisconnectBanner(false);
       setConnectionStatus('CONNECTED');
       setReconnectAttempt(0);
+
+      // Admin route socket interactions are managed inside AdminView
+      if (activeView === 'admin') return;
 
       // Immediately request active game state from server to sync teamCount and teamsStatus
       socket.emit('get_game_state', {}, (res) => {
@@ -304,14 +328,14 @@ export default function App() {
 
   // Application Heartbeat (Every 15s when connected)
   useEffect(() => {
-    if (connectionStatus !== 'CONNECTED') return;
+    if (connectionStatus !== 'CONNECTED' || activeView === 'admin') return;
 
     const pingInterval = setInterval(() => {
       socket.emit('app_ping', { timestamp: Date.now() });
     }, 15000);
 
     return () => clearInterval(pingInterval);
-  }, [connectionStatus]);
+  }, [connectionStatus, activeView]);
 
   // Player Join Handler (Fresh user click on [ JOIN GAME ])
   const handleJoinTeam = ({ team }, callback) => {

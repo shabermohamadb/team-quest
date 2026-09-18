@@ -10,6 +10,7 @@ export default function ParticipantTeamSetup({
   teamCount = 4,
   participants = [],
   rosters = {},
+  scores = {},
   isLocked = false,
   onSetTeamCount,
   onAddParticipant,
@@ -119,7 +120,7 @@ export default function ParticipantTeamSetup({
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-black text-white font-mono uppercase tracking-wider flex items-center gap-2">
               <Users className="w-5 h-5 text-amber-400" />
-              PARTICIPANT & TEAM SETUP
+              MEMBERS & TEAMS
             </h2>
             {isLocked ? (
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-rose-950/60 border border-rose-600/40 text-rose-400 font-mono text-[10px] font-bold uppercase tracking-wider">
@@ -413,9 +414,14 @@ export default function ParticipantTeamSetup({
                         <span className="w-3 h-3 rounded-full" style={{ backgroundColor: teamData.color }} />
                         <span className="font-mono font-black text-sm text-slate-100">{teamData.name}</span>
                       </div>
-                      <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-slate-700">
-                        {members.length} {members.length === 1 ? 'MEMBER' : 'MEMBERS'}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-mono font-black px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                          {scores?.[tid] ?? 0} PTS
+                        </span>
+                        <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-slate-700">
+                          {members.length} {members.length === 1 ? 'MEMBER' : 'MEMBERS'}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Member List */}

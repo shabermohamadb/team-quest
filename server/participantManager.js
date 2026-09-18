@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+import { dbManager } from './database.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,12 +28,30 @@ export class ParticipantManager {
 
   loadData() {
     try {
+      // 1. Primary Source of Truth: SQLite Database members table
+      const dbMembers = dbManager.getMembers();
+      if (Array.isArray(dbMembers) && dbMembers.length > 0) {
+        this.participants = dbMembers.map(m => this._normalizeParticipant(m));
+        console.log(`[ParticipantManager] Loaded ${this.participants.length} members from SQLite database.`);
+        this.saveToFile();
+        return;
+      }
+    } catch (e) {
+      console.warn('[ParticipantManager] Error querying SQLite members table:', e.message);
+    }
+
+    try {
       if (fs.existsSync(PARTICIPANTS_FILE)) {
         const raw = fs.readFileSync(PARTICIPANTS_FILE, 'utf8');
         const data = JSON.parse(raw);
-        if (Array.isArray(data)) {
+        if (Array.isArray(data) && data.length > 0) {
           this.participants = data.map(p => this._normalizeParticipant(p));
-          console.log(`[ParticipantManager] Loaded ${this.participants.length} participants from storage.`);
+          for (const p of this.participants) {
+            try {
+              dbManager.addMember({ id: p.id, name: p.name, teamId: p.teamId });
+            } catch (_) {}
+          }
+          console.log(`[ParticipantManager] Migrated ${this.participants.length} participants into SQLite database.`);
           return;
         }
       }
@@ -40,8 +59,13 @@ export class ParticipantManager {
       console.warn('[ParticipantManager] Error reading participants.json:', e.message);
     }
 
-    // Default sample roster if empty
+    // Default sample roster if completely empty
     this.participants = this._getDefaultParticipants();
+    for (const p of this.participants) {
+      try {
+        dbManager.addMember({ id: p.id, name: p.name, teamId: p.teamId });
+      } catch (_) {}
+    }
     this.saveToFile();
   }
 
@@ -56,16 +80,19 @@ export class ParticipantManager {
       id: `p_${idx + 1}_${crypto.randomBytes(4).toString('hex')}`,
       name,
       teamId: null,
-      createdAt: Date.now()
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }));
   }
 
   _normalizeParticipant(p) {
     return {
       id: p.id || `p_${crypto.randomBytes(6).toString('hex')}`,
+      gameId: p.gameId || 'QUEST_DEFAULT_GAME',
       name: (p.name || '').trim(),
       teamId: p.teamId ? Number(p.teamId) : null,
-      createdAt: p.createdAt || Date.now()
+      createdAt: p.createdAt || new Date().toISOString(),
+      updatedAt: p.updatedAt || new Date().toISOString()
     };
   }
 
@@ -79,10 +106,20 @@ export class ParticipantManager {
   }
 
   getParticipants() {
+    try {
+      const dbMembers = dbManager.getMembers();
+      if (Array.isArray(dbMembers) && dbMembers.length > 0) {
+        this.participants = dbMembers.map(m => this._normalizeParticipant(m));
+      }
+    } catch (_) {}
     return [...this.participants];
   }
 
   getParticipantById(id) {
+    try {
+      const dbMember = dbManager.getMemberById(id);
+      if (dbMember) return this._normalizeParticipant(dbMember);
+    } catch (_) {}
     return this.participants.find(p => p.id === id) || null;
   }
 
@@ -91,69 +128,53 @@ export class ParticipantManager {
     if (!cleanName) {
       throw new Error('Participant name cannot be empty');
     }
-    const newParticipant = {
-      id: `p_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`,
-      name: cleanName,
-      teamId: null,
-      createdAt: Date.now()
-    };
-    this.participants.push(newParticipant);
+
+    const created = dbManager.addMember({ name: cleanName });
+    const normalized = this._normalizeParticipant(created);
+
+    this.participants.push(normalized);
     this.saveToFile();
-    return newParticipant;
+    return normalized;
   }
 
   addParticipantsBulk(names) {
     if (!Array.isArray(names)) {
       throw new Error('Names must be an array of strings');
     }
-    const added = [];
-    for (const rawName of names) {
-      const clean = (rawName || '').trim();
-      if (clean) {
-        const p = {
-          id: `p_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`,
-          name: clean,
-          teamId: null,
-          createdAt: Date.now()
-        };
-        this.participants.push(p);
-        added.push(p);
-      }
-    }
-    if (added.length > 0) {
-      this.saveToFile();
-    }
-    return added;
+    const addedDb = dbManager.addMembersBulk(null, names);
+    const normalized = addedDb.map(m => this._normalizeParticipant(m));
+
+    this.participants.push(...normalized);
+    this.saveToFile();
+    return normalized;
   }
 
   updateParticipant(id, updates = {}) {
+    const updatedDb = dbManager.updateMember(id, updates);
+    const normalized = this._normalizeParticipant(updatedDb);
+
     const idx = this.participants.findIndex(p => p.id === id);
-    if (idx === -1) {
-      throw new Error(`Participant with id ${id} not found`);
-    }
-    if (updates.name !== undefined) {
-      const cleanName = (updates.name || '').trim();
-      if (!cleanName) throw new Error('Participant name cannot be empty');
-      this.participants[idx].name = cleanName;
-    }
-    if (updates.teamId !== undefined) {
-      this.participants[idx].teamId = updates.teamId ? Number(updates.teamId) : null;
+    if (idx !== -1) {
+      this.participants[idx] = normalized;
+    } else {
+      this.participants.push(normalized);
     }
     this.saveToFile();
-    return this.participants[idx];
+    return normalized;
   }
 
   removeParticipant(id) {
+    const res = dbManager.removeMember(id);
     const idx = this.participants.findIndex(p => p.id === id);
-    if (idx === -1) {
-      return { success: false, error: 'Participant not found' };
+    if (idx !== -1) {
+      this.participants.splice(idx, 1);
     }
-    const [removed] = this.participants.splice(idx, 1);
     this.saveToFile();
-    return { success: true, removed };
+    return res;
   }
 
   clearParticipants() {
+    dbManager.clearMembers();
     this.participants = [];
     this.saveToFile();
     return { success: true, count: 0 };
@@ -161,7 +182,7 @@ export class ParticipantManager {
 
   /**
    * Automatically assigns all participants across teamCount (4, 5, or 6)
-   * Randomizes order using Fisher-Yates shuffle.
+   * Randomizes order using Fisher-Yates shuffle in SQLite.
    * Guarantees maximum team-size difference <= 1.
    */
   autoAssignTeams(teamCount = 4) {
@@ -170,42 +191,10 @@ export class ParticipantManager {
       throw new Error('Team count must be 4, 5, or 6');
     }
 
-    if (this.participants.length === 0) {
-      return this.getRosters(count);
-    }
-
-    // Clone and shuffle participants (Fisher-Yates)
-    const shuffled = [...this.participants];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    // Mathematical balanced distribution:
-    // With N participants and K teams:
-    // Base size B = Math.floor(N / K), Remainder R = N % K.
-    // The first R teams receive B + 1 participants, the remaining K - R receive B.
-    // This strictly ensures that max difference between any two teams is at most 1.
-    const N = shuffled.length;
-    const base = Math.floor(N / count);
-    const remainder = N % count;
-
-    let currentIndex = 0;
-    for (let t = 1; t <= count; t++) {
-      const teamSize = t <= remainder ? base + 1 : base;
-      for (let s = 0; s < teamSize; s++) {
-        const participant = shuffled[currentIndex++];
-        if (participant) {
-          const original = this.participants.find(p => p.id === participant.id);
-          if (original) {
-            original.teamId = t;
-          }
-        }
-      }
-    }
-
+    const rosterResult = dbManager.autoAssignMembers(null, count);
+    this.participants = dbManager.getMembers().map(m => this._normalizeParticipant(m));
     this.saveToFile();
-    return this.getRosters(count);
+    return rosterResult;
   }
 
   shuffleTeams(teamCount = 4) {
@@ -213,52 +202,27 @@ export class ParticipantManager {
   }
 
   moveParticipant(participantId, targetTeamId) {
-    const p = this.participants.find(item => item.id === participantId);
-    if (!p) {
-      throw new Error(`Participant ${participantId} not found`);
+    const updated = dbManager.moveMember(participantId, targetTeamId);
+    const normalized = this._normalizeParticipant(updated);
+
+    const idx = this.participants.findIndex(p => p.id === participantId);
+    if (idx !== -1) {
+      this.participants[idx] = normalized;
     }
-    const target = targetTeamId ? Number(targetTeamId) : null;
-    p.teamId = target;
     this.saveToFile();
-    return p;
+    return normalized;
   }
 
   getRosters(teamCount = 4) {
     const count = Number(teamCount) || 4;
-    const rosters = {};
-    for (let t = 1; t <= count; t++) {
-      rosters[t] = [];
-    }
-    const unassigned = [];
-
-    for (const p of this.participants) {
-      if (p.teamId && p.teamId >= 1 && p.teamId <= count) {
-        rosters[p.teamId].push(p);
-      } else {
-        unassigned.push(p);
-      }
-    }
-
-    const sizes = Object.values(rosters).map(r => r.length);
-    const minSize = sizes.length ? Math.min(...sizes) : 0;
-    const maxSize = sizes.length ? Math.max(...sizes) : 0;
-    const isBalanced = (maxSize - minSize) <= 1;
-
-    return {
-      rosters,
-      unassigned,
-      teamCount: count,
-      totalParticipants: this.participants.length,
-      isBalanced,
-      minSize,
-      maxSize
-    };
+    return dbManager.getRosters(null, count);
   }
 
   resetAssignments() {
     for (const p of this.participants) {
-      p.teamId = null;
+      dbManager.updateMember(p.id, { teamId: null });
     }
+    this.participants = dbManager.getMembers().map(m => this._normalizeParticipant(m));
     this.saveToFile();
   }
 }

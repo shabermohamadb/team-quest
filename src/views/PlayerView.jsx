@@ -408,40 +408,81 @@ export default function PlayerView({
               </div>
             )}
 
-            {/* Active Clue (Dominant Hero Card) */}
-            {currentChallenge?.activeClues?.length > 0 && (
-              <div className="quest-card border-amber-500/70 p-5 md:p-7 space-y-3 shadow-[0_0_24px_rgba(245,158,11,0.1)] animate-reveal bg-[#0E1524]">
-                <div className="flex items-center justify-between pb-2 border-b border-[#1E283D]">
-                  <span className="font-mono text-xs uppercase tracking-wider font-bold text-amber-400 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    CLUE 0{currentChallenge.activeClueNumber}
-                  </span>
-                  <span className="text-[11px] font-mono text-zinc-400">
-                    Active Scoring Clue
-                  </span>
+            {/* If this team solved the question, display dedicated SOLVED / LOCKED screen */}
+            {!isR1Reveal && isTeamLocked ? (
+              <div className="quest-card border-emerald-500/60 p-8 md:p-12 text-center space-y-4 md:space-y-6 animate-reveal bg-[#0A1A17] shadow-[0_0_40px_rgba(16,185,129,0.15)] rounded-2xl">
+                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto rounded-full bg-emerald-500/20 border-2 border-emerald-400/60 flex items-center justify-center text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.3)] animate-pulse">
+                  <CheckCircle className="w-10 h-10 md:w-12 md:h-12" />
                 </div>
 
-                <div className="text-slate-100 text-lg md:text-2xl font-medium leading-relaxed my-2 text-center md:text-left">
-                  “{currentChallenge.activeClues.find(c => c.number === currentChallenge.activeClueNumber)?.text}”
-                </div>
-              </div>
-            )}
-
-            {/* Previous Clues (Compact pills) */}
-            {currentChallenge?.activeClues?.filter(c => c.number < currentChallenge.activeClueNumber).length > 0 && (
-              <div className="p-3 rounded-lg bg-[#0A0E18] border border-[#182338] space-y-1.5">
-                <span className="text-[10px] font-mono uppercase text-zinc-500 font-bold block">
-                  PREVIOUS CLUES
-                </span>
-                {currentChallenge.activeClues
-                  .filter(c => c.number < currentChallenge.activeClueNumber)
-                  .map(c => (
-                    <div key={c.number} className="text-xs text-slate-300 font-mono">
-                      <strong className="text-amber-400 mr-1.5">Clue 0{c.number}:</strong>
-                      “{c.text}”
+                <div className="space-y-2">
+                  <span className="text-emerald-400 font-mono text-base md:text-xl font-black uppercase tracking-widest block">
+                    ✓ CORRECT
+                  </span>
+                  <h2 className="text-3xl md:text-5xl font-black font-mono text-white tracking-tight">
+                    SOLVED
+                  </h2>
+                  {myTeam?.mySubmission?.points && (
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-mono text-xs md:text-sm font-bold">
+                      <span>+{myTeam.mySubmission.points} POINTS AWARDED</span>
+                      {myTeam.solvedAtClue && <span>· CLUE {myTeam.solvedAtClue}</span>}
                     </div>
-                  ))}
+                  )}
+                </div>
+
+                <div className="p-4 rounded-xl bg-black/40 border border-emerald-500/30 max-w-md mx-auto space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-amber-400 font-mono text-xs md:text-sm font-bold uppercase tracking-wider">
+                    <Lock className="w-4 h-4" />
+                    <span>LOCKED FOR THIS QUESTION</span>
+                  </div>
+                  <p className="text-slate-300 font-mono text-xs md:text-sm leading-relaxed">
+                    You have already solved this question.
+                  </p>
+                </div>
+
+                <div className="pt-2 flex items-center justify-center gap-2 text-zinc-400 font-mono text-xs tracking-wider uppercase animate-pulse">
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  <span>WAIT FOR THE NEXT QUESTION...</span>
+                </div>
               </div>
+            ) : (
+              <>
+                {/* Active Clue (Dominant Hero Card) */}
+                {currentChallenge?.activeClues?.length > 0 && (
+                  <div className="quest-card border-amber-500/70 p-5 md:p-7 space-y-3 shadow-[0_0_24px_rgba(245,158,11,0.1)] animate-reveal bg-[#0E1524]">
+                    <div className="flex items-center justify-between pb-2 border-b border-[#1E283D]">
+                      <span className="font-mono text-xs uppercase tracking-wider font-bold text-amber-400 flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        CLUE 0{currentChallenge.activeClueNumber}
+                      </span>
+                      <span className="text-[11px] font-mono text-zinc-400">
+                        Active Scoring Clue
+                      </span>
+                    </div>
+
+                    <div className="text-slate-100 text-lg md:text-2xl font-medium leading-relaxed my-2 text-center md:text-left">
+                      “{currentChallenge.activeClues.find(c => c.number === currentChallenge.activeClueNumber)?.text}”
+                    </div>
+                  </div>
+                )}
+
+                {/* Previous Clues (Compact pills) */}
+                {currentChallenge?.activeClues?.filter(c => c.number < currentChallenge.activeClueNumber).length > 0 && (
+                  <div className="p-3 rounded-lg bg-[#0A0E18] border border-[#182338] space-y-1.5">
+                    <span className="text-[10px] font-mono uppercase text-zinc-500 font-bold block">
+                      PREVIOUS CLUES
+                    </span>
+                    {currentChallenge.activeClues
+                      .filter(c => c.number < currentChallenge.activeClueNumber)
+                      .map(c => (
+                        <div key={c.number} className="text-xs text-slate-300 font-mono">
+                          <strong className="text-amber-400 mr-1.5">Clue 0{c.number}:</strong>
+                          “{c.text}”
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}

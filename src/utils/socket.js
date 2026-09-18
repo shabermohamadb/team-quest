@@ -65,7 +65,7 @@ const targetUrl = getBackendUrl();
 export const socket = io(targetUrl || undefined, {
   path: '/socket.io',
   transports: ['websocket', 'polling'], // WebSocket first to avoid long-polling proxy buffers
-  autoConnect: true,
+  autoConnect: false, // Disconnected by default: connected selectively by PlayerView or authenticated AdminView
   reconnection: true,
   reconnectionAttempts: 10,
   reconnectionDelay: 1000,
