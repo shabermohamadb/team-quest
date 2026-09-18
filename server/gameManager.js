@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import { calculateRound1Points, calculateRound2Points, calculateRound3Points } from './scorer.js';
 import { validateTextAnswer, validateOptionAnswer, validateReactionAnswer, validateCodeCrackerAnswer, isQuestionConfigured, isAnswerCorrect, normalizeTextAnswer } from './validator.js';
 import { participantManager } from './participantManager.js';
+import { defaultStateStore } from './stateStore.js';
+import { logRealtimeEvent } from './logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -116,7 +118,90 @@ export class GameManager {
     this.matchHistory = [];
     this.connectedSockets = new Map(); // socketId -> { team, isAdmin, isDisplay }
 
+    this.stateStore = defaultStateStore;
+    this.stateVersion = 1;
+
     this.generateGameQuestions({ preserveFirstTestQuestion: true });
+
+    // Restore state from durable store if available
+    const saved = this.stateStore.loadState();
+    if (saved && saved.gameSessionId) {
+      this._restoreFromStore(saved);
+    } else {
+      this._saveToStore();
+    }
+  }
+
+  _saveToStore() {
+    if (!this.stateStore) return;
+    try {
+      this.stateVersion += 1;
+      this.stateStore.saveState({
+        gameSessionId: this.gameSessionId,
+        gameCode: this.gameCode,
+        adminPin: this.adminPin,
+        stateVersion: this.stateVersion,
+        state: this.state,
+        previousState: this.previousState,
+        teamCount: this.teamCount,
+        teams: this.teamManager.teams,
+        totalScores: this.totalScores,
+        roundScores: this.roundScores,
+        teamLocks: this.teamLocks,
+        teamCooldowns: this.teamCooldowns,
+        teamSubmissionLocks: this.teamSubmissionLocks,
+        currentRoundNumber: this.currentRoundNumber,
+        currentQuestionIndex: this.currentQuestionIndex,
+        activeClueNumber: this.activeClueNumber,
+        revealedClues: this.revealedClues,
+        timeRemaining: this.timeRemaining,
+        clueStartedAt: this.clueStartedAt,
+        clueDuration: this.clueDuration,
+        isTimerRunning: this.isTimerRunning,
+        isPaused: this.isPaused,
+        pausedRemaining: this.pausedRemaining,
+        questionsFrozen: this.questionsFrozen,
+        selectedRound1Questions: this.selectedRound1Questions,
+        selectedRound2Questions: this.selectedRound2Questions,
+        selectedRound3Questions: this.selectedRound3Questions,
+        roundSubmissions: this.roundSubmissions,
+        finalResults: this.finalResults
+      });
+    } catch (e) {
+      console.error('[GameManager] Failed to persist state to store:', e.message);
+    }
+  }
+
+  _restoreFromStore(saved) {
+    try {
+      this.gameSessionId = saved.gameSessionId || this.gameSessionId;
+      this.state = saved.state || GAME_STATES.LOBBY;
+      this.previousState = saved.previousState || null;
+      this.stateVersion = saved.stateVersion || 1;
+      if (saved.teamCount) {
+        this.teamCount = saved.teamCount;
+        this.teamManager.restoreTeams(saved.teams, saved.teamCount);
+      }
+      if (saved.totalScores) this.totalScores = { ...saved.totalScores };
+      if (saved.roundScores) this.roundScores = { ...saved.roundScores };
+      if (saved.teamLocks) this.teamLocks = { ...saved.teamLocks };
+      if (saved.teamCooldowns) this.teamCooldowns = { ...saved.teamCooldowns };
+      if (saved.teamSubmissionLocks) this.teamSubmissionLocks = { ...saved.teamSubmissionLocks };
+      if (typeof saved.currentRoundNumber === 'number') this.currentRoundNumber = saved.currentRoundNumber;
+      if (typeof saved.currentQuestionIndex === 'number') this.currentQuestionIndex = saved.currentQuestionIndex;
+      if (typeof saved.activeClueNumber === 'number') this.activeClueNumber = saved.activeClueNumber;
+      if (Array.isArray(saved.revealedClues)) this.revealedClues = [...saved.revealedClues];
+      if (saved.selectedRound1Questions) this.selectedRound1Questions = saved.selectedRound1Questions;
+      if (saved.selectedRound2Questions) this.selectedRound2Questions = saved.selectedRound2Questions;
+      if (saved.selectedRound3Questions) this.selectedRound3Questions = saved.selectedRound3Questions;
+      if (typeof saved.questionsFrozen === 'boolean') this.questionsFrozen = saved.questionsFrozen;
+      if (Array.isArray(saved.roundSubmissions)) this.roundSubmissions = saved.roundSubmissions;
+      if (saved.finalResults) this.finalResults = saved.finalResults;
+
+      console.log(`[GameManager] Restored authoritative game state (${this.state}, Session: ${this.gameSessionId}, Teams: ${this.teamCount})`);
+    } catch (e) {
+      console.error('[GameManager] Error during state restoration:', e.message);
+    }
   }
 
   _initTeamState() {
@@ -261,6 +346,22 @@ export class GameManager {
       });
     }
     socket.join(this.gameCode);
+
+    // Section 12: Application-level Heartbeat
+    socket.on('app_ping', (data) => {
+      socket.emit('app_pong', {
+        clientTimestamp: data?.timestamp || null,
+        serverTime: Date.now(),
+        stateVersion: this.stateVersion
+      });
+    });
+
+    logRealtimeEvent('REALTIME_CONNECT', {
+      gameId: this.gameSessionId,
+      socketId: socket.id,
+      state: this.state
+    });
+
     // Immediately emit current sanitized state with active teamCount & teamsStatus
     const sockData = this.connectedSockets.get(socket.id);
     const team = sockData?.team || null;
@@ -318,6 +419,13 @@ export class GameManager {
     socket.join(`team_${tid}`);
     socket.join(this.gameCode);
 
+    logRealtimeEvent('TEAM_JOIN', {
+      gameId: this.gameSessionId,
+      teamId: tid,
+      socketId: socket.id,
+      state: this.state
+    });
+
     // Immediately broadcast updated team readiness
     this.broadcastState();
 
@@ -330,7 +438,7 @@ export class GameManager {
     };
   }
 
-  handlePlayerReconnect(socket, { team, sessionToken, gameSessionId }) {
+  handlePlayerReconnect(socket, { team, sessionToken, gameSessionId, lastKnownStateVersion }) {
     const tid = Number(team);
     const reconnResult = this.teamManager.reconnectTeam(
       tid,
@@ -341,7 +449,26 @@ export class GameManager {
     );
 
     if (!reconnResult.success) {
+      logRealtimeEvent('TEAM_RECONNECT', {
+        gameId: this.gameSessionId,
+        teamId: tid,
+        socketId: socket.id,
+        state: this.state,
+        details: { success: false, error: reconnResult.error }
+      });
       return reconnResult;
+    }
+
+    // Section 14: Disconnect previous superseded socket if still alive
+    if (reconnResult.previousSocketId && reconnResult.previousSocketId !== socket.id) {
+      try {
+        const oldSocket = this.io.sockets.sockets.get(reconnResult.previousSocketId);
+        if (oldSocket) {
+          oldSocket.emit('superseded_session', { message: 'Session reconnected from another tab or window' });
+          oldSocket.disconnect(true);
+        }
+        this.connectedSockets.delete(reconnResult.previousSocketId);
+      } catch (_) {}
     }
 
     this.connectedSockets.set(socket.id, {
@@ -357,19 +484,44 @@ export class GameManager {
 
     this.broadcastState();
 
+    logRealtimeEvent('TEAM_RECONNECT', {
+      gameId: this.gameSessionId,
+      teamId: tid,
+      socketId: socket.id,
+      state: this.state,
+      details: { success: true }
+    });
+    logRealtimeEvent('REALTIME_RECONNECT', {
+      gameId: this.gameSessionId,
+      teamId: tid,
+      socketId: socket.id,
+      state: this.state
+    });
+
     return {
       success: true,
       team: tid,
       sessionToken: reconnResult.sessionToken,
       gameSessionId: this.gameSessionId,
+      stateVersion: this.stateVersion,
+      gameState: this.getPlayerSanitizedState(tid),
       reconnected: true
     };
   }
 
   handleDisconnect(socket) {
+    const sockData = this.connectedSockets.get(socket.id);
+    const tid = sockData?.team || null;
     this.teamManager.handleDisconnect(socket.id);
     this.connectedSockets.delete(socket.id);
     this.broadcastState();
+
+    logRealtimeEvent('REALTIME_DISCONNECT', {
+      gameId: this.gameSessionId,
+      teamId: tid,
+      socketId: socket.id,
+      state: this.state
+    });
   }
 
   // ================= QUESTION SELECTION & GAME HISTORY =================
@@ -1584,6 +1736,8 @@ export class GameManager {
   }
 
   broadcastState() {
+    this._saveToStore();
+
     // 1. Admin room receives full administrative payload
     this.io.to('admin_room').emit('admin_state_update', this.getAdminFullState());
 

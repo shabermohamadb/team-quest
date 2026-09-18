@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import socket from './utils/socket';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import socket, { getApiUrl, isMissingBackendConfig } from './utils/socket';
 import Navbar from './components/Navbar';
 import LoginLobbyView from './views/LoginLobbyView';
 import PlayerView from './views/PlayerView';
@@ -18,7 +18,13 @@ function getInitialView() {
 
 export default function App() {
   const [activeView, setActiveView] = useState(getInitialView);
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [connectionStatus, setConnectionStatus] = useState(
+    socket.connected ? 'CONNECTED' : 'CONNECTING'
+  );
+  const [reconnectAttempt, setReconnectAttempt] = useState(0);
+  const [showDisconnectBanner, setShowDisconnectBanner] = useState(false);
+  const disconnectTimerRef = useRef(null);
+
   const [gameState, setGameState] = useState(null);
   const [playerTeam, setPlayerTeam] = useState(null);
 
@@ -45,7 +51,7 @@ export default function App() {
 
   // Initial REST fetch to guarantee instant teamCount & state on page load
   useEffect(() => {
-    fetch('/api/game-state')
+    fetch(getApiUrl('/api/game-state'))
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data && typeof data === 'object') {
@@ -58,7 +64,10 @@ export default function App() {
   // Socket connection & state updates
   useEffect(() => {
     const onConnect = () => {
-      setIsConnected(true);
+      if (disconnectTimerRef.current) clearTimeout(disconnectTimerRef.current);
+      setShowDisconnectBanner(false);
+      setConnectionStatus('CONNECTED');
+      setReconnectAttempt(0);
 
       // Immediately request active game state from server to sync teamCount and teamsStatus
       socket.emit('get_game_state', {}, (res) => {
@@ -73,15 +82,22 @@ export default function App() {
         try {
           const { team, sessionToken, gameSessionId } = JSON.parse(saved);
           if (team && sessionToken && gameSessionId) {
-            socket.emit('player_reconnect', { team: Number(team), sessionToken, gameSessionId }, (res) => {
-              if (res?.success) {
-                setPlayerTeam(Number(team));
-              } else {
-                // Stale or expired session
-                localStorage.removeItem('team_quest_session');
-                setPlayerTeam(null);
+            socket.emit(
+              'player_reconnect',
+              { team: Number(team), sessionToken, gameSessionId },
+              (res) => {
+                if (res?.success) {
+                  setPlayerTeam(Number(team));
+                  if (res.gameState) {
+                    setGameState(res.gameState);
+                  }
+                } else {
+                  // Stale or expired session
+                  localStorage.removeItem('team_quest_session');
+                  setPlayerTeam(null);
+                }
               }
-            });
+            );
           } else {
             localStorage.removeItem('team_quest_session');
             setPlayerTeam(null);
@@ -94,7 +110,33 @@ export default function App() {
     };
 
     const onDisconnect = () => {
-      setIsConnected(false);
+      setConnectionStatus('DISCONNECTED');
+      if (disconnectTimerRef.current) clearTimeout(disconnectTimerRef.current);
+      // Section 10: Grace period before showing reconnect banner to avoid flashes
+      disconnectTimerRef.current = setTimeout(() => {
+        setShowDisconnectBanner(true);
+        setConnectionStatus('RECONNECTING');
+      }, 1200);
+    };
+
+    const onReconnectAttempt = (attempt) => {
+      setReconnectAttempt(attempt);
+      setConnectionStatus('RECONNECTING');
+      setShowDisconnectBanner(true);
+    };
+
+    const onReconnectFailed = () => {
+      setConnectionStatus('ERROR');
+      setShowDisconnectBanner(true);
+    };
+
+    const onConnectError = (err) => {
+      console.warn('[Socket] Connection error:', err?.message);
+    };
+
+    const onSupersededSession = () => {
+      localStorage.removeItem('team_quest_session');
+      setPlayerTeam(null);
     };
 
     const onGameStateUpdate = (data) => {
@@ -156,6 +198,12 @@ export default function App() {
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
+    socket.on('connect_error', onConnectError);
+    socket.on('superseded_session', onSupersededSession);
+    if (socket.io) {
+      socket.io.on('reconnect_attempt', onReconnectAttempt);
+      socket.io.on('reconnect_failed', onReconnectFailed);
+    }
     socket.on('game_state_update', onGameStateUpdate);
     socket.on('game_session_reset', onGameSessionReset);
     socket.on('timer_tick', onTimerTick);
@@ -167,8 +215,15 @@ export default function App() {
     }
 
     return () => {
+      if (disconnectTimerRef.current) clearTimeout(disconnectTimerRef.current);
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
+      socket.off('connect_error', onConnectError);
+      socket.off('superseded_session', onSupersededSession);
+      if (socket.io) {
+        socket.io.off('reconnect_attempt', onReconnectAttempt);
+        socket.io.off('reconnect_failed', onReconnectFailed);
+      }
       socket.off('game_state_update', onGameStateUpdate);
       socket.off('game_session_reset', onGameSessionReset);
       socket.off('timer_tick', onTimerTick);
@@ -176,6 +231,17 @@ export default function App() {
       socket.off('resume_countdown_tick', onResumeCountdownTick);
     };
   }, []);
+
+  // Application Heartbeat (Every 15s when connected)
+  useEffect(() => {
+    if (connectionStatus !== 'CONNECTED') return;
+
+    const pingInterval = setInterval(() => {
+      socket.emit('app_ping', { timestamp: Date.now() });
+    }, 15000);
+
+    return () => clearInterval(pingInterval);
+  }, [connectionStatus]);
 
   // Player Join Handler (Fresh user click on [ JOIN GAME ])
   const handleJoinTeam = ({ team }, callback) => {
@@ -302,15 +368,40 @@ export default function App() {
       {activeView !== 'admin' && (
         <Navbar
           playerTeam={playerTeam}
-          isConnected={isConnected}
+          isConnected={connectionStatus === 'CONNECTED'}
         />
       )}
 
-      {/* Disconnection Warning */}
-      {!isConnected && (
-        <div className="bg-rose-950/80 border-b border-rose-800 text-rose-300 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
-          <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
-          <span>Disconnected from game server. Reconnecting automatically...</span>
+      {/* Missing Backend Advisory (Vercel deployment without backend URL configured) */}
+      {isMissingBackendConfig && (
+        <div className="bg-amber-950/90 border-b border-amber-600 text-amber-200 text-xs font-mono text-center py-2.5 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
+          <span className="font-bold">⚠️ Vercel Realtime Setup:</span>
+          <span>Set <code className="bg-black/40 px-1.5 py-0.5 rounded text-amber-300">VITE_REALTIME_URL=https://your-backend-url</code> in Vercel Environment Variables.</span>
+        </div>
+      )}
+
+      {/* Reconnection Status Banner with Grace Period */}
+      {showDisconnectBanner && connectionStatus === 'RECONNECTING' && (
+        <div className="bg-amber-950/85 border-b border-amber-700 text-amber-300 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-2 sticky top-0 z-50">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+          <span>RECONNECTING TO GAME SERVER{reconnectAttempt > 0 ? ` (ATTEMPT ${reconnectAttempt})...` : '...'}</span>
+        </div>
+      )}
+
+      {/* Connection Error Banner with Manual Retry */}
+      {connectionStatus === 'ERROR' && (
+        <div className="bg-rose-950/90 border-b border-rose-800 text-rose-200 text-xs font-mono text-center py-2 px-4 flex items-center justify-center gap-3 sticky top-0 z-50">
+          <span>✕ UNABLE TO REACH GAME SERVER.</span>
+          <button
+            onClick={() => {
+              setConnectionStatus('RECONNECTING');
+              socket.disconnect();
+              socket.connect();
+            }}
+            className="px-2.5 py-0.5 bg-rose-800 hover:bg-rose-700 text-white rounded font-bold uppercase transition text-xs"
+          >
+            Reconnect Now
+          </button>
         </div>
       )}
 

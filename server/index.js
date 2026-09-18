@@ -17,14 +17,48 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const server = http.createServer(app);
 
+const configuredOrigins = (process.env.ALLOWED_ORIGINS || process.env.CLIENT_URL || '')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+
+function isOriginAllowed(origin) {
+  if (!origin) return true; // Direct server-to-server, same-origin, or CLI/tools
+  if (configuredOrigins.length === 0) return true; // Default permissive in dev
+  if (configuredOrigins.includes(origin)) return true;
+  if (origin.endsWith('.vercel.app')) return true; // Allow any Vercel deployment/preview
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true;
+  return false;
+}
+
 const io = new Server(server, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
-  }
+    origin: (origin, callback) => {
+      if (isOriginAllowed(origin)) {
+        callback(null, true);
+      } else {
+        console.warn(`[CORS Blocked] Socket connection from disallowed origin: ${origin}`);
+        callback(new Error('Disallowed by CORS origin policy'));
+      }
+    },
+    methods: ['GET', 'POST'],
+    credentials: true
+  },
+  pingInterval: 10000,
+  pingTimeout: 5000,
+  transports: ['websocket', 'polling']
 });
 
-app.use(cors());
+app.use(cors({
+  origin: (origin, callback) => {
+    if (isOriginAllowed(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Disallowed by CORS origin policy'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Initialize Domain Managers

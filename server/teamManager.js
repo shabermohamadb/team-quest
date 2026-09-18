@@ -35,6 +35,25 @@ export class TeamManager {
     return this.teamCount;
   }
 
+  restoreTeams(savedTeams, teamCount) {
+    if (teamCount) {
+      this.teamCount = Math.min(Math.max(Number(teamCount) || 4, 4), 6);
+    }
+    this.teams = this._initTeams(this.teamCount);
+    if (savedTeams && typeof savedTeams === 'object') {
+      for (const [idStr, tData] of Object.entries(savedTeams)) {
+        const id = Number(idStr);
+        if (this.teams[id] && tData) {
+          this.teams[id].sessionToken = tData.sessionToken || null;
+          this.teams[id].gameSessionId = tData.gameSessionId || null;
+          this.teams[id].joinedAt = tData.joinedAt || null;
+          this.teams[id].connected = false;
+          this.teams[id].activeSocketId = null;
+        }
+      }
+    }
+  }
+
   _createEmptyTeam(id, name) {
     return {
       id,
@@ -113,6 +132,7 @@ export class TeamManager {
       this.disconnectTimeouts.delete(tid);
     }
 
+    const previousSocketId = team.activeSocketId;
     team.activeSocketId = socketId;
     team.connected = true;
 
@@ -121,6 +141,7 @@ export class TeamManager {
       teamId: tid,
       sessionToken: team.sessionToken,
       gameSessionId: currentGameSessionId,
+      previousSocketId,
       reconnected: true
     };
   }
