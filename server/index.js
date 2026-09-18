@@ -419,7 +419,8 @@ io.on('connection', (socket) => {
     gameManager.broadcastState();
   });
 
-  socket.on('admin_release_team', ({ teamId }) => {
+  socket.on('admin_release_team', (data, cb) => {
+    const teamId = typeof data === 'object' ? data?.teamId : data;
     const tid = Number(teamId);
     teamManager.releaseTeam(tid);
     for (const [sId, sData] of gameManager.connectedSockets.entries()) {
@@ -433,6 +434,8 @@ io.on('connection', (socket) => {
       }
     }
     gameManager.broadcastState();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true, teamId: tid });
   });
 
   socket.on('admin_update_settings', (newSettings) => {

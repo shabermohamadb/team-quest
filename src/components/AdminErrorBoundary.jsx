@@ -19,8 +19,11 @@ export default class AdminErrorBoundary extends React.Component {
   handleRefresh = () => {
     console.log('[ADMIN] Refreshing game state via Error Boundary...');
     socket.emit('admin_refresh_state');
-    const savedPin = sessionStorage.getItem('team_quest_admin_pin') || 'admin123';
-    socket.emit('admin_auth', { pin: savedPin });
+    const savedToken = sessionStorage.getItem('team_quest_admin_token') || '';
+    const savedPin = sessionStorage.getItem('team_quest_admin_pin') || '';
+    if (savedToken || savedPin) {
+      socket.emit('admin_auth', { token: savedToken, pin: savedPin });
+    }
     this.setState({ hasError: false, error: null });
   };
 

@@ -118,7 +118,7 @@ async function runTests() {
   console.log(`[INFO] Current members in SQLite: ${totalMembers}`);
 
   // Test admin socket connection & token
-  const loginRes = await postJson('/api/admin/login', { password: 'admin123' });
+  const loginRes = await postJson('/api/admin/login', { password: '12345' });
   assert(loginRes.success === true && loginRes.token, 'Admin login succeeded');
   const adminToken = loginRes.token;
 

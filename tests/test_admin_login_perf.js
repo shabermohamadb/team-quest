@@ -54,13 +54,13 @@ async function runTests() {
   assert(badBody.success === false, 'Response indicates success: false');
   assert(badBody.error && badBody.error.includes('Invalid'), 'Error message informs of invalid password');
 
-  // TEST 2: POST /api/admin/login with correct password ('admin123')
+  // TEST 2: POST /api/admin/login with correct password ('12345')
   console.log('\n--- Test 2: Fast Lightweight Authentication ---');
   const t0 = Date.now();
   const resGood = await fetch(`${SERVER_URL}/api/admin/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ pin: 'admin123' })
+    body: JSON.stringify({ pin: '12345' })
   });
   const elapsedMs = Date.now() - t0;
   assert(resGood.status === 200, 'Valid password returns 200 status');

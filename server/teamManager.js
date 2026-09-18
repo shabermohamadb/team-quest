@@ -211,12 +211,14 @@ export class TeamManager {
     const res = {};
     for (const [tid, team] of Object.entries(this.teams)) {
       const isClaimed = Boolean(team.sessionToken);
+      const isReconnecting = isClaimed && !team.connected && this.disconnectTimeouts.has(team.id);
       res[tid] = {
         id: team.id,
         name: team.name,
         connected: Boolean(team.connected),
         claimed: isClaimed,
-        available: !isClaimed
+        available: !isClaimed,
+        reconnecting: isReconnecting
       };
     }
     return res;

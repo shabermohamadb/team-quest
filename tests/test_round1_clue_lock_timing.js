@@ -66,7 +66,7 @@ async function runTests() {
   try {
     // 1. Authenticate Admin
     await new Promise((resolve) => {
-      adminSocket.emit('admin_auth', { pin: 'admin123' }, (res) => {
+      adminSocket.emit('admin_auth', { pin: '12345' }, (res) => {
         assert(res?.success, 'Admin authenticated');
         resolve();
       });

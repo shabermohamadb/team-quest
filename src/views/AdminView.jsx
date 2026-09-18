@@ -228,27 +228,34 @@ export default function AdminView({ onSwitchView }) {
     }
   };
 
-  // Reconnect if stored in session
+  // Reconnect and maintain authentication across game events and socket reconnects
   useEffect(() => {
-    const savedToken = sessionStorage.getItem('team_quest_admin_token');
-    const savedPin = sessionStorage.getItem('team_quest_admin_pin');
+    const reauthenticate = () => {
+      const savedToken = sessionStorage.getItem('team_quest_admin_token');
+      const savedPin = sessionStorage.getItem('team_quest_admin_pin');
 
-    if (savedToken || savedPin) {
-      if (!socket.connected) {
-        socket.connect();
-      }
-
-      socket.emit('admin_auth', { token: savedToken, pin: savedPin }, (res) => {
-        if (res?.success) {
-          setIsAuthenticated(true);
-        } else {
-          sessionStorage.removeItem('team_quest_admin_token');
-          sessionStorage.removeItem('team_quest_admin_pin');
-          socket.disconnect();
-          setIsAuthenticated(false);
+      if (savedToken || savedPin) {
+        if (!socket.connected) {
+          socket.connect();
         }
-      });
-    }
+
+        socket.emit('admin_auth', { token: savedToken, pin: savedPin }, (res) => {
+          if (res?.success) {
+            setIsAuthenticated(true);
+            if (res.token) {
+              sessionStorage.setItem('team_quest_admin_token', res.token);
+            }
+          }
+        });
+      }
+    };
+
+    reauthenticate();
+
+    socket.on('connect', reauthenticate);
+    return () => {
+      socket.off('connect', reauthenticate);
+    };
   }, []);
 
   // Listen for admin state updates & real-time ticks ONLY when authenticated
@@ -648,6 +655,68 @@ export default function AdminView({ onSwitchView }) {
     return (currentGameState || 'LOBBY').replace(/_/g, ' ');
   };
 
+  const getTeamStatusInfo = (tid) => {
+    const teamDict = adminState?.teamsStatus?.[tid] || adminState?.teamsStatus?.[String(tid)];
+    const publicTeam = publicTeams.find(t => Number(t.id) === Number(tid));
+    const tmData = adminState?.teamManagerData?.[tid] || adminState?.teamManagerData?.[String(tid)];
+
+    const isConnected = Boolean(teamDict?.connected ?? (publicTeam?.isConnected ?? tmData?.connected));
+    const isClaimed = Boolean(teamDict?.claimed ?? (publicTeam?.isOccupied ?? tmData?.sessionToken));
+    const isReconnecting = Boolean(teamDict?.reconnecting ?? publicTeam?.isReconnecting);
+
+    if (isConnected) {
+      return {
+        label: 'CONNECTED',
+        isOnline: true,
+        indicator: '✓',
+        statusKey: 'CONNECTED',
+        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        dotClass: 'bg-emerald-400 animate-pulse',
+        indicatorClass: 'text-emerald-400 font-bold',
+        isClaimed
+      };
+    }
+
+    if (isReconnecting) {
+      return {
+        label: 'RECONNECTING...',
+        isOnline: false,
+        indicator: '—',
+        statusKey: 'RECONNECTING...',
+        badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40 animate-pulse',
+        dotClass: 'bg-amber-400 animate-ping',
+        indicatorClass: 'text-amber-400 font-bold',
+        isClaimed: true
+      };
+    }
+
+    if (isClaimed && !isConnected) {
+      return {
+        label: 'DISCONNECTED',
+        isOnline: false,
+        indicator: '—',
+        statusKey: 'DISCONNECTED',
+        badgeClass: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+        dotClass: 'bg-rose-400',
+        indicatorClass: 'text-rose-400 font-bold',
+        isClaimed: true
+      };
+    }
+
+    return {
+      label: 'WAITING',
+      isOnline: false,
+      indicator: '—',
+      statusKey: 'WAITING',
+      badgeClass: 'bg-slate-800/80 text-slate-400 border-slate-700',
+      dotClass: 'bg-slate-500',
+      indicatorClass: 'text-slate-500 font-bold',
+      isClaimed: false
+    };
+  };
+
+  const connectedCount = teamIds.filter(tid => getTeamStatusInfo(tid).isOnline).length;
+
   return (
     <div className="min-h-screen bg-[#070A12] text-slate-100 flex flex-col font-sans">
       {/* TOP ADMIN BAR */}
@@ -765,6 +834,40 @@ export default function AdminView({ onSwitchView }) {
         </div>
       </header>
 
+      {/* PERSISTENT LIVE TEAMS CONNECTION BAR */}
+      <div className="bg-[#0A0F1D] border-b border-slate-800 px-6 py-2.5 flex flex-wrap items-center justify-between gap-4 font-mono text-xs shrink-0 shadow-inner">
+        <div className="flex items-center gap-2.5">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-slate-400 font-bold uppercase tracking-wider">TEAMS JOINED:</span>
+          <span className="text-emerald-400 font-black px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">
+            {connectedCount} / {teamCount} TEAMS CONNECTED
+          </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {teamIds.map((tid) => {
+            const info = getTeamStatusInfo(tid);
+            return (
+              <div
+                key={tid}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-bold transition-all ${
+                  info.isOnline
+                    ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
+                    : info.statusKey === 'RECONNECTING...'
+                    ? 'bg-amber-950/40 border-amber-500/40 text-amber-300 animate-pulse'
+                    : info.statusKey === 'DISCONNECTED'
+                    ? 'bg-rose-950/40 border-rose-500/40 text-rose-300'
+                    : 'bg-[#131C2E] border-slate-800 text-slate-400'
+                }`}
+              >
+                <span>TEAM {tid}</span>
+                <span className={info.indicatorClass}>{info.indicator}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* ADMIN TABS NAVIGATION */}
       <div className="bg-[#0D1527] border-b border-slate-800 px-6 shrink-0 flex items-center gap-2 overflow-x-auto">
         <button
@@ -833,6 +936,105 @@ export default function AdminView({ onSwitchView }) {
         {/* ================= TAB 1: LIVE GAME CONTROL ================= */}
         {activeTab === 'live' && (
           <div className="space-y-6">
+            {/* ================= DEDICATED SECTION: LIVE TEAM STATUS ================= */}
+            <div className="bg-[#0F172A] border border-slate-700/80 rounded-2xl p-5 shadow-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
+                  <h3 className="font-mono font-black text-sm uppercase tracking-wider text-white flex items-center gap-2">
+                    <span>LIVE TEAM STATUS</span>
+                    <span className="text-[11px] font-normal text-slate-400 normal-case hidden sm:inline">
+                      (Real-time connection monitoring)
+                    </span>
+                  </h3>
+                </div>
+                <div className="font-mono text-xs flex items-center gap-2">
+                  <span className="text-slate-400 font-bold uppercase">TEAMS JOINED:</span>
+                  <span className="font-black text-emerald-400 bg-emerald-500/15 border border-emerald-500/40 px-2.5 py-1 rounded-lg">
+                    {connectedCount} / {teamCount} TEAMS CONNECTED
+                  </span>
+                </div>
+              </div>
+
+              {/* Status Indicator Badges Strip */}
+              <div className="flex flex-wrap items-center gap-2 pb-1">
+                {teamIds.map((tid) => {
+                  const info = getTeamStatusInfo(tid);
+                  return (
+                    <div
+                      key={tid}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141E33] border border-slate-700/80 font-mono text-xs"
+                    >
+                      <span className="font-bold text-white">TEAM {tid}</span>
+                      <span className={`text-sm ${info.indicatorClass}`}>{info.indicator}</span>
+                      <span className={`text-[10px] px-2 py-0.5 rounded uppercase font-bold border ${info.badgeClass}`}>
+                        {info.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Dynamic Grid of Team Status Cards: Supports 4, 5, or 6 teams */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-1">
+                {teamIds.map((tid) => {
+                  const info = getTeamStatusInfo(tid);
+                  const tMeta = TEAMS[tid] || TEAMS[1];
+                  const isOccupied = info.isClaimed;
+
+                  return (
+                    <div
+                      key={tid}
+                      className={`p-4 rounded-xl border transition-all ${
+                        info.isOnline
+                          ? 'bg-[#111D33] border-emerald-500/40 shadow-sm shadow-emerald-500/10'
+                          : info.statusKey === 'RECONNECTING...'
+                          ? 'bg-amber-950/20 border-amber-500/40'
+                          : info.statusKey === 'DISCONNECTED'
+                          ? 'bg-rose-950/20 border-rose-500/40'
+                          : 'bg-[#0E1626] border-slate-800'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2.5">
+                        <span className="font-mono font-black text-sm text-white flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: tMeta.color }} />
+                          Team {tid}
+                        </span>
+                        <span className={`text-base font-mono font-black ${info.indicatorClass}`}>
+                          {info.indicator}
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold border ${info.badgeClass}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${info.dotClass}`} />
+                          <span>{info.label}</span>
+                        </div>
+
+                        {isOccupied && (
+                          <div className="text-[10px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded inline-block ml-1">
+                            ALREADY JOINED
+                          </div>
+                        )}
+                      </div>
+
+                      {isOccupied && (
+                        <div className="pt-3 mt-3 border-t border-slate-800/60 flex justify-end">
+                          <button
+                            type="button"
+                            onClick={() => handleReleaseTeam(tid)}
+                            className="text-[10px] font-mono text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                            title="Force release team seat"
+                          >
+                            [ RELEASE SEAT ]
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
             {/* PAUSED BANNER */}
             {isPaused && (
               <div className="bg-amber-500/10 border-2 border-amber-500/40 rounded-2xl p-4 flex items-center justify-between gap-4">

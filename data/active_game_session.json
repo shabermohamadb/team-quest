@@ -1,10 +1,10 @@
 {
-  "gameSessionId": "session_1789748588042_ek9y2nb",
+  "gameSessionId": "session_1789751111144_tbvkdw7",
   "gameCode": "QUEST-2026",
-  "adminPin": "admin123",
-  "stateVersion": 178,
-  "state": "FINAL_RESULT",
-  "previousState": "ROUND_1_ANSWER_REVEAL",
+  "adminPin": "12345",
+  "stateVersion": 312,
+  "state": "LOBBY",
+  "previousState": null,
   "teamCount": 4,
   "teams": {
     "1": {
@@ -45,36 +45,36 @@
     }
   },
   "totalScores": {
-    "1": 120,
-    "2": 55,
-    "3": 20,
-    "4": 10
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
   },
   "roundScores": {
     "1": {
-      "r1": 50,
-      "r2": 30,
-      "r3": 40
+      "r1": 0,
+      "r2": 0,
+      "r3": 0
     },
     "2": {
-      "r1": 30,
+      "r1": 0,
       "r2": 0,
-      "r3": 25
+      "r3": 0
     },
     "3": {
-      "r1": 20,
+      "r1": 0,
       "r2": 0,
       "r3": 0
     },
     "4": {
-      "r1": 10,
+      "r1": 0,
       "r2": 0,
       "r3": 0
     }
   },
   "teamLocks": {
-    "1": true,
-    "2": true,
+    "1": false,
+    "2": false,
     "3": false,
     "4": false
   },
@@ -96,20 +96,20 @@
     "3": false,
     "4": false
   },
-  "currentRoundNumber": 3,
+  "currentRoundNumber": 1,
   "currentQuestionIndex": 0,
-  "activeClueNumber": 1,
+  "activeClueNumber": 2,
   "revealedClues": [
     true,
     true,
-    true
+    false
   ],
-  "timeRemaining": 15,
-  "clueStartedAt": 1789748609056,
-  "clueDuration": 15,
+  "timeRemaining": 30,
+  "clueStartedAt": null,
+  "clueDuration": 30,
   "isTimerRunning": false,
-  "pausedRemaining": 0,
-  "questionsFrozen": true,
+  "pausedRemaining": 30,
+  "questionsFrozen": false,
   "selectedRound1Questions": [
     {
       "id": "round1-test-01",
@@ -136,209 +136,211 @@
       "challengeNumber": 1
     },
     {
-      "id": "r1-19",
+      "id": "r1-26",
       "round": 1,
-      "domain": "Developer Tools",
+      "domain": "Programming Languages",
       "difficulty": "Easy",
-      "website": "VS Code",
-      "correctAnswer": "VS Code",
+      "website": "Go",
+      "correctAnswer": "Go",
       "acceptedAnswers": [
-        "visual studio code",
-        "vscode"
+        "golang",
+        "go language"
       ],
-      "clue1": "Extensible source-code editor built on Electron and Monaco by Microsoft.",
-      "clue2": "Known for its marketplace of extensions, built-in terminal, and Language Server Protocol.",
-      "clue3": "Often abbreviated with two letters: VS.",
+      "clue1": "Statically typed, compiled programming language designed at Google by Pike, Thompson, and Griesemer.",
+      "clue2": "Features built-in lightweight concurrency primitives called goroutines and channels.",
+      "clue3": "Represented by a cartoon gopher mascot and frequently referred to as Golang.",
       "isActive": true,
       "clues": [
-        "Extensible source-code editor built on Electron and Monaco by Microsoft.",
-        "Known for its marketplace of extensions, built-in terminal, and Language Server Protocol.",
-        "Often abbreviated with two letters: VS."
+        "Statically typed, compiled programming language designed at Google by Pike, Thompson, and Griesemer.",
+        "Features built-in lightweight concurrency primitives called goroutines and channels.",
+        "Represented by a cartoon gopher mascot and frequently referred to as Golang."
       ],
       "questionNumber": 2,
       "challengeNumber": 2
     },
     {
-      "id": "r1-49",
+      "id": "r1-03",
       "round": 1,
-      "domain": "Compilers",
-      "difficulty": "Hard",
-      "website": "LLVM",
-      "correctAnswer": "LLVM",
+      "domain": "Web Development",
+      "difficulty": "Medium",
+      "website": "MDN Web Docs",
+      "correctAnswer": "MDN Web Docs",
       "acceptedAnswers": [
-        "llvm compiler",
-        "llvm.org"
+        "mdn",
+        "mozilla developer network",
+        "developer.mozilla.org"
       ],
-      "clue1": "Modular and reusable compiler and toolchain technology suite started by Chris Lattner.",
-      "clue2": "Compiles high-level code to an architecture-independent Intermediate Representation (IR).",
-      "clue3": "Serves as the backend for Clang, Rust, Swift, and Julia compilers.",
+      "clue1": "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
+      "clue2": "It includes interactive code playgrounds and detailed browser compatibility matrices.",
+      "clue3": "It is maintained by Mozilla and features dinosaur-themed easter eggs.",
       "isActive": true,
       "clues": [
-        "Modular and reusable compiler and toolchain technology suite started by Chris Lattner.",
-        "Compiles high-level code to an architecture-independent Intermediate Representation (IR).",
-        "Serves as the backend for Clang, Rust, Swift, and Julia compilers."
+        "The definitive open-source documentation resource for HTML, CSS, and JavaScript.",
+        "It includes interactive code playgrounds and detailed browser compatibility matrices.",
+        "It is maintained by Mozilla and features dinosaur-themed easter eggs."
       ],
       "questionNumber": 3,
       "challengeNumber": 3
     },
     {
-      "id": "r1-24",
+      "id": "r1-21",
       "round": 1,
-      "domain": "Text Editors",
-      "difficulty": "Easy",
-      "website": "Vim",
-      "correctAnswer": "Vim",
+      "domain": "Databases",
+      "difficulty": "Medium",
+      "website": "MongoDB",
+      "correctAnswer": "MongoDB",
       "acceptedAnswers": [
-        "vi improved",
-        "neovim",
-        "vi"
+        "mongo",
+        "mongodb.com"
       ],
-      "clue1": "Highly configurable modal terminal text editor built to enable efficient text editing.",
-      "clue2": "Features normal, insert, visual, and command-line editing modes.",
-      "clue3": "A running joke among beginners is how difficult it is to exit with :wq or :q!.",
+      "clue1": "Leading source-available document-oriented NoSQL database system.",
+      "clue2": "Stores data in flexible BSON (Binary JSON) documents with dynamic schemas.",
+      "clue3": "Its name is derived from the word \"humongous\" and uses a green leaf logo.",
       "isActive": true,
       "clues": [
-        "Highly configurable modal terminal text editor built to enable efficient text editing.",
-        "Features normal, insert, visual, and command-line editing modes.",
-        "A running joke among beginners is how difficult it is to exit with :wq or :q!."
+        "Leading source-available document-oriented NoSQL database system.",
+        "Stores data in flexible BSON (Binary JSON) documents with dynamic schemas.",
+        "Its name is derived from the word \"humongous\" and uses a green leaf logo."
       ],
       "questionNumber": 4,
       "challengeNumber": 4
     },
     {
-      "id": "r1-40",
+      "id": "r1-27",
       "round": 1,
-      "domain": "DevOps & Git",
+      "domain": "Programming Languages",
       "difficulty": "Easy",
-      "website": "GitLab",
-      "correctAnswer": "GitLab",
+      "website": "Java",
+      "correctAnswer": "Java",
       "acceptedAnswers": [
-        "gitlab.com",
-        "git lab"
+        "java se",
+        "openjdk"
       ],
-      "clue1": "Complete DevOps platform delivered as a single application with built-in CI/CD pipelines.",
-      "clue2": "Offers self-hosted community editions as an alternative to proprietary code hosts.",
-      "clue3": "Uses an origami geometric orange fox as its official logo.",
+      "clue1": "Object-oriented language developed by James Gosling at Sun Microsystems in 1995.",
+      "clue2": "Known for the philosophy \"Write Once, Run Anywhere\" via the JVM bytecode.",
+      "clue3": "Named after an Indonesian island famous for coffee, and uses a hot coffee cup logo.",
       "isActive": true,
       "clues": [
-        "Complete DevOps platform delivered as a single application with built-in CI/CD pipelines.",
-        "Offers self-hosted community editions as an alternative to proprietary code hosts.",
-        "Uses an origami geometric orange fox as its official logo."
+        "Object-oriented language developed by James Gosling at Sun Microsystems in 1995.",
+        "Known for the philosophy \"Write Once, Run Anywhere\" via the JVM bytecode.",
+        "Named after an Indonesian island famous for coffee, and uses a hot coffee cup logo."
       ],
       "questionNumber": 5,
       "challengeNumber": 5
     },
     {
-      "id": "r1-46",
+      "id": "r1-08",
       "round": 1,
-      "domain": "Graph Databases",
+      "domain": "Networking",
       "difficulty": "Hard",
-      "website": "Neo4j",
-      "correctAnswer": "Neo4j",
+      "website": "Nginx",
+      "correctAnswer": "Nginx",
       "acceptedAnswers": [
-        "neo4j.com",
-        "neo 4j"
+        "engine x",
+        "nginx.org",
+        "nginx"
       ],
-      "clue1": "Native graph database designed from the ground up to leverage relationships in data.",
-      "clue2": "Uses nodes, relationships, properties, and the declarative Cypher query language.",
-      "clue3": "Powers recommendation engines, fraud detection rings, and social network analysis.",
+      "clue1": "High-performance event-driven web server and reverse proxy created by Igor Sysoev.",
+      "clue2": "Engineered specifically to solve the C10K concurrency problem.",
+      "clue3": "Pronounced \"Engine-X\" and commonly paired with PHP-FPM or Node.js backends.",
       "isActive": true,
       "clues": [
-        "Native graph database designed from the ground up to leverage relationships in data.",
-        "Uses nodes, relationships, properties, and the declarative Cypher query language.",
-        "Powers recommendation engines, fraud detection rings, and social network analysis."
+        "High-performance event-driven web server and reverse proxy created by Igor Sysoev.",
+        "Engineered specifically to solve the C10K concurrency problem.",
+        "Pronounced \"Engine-X\" and commonly paired with PHP-FPM or Node.js backends."
       ],
       "questionNumber": 6,
       "challengeNumber": 6
     },
     {
-      "id": "r1-42",
+      "id": "r1-36",
       "round": 1,
-      "domain": "Artificial Intelligence",
-      "difficulty": "Medium",
-      "website": "Claude",
-      "correctAnswer": "Claude",
+      "domain": "Networking Protocols",
+      "difficulty": "Hard",
+      "website": "QUIC",
+      "correctAnswer": "QUIC",
       "acceptedAnswers": [
-        "anthropic claude",
-        "claude.ai"
+        "http/3",
+        "quick",
+        "http3"
       ],
-      "clue1": "Family of foundational large language models developed by AI research company Anthropic.",
-      "clue2": "Built using Constitutional AI techniques to enhance helpfulness, honesty, and harmlessness.",
-      "clue3": "Named in honor of information theory pioneer Claude Shannon.",
+      "clue1": "Transport layer network protocol designed at Google to replace TCP over UDP.",
+      "clue2": "Reduces connection latency by combining cryptographic handshake with transport handshake.",
+      "clue3": "Serves as the foundational transport protocol for HTTP/3.",
       "isActive": true,
       "clues": [
-        "Family of foundational large language models developed by AI research company Anthropic.",
-        "Built using Constitutional AI techniques to enhance helpfulness, honesty, and harmlessness.",
-        "Named in honor of information theory pioneer Claude Shannon."
+        "Transport layer network protocol designed at Google to replace TCP over UDP.",
+        "Reduces connection latency by combining cryptographic handshake with transport handshake.",
+        "Serves as the foundational transport protocol for HTTP/3."
       ],
       "questionNumber": 7,
       "challengeNumber": 7
     },
     {
-      "id": "r1-15",
+      "id": "r1-07",
       "round": 1,
-      "domain": "Web APIs",
+      "domain": "Databases",
       "difficulty": "Medium",
-      "website": "GraphQL",
-      "correctAnswer": "GraphQL",
+      "website": "PostgreSQL",
+      "correctAnswer": "PostgreSQL",
       "acceptedAnswers": [
-        "graphql.org",
-        "graph ql"
+        "postgres",
+        "postgresql.org",
+        "pgsql"
       ],
-      "clue1": "Open-source query language for APIs created internally by Facebook in 2012.",
-      "clue2": "Clients define the exact shape of the data they need, eliminating over-fetching.",
-      "clue3": "Replaces multiple REST endpoints with a single unified POST endpoint.",
+      "clue1": "World’s most advanced open-source object-relational database management system.",
+      "clue2": "Known for powerful extensions like PostGIS and robust JSONB support.",
+      "clue3": "Features an elephant named Slonik as its official mascot.",
       "isActive": true,
       "clues": [
-        "Open-source query language for APIs created internally by Facebook in 2012.",
-        "Clients define the exact shape of the data they need, eliminating over-fetching.",
-        "Replaces multiple REST endpoints with a single unified POST endpoint."
+        "World’s most advanced open-source object-relational database management system.",
+        "Known for powerful extensions like PostGIS and robust JSONB support.",
+        "Features an elephant named Slonik as its official mascot."
       ],
       "questionNumber": 8,
       "challengeNumber": 8
     },
     {
-      "id": "r1-25",
+      "id": "r1-04",
       "round": 1,
-      "domain": "Programming Languages",
-      "difficulty": "Medium",
-      "website": "C++",
-      "correctAnswer": "C++",
+      "domain": "DevOps & Containers",
+      "difficulty": "Easy",
+      "website": "Docker",
+      "correctAnswer": "Docker",
       "acceptedAnswers": [
-        "cpp",
-        "cplusplus"
+        "docker.com",
+        "docker"
       ],
-      "clue1": "General-purpose programming language created by Bjarne Stroustrup in 1979.",
-      "clue2": "Originally titled \"C with Classes\" before adding OOP, templates, and RAII.",
-      "clue3": "Its name uses the increment operator from the C programming language.",
+      "clue1": "Platform that popularised lightweight containerization using Linux namespaces and cgroups.",
+      "clue2": "Packages software and its dependencies into isolated portable images.",
+      "clue3": "Its iconic mascot is a smiling blue whale carrying shipping containers.",
       "isActive": true,
       "clues": [
-        "General-purpose programming language created by Bjarne Stroustrup in 1979.",
-        "Originally titled \"C with Classes\" before adding OOP, templates, and RAII.",
-        "Its name uses the increment operator from the C programming language."
+        "Platform that popularised lightweight containerization using Linux namespaces and cgroups.",
+        "Packages software and its dependencies into isolated portable images.",
+        "Its iconic mascot is a smiling blue whale carrying shipping containers."
       ],
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r1-13",
+      "id": "r1-44",
       "round": 1,
-      "domain": "Systems Programming",
+      "domain": "Observability & Metrics",
       "difficulty": "Hard",
-      "website": "Rust",
-      "correctAnswer": "Rust",
+      "website": "Prometheus",
+      "correctAnswer": "Prometheus",
       "acceptedAnswers": [
-        "rust-lang",
-        "rust lang"
+        "prometheus.io"
       ],
-      "clue1": "Systems programming language that guarantees memory safety without garbage collection.",
-      "clue2": "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
-      "clue3": "Its mascot is Ferris the Crab, and its package manager is Cargo.",
+      "clue1": "Open-source systems monitoring and alerting toolkit originally built at SoundCloud in 2012.",
+      "clue2": "Uses a pull-based HTTP scraping model to collect multidimensional time-series data.",
+      "clue3": "Queries metrics using PromQL and is named after the Greek Titan who brought fire to humanity.",
       "isActive": true,
       "clues": [
-        "Systems programming language that guarantees memory safety without garbage collection.",
-        "Enforces compile-time borrowing rules, lifetimes, and eliminates data races.",
-        "Its mascot is Ferris the Crab, and its package manager is Cargo."
+        "Open-source systems monitoring and alerting toolkit originally built at SoundCloud in 2012.",
+        "Uses a pull-based HTTP scraping model to collect multidimensional time-series data.",
+        "Queries metrics using PromQL and is named after the Greek Titan who brought fire to humanity."
       ],
       "questionNumber": 10,
       "challengeNumber": 10
@@ -381,316 +383,316 @@
       "challengeNumber": 1
     },
     {
-      "id": "r2-20",
+      "id": "r2-06",
       "round": 2,
-      "category": "ASCII Value Leap",
-      "difficulty": "Hard",
-      "patternText": "a (97)  →  c (99)  →  f (102)  →  j (106)  →  ?",
+      "category": "Polygon Sides",
+      "difficulty": "Easy",
+      "patternText": "Triangle (3)  →  Square (4)  →  Pentagon (5)  →  Hexagon (6)  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "m (109)"
+          "text": "Octagon (8)"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "n (110)"
+          "text": "Heptagon (7)"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "o (111)"
+          "text": "Nonagon (9)"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "p (112)"
+          "text": "Decagon (10)"
         }
       ],
-      "correctOptionId": "C",
-      "correctOption": "C",
-      "explanation": "Increments increase by 1 each step: +2, +3, +4, +5. 106 + 5 = 111, which is \"o\".",
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "Sequential increment of geometric polygon sides: 3, 4, 5, 6, next is 7 (Heptagon).",
       "isActive": true,
       "questionNumber": 2,
       "challengeNumber": 2
     },
     {
-      "id": "r2-46",
+      "id": "r2-17",
       "round": 2,
-      "category": "Palindromic Digits",
-      "difficulty": "Easy",
-      "patternText": "11  →  22  →  33  →  44  →  55  →  ?",
+      "category": "Triangular Numbers",
+      "difficulty": "Medium",
+      "patternText": "1  →  3  →  6  →  10  →  15  →  21  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "60"
+          "text": "26"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "66"
+          "text": "28"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "77"
+          "text": "30"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "65"
+          "text": "36"
         }
       ],
       "correctOptionId": "B",
       "correctOption": "B",
-      "explanation": "Repdigit sequence adding 11 each time. 55 + 11 = 66.",
+      "explanation": "Triangular numbers (n*(n+1)/2): +2, +3, +4, +5, +6, +7. 21 + 7 = 28.",
       "isActive": true,
       "questionNumber": 3,
       "challengeNumber": 3
     },
     {
-      "id": "r2-15",
+      "id": "r2-45",
       "round": 2,
-      "category": "Factorial Sequence",
-      "difficulty": "Hard",
-      "patternText": "1  →  2  →  6  →  24  →  120  →  ?",
+      "category": "Keyboard Row Shift",
+      "difficulty": "Medium",
+      "patternText": "Q  →  W  →  E  →  R  →  T  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "540"
+          "text": "U"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "620"
+          "text": "Y"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "720"
+          "text": "I"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "840"
+          "text": "O"
         }
       ],
-      "correctOptionId": "C",
-      "correctOption": "C",
-      "explanation": "Factorials: 1!, 2!, 3!, 4!, 5!. 6! = 120 × 6 = 720.",
+      "correctOptionId": "B",
+      "correctOption": "B",
+      "explanation": "QWERTY keyboard layout top row: Q, W, E, R, T, Y.",
       "isActive": true,
       "questionNumber": 4,
       "challengeNumber": 4
     },
     {
-      "id": "r2-47",
+      "id": "r2-26",
       "round": 2,
-      "category": "Roman Numerals",
-      "difficulty": "Medium",
-      "patternText": "I (1)  →  V (5)  →  X (10)  →  L (50)  →  C (100)  →  D (500)  →  ?",
+      "category": "Look-and-Say Sequence",
+      "difficulty": "Hard",
+      "patternText": "1  →  11  →  21  →  1211  →  111221  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "M (1000)"
+          "text": "312211"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "K (1000)"
+          "text": "13112221"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "G (1000)"
+          "text": "2112211"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "V̄ (5000)"
+          "text": "3112221"
         }
       ],
       "correctOptionId": "A",
       "correctOption": "A",
-      "explanation": "Ascending standard Roman numeral denominations. Next is M (1000).",
+      "explanation": "Conway look-and-say: \"111221\" has three 1s, two 2s, one 1 → 312211.",
       "isActive": true,
       "questionNumber": 5,
       "challengeNumber": 5
     },
     {
-      "id": "r2-48",
+      "id": "r2-08",
       "round": 2,
-      "category": "Hourglass Decay",
+      "category": "Fibonacci Series",
       "difficulty": "Easy",
-      "patternText": "30s  →  25s  →  20s  →  15s  →  10s  →  ?",
+      "patternText": "0  →  1  →  1  →  2  →  3  →  5  →  8  →  13  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "8s"
+          "text": "18"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "5s"
+          "text": "19"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "0s"
+          "text": "21"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "3s"
+          "text": "24"
         }
       ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Decreasing by 5s intervals. 10s - 5s = 5s.",
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Each term is the sum of the two preceding terms: 8 + 13 = 21.",
       "isActive": true,
       "questionNumber": 6,
       "challengeNumber": 6
     },
     {
-      "id": "r2-41",
+      "id": "r2-03",
       "round": 2,
-      "category": "Powers of Four",
-      "difficulty": "Medium",
-      "patternText": "4  →  16  →  64  →  256  →  ?",
+      "category": "Hexadecimal Step",
+      "difficulty": "Hard",
+      "patternText": "0x10  →  0x20  →  0x40  →  0x80  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "512"
+          "text": "0x90"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "1024"
+          "text": "0xA0"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "768"
+          "text": "0xC0"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "2048"
+          "text": "0x100"
         }
       ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Powers of 4 (4^n): 256 × 4 = 1024.",
+      "correctOptionId": "D",
+      "correctOption": "D",
+      "explanation": "Hex values doubled: 16, 32, 64, 128 (0x80). Next is 256 in decimal, which is 0x100 in hex.",
       "isActive": true,
       "questionNumber": 7,
       "challengeNumber": 7
     },
     {
-      "id": "r2-04",
+      "id": "r2-05",
       "round": 2,
-      "category": "Clockwise Rotation",
+      "category": "Square Numbers",
       "difficulty": "Easy",
-      "patternText": "▲  →  ►  →  ▼  →  ◄  →  ?",
+      "patternText": "1  →  4  →  9  →  16  →  25  →  36  →  ?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "▼ (Down)"
+          "text": "49"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "▲ (Up)"
+          "text": "45"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "► (Right)"
+          "text": "54"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "◄ (Left)"
+          "text": "64"
         }
       ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "90-degree clockwise cycle. After Left (◄), the arrow rotates back to Up (▲).",
+      "correctOptionId": "A",
+      "correctOption": "A",
+      "explanation": "Square integers: 1², 2², 3², 4², 5², 6². 7² = 49.",
       "isActive": true,
       "questionNumber": 8,
       "challengeNumber": 8
     },
     {
-      "id": "r2-28",
+      "id": "r2-36",
       "round": 2,
-      "category": "Character Matrix Diagonal",
-      "difficulty": "Medium",
-      "patternText": "A..  →  .B.  →  ..C  →  D..  →  ?",
+      "category": "Binary Parity Bit",
+      "difficulty": "Hard",
+      "patternText": "0000_0  →  0001_1  →  0010_1  →  0011_0  →  0100_1  →  0101_?",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": ".E."
+          "text": "0"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "E.."
+          "text": "1"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "..E"
+          "text": "X"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "EE."
+          "text": "2"
         }
       ],
       "correctOptionId": "A",
       "correctOption": "A",
-      "explanation": "Position shifts across index 0, 1, 2, then loops back to 0, 1 (.E.).",
+      "explanation": "Even parity bit calculation: 0101 has two 1s (even), so the parity bit is 0.",
       "isActive": true,
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r2-49",
+      "id": "r2-33",
       "round": 2,
-      "category": "Base-3 Trinary Increment",
-      "difficulty": "Hard",
-      "patternText": "01 (1)  →  02 (2)  →  10 (3)  →  11 (4)  →  12 (5)  →  ?",
+      "category": "Geometric Area Multiplication",
+      "difficulty": "Medium",
+      "patternText": "Side 1 (Area 1)  →  Side 2 (Area 4)  →  Side 4 (Area 16)  →  Side 8 (Area ?) ",
       "options": [
         {
           "id": "A",
           "key": "A",
-          "text": "13 (6)"
+          "text": "32"
         },
         {
           "id": "B",
           "key": "B",
-          "text": "20 (6)"
+          "text": "48"
         },
         {
           "id": "C",
           "key": "C",
-          "text": "21 (7)"
+          "text": "64"
         },
         {
           "id": "D",
           "key": "D",
-          "text": "100 (9)"
+          "text": "128"
         }
       ],
-      "correctOptionId": "B",
-      "correctOption": "B",
-      "explanation": "Ternary (base 3) counting system digits {0,1,2}. 5 is \"12\", so 6 is \"20\" (2*3 + 0).",
+      "correctOptionId": "C",
+      "correctOption": "C",
+      "explanation": "Square area = side². 8² = 64.",
       "isActive": true,
       "questionNumber": 10,
       "challengeNumber": 10
@@ -724,82 +726,189 @@
       "challengeNumber": 1
     },
     {
-      "id": "r3-20",
+      "id": "r3-46",
       "round": 3,
-      "title": "Atbash Inverse Alphabet",
-      "category": "Inverse Cipher",
-      "difficulty": "Hard",
-      "code": "TLKRO",
-      "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
-      "correctCode": "GOPIL",
+      "title": "Leetspeak Hacker Code",
+      "category": "Substitution",
+      "difficulty": "Easy",
+      "code": "T3RM1N4L",
+      "hint": "Numbers and symbols replace visually similar letters. Identify the character substitutions to read the word.",
+      "correctCode": "TERMINAL",
       "alternateCodes": [
-        "gopil"
+        "terminal"
       ],
-      "explanation": "T->G, L->O, K->P, R->I, O->L -> GOPIL",
+      "explanation": "T-E-R-M-I-N-A-L: The developer command prompt interface.",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "gopil"
+        "terminal"
       ],
-      "puzzle": "TLKRO",
-      "correctAnswer": "GOPIL",
+      "puzzle": "T3RM1N4L",
+      "correctAnswer": "TERMINAL",
       "acceptedAnswers": [
-        "gopil"
+        "terminal"
       ],
       "questionNumber": 2,
       "challengeNumber": 2
     },
     {
-      "id": "r3-22",
+      "id": "r3-18",
       "round": 3,
-      "title": "Caesar Shift (+5)",
-      "category": "Caesar Cipher",
+      "title": "Morse Code Word",
+      "category": "Morse Code",
       "difficulty": "Medium",
-      "code": "HTSIJ",
-      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
-      "correctCode": "CONDE",
+      "code": "-.-. --- -.. .",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+      "correctCode": "CODE",
       "alternateCodes": [
-        "conde"
+        "code"
       ],
-      "explanation": "H-5=C, T-5=O, S-5=N... wait: H(8)-5=C, T(20)-5=O, S(19)-5=N, I(9)-5=D, J(10)-5=E -> CONDE? Let's check: H-5=C, T-5=O, X? If code is HTSIJ -> C-O-N-D-E.",
+      "explanation": "Translates to C-O-D-E.",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "conde"
+        "code"
       ],
-      "puzzle": "HTSIJ",
-      "correctAnswer": "CONDE",
+      "puzzle": "-.-. --- -.. .",
+      "correctAnswer": "CODE",
       "acceptedAnswers": [
-        "conde"
+        "code"
       ],
       "questionNumber": 3,
       "challengeNumber": 3
     },
     {
-      "id": "r3-08",
+      "id": "r3-17",
       "round": 3,
-      "title": "Atbash Inverse Alphabet",
-      "category": "Inverse Cipher",
+      "title": "Hexadecimal ASCII Code",
+      "category": "Hex Encoding",
       "difficulty": "Medium",
-      "code": "KZXPV",
-      "hint": "The alphabet has been reversed. Match each letter from the opposite end of the alphabet.",
-      "correctCode": "PACKE",
+      "code": "42  59  54  45",
+      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
+      "correctCode": "BYTE",
       "alternateCodes": [
-        "packe"
+        "byte"
       ],
-      "explanation": "K->P, Z->A, X->C, P->K, V->E -> PACKE",
+      "explanation": "0x42=B, 0x59=Y, 0x54=T, 0x45=E -> BYTE",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "packe"
+        "byte"
       ],
-      "puzzle": "KZXPV",
-      "correctAnswer": "PACKE",
+      "puzzle": "42  59  54  45",
+      "correctAnswer": "BYTE",
       "acceptedAnswers": [
-        "packe"
+        "byte"
       ],
       "questionNumber": 4,
       "challengeNumber": 4
+    },
+    {
+      "id": "r3-05",
+      "round": 3,
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
+      "difficulty": "Hard",
+      "code": "01000011 01011001 01000010 01000101 01010010",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+      "correctCode": "CYBER",
+      "alternateCodes": [
+        "cyber"
+      ],
+      "explanation": "67=C, 89=Y, 66=B, 69=E, 82=R -> CYBER",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "cyber"
+      ],
+      "puzzle": "01000011 01011001 01000010 01000101 01010010",
+      "correctAnswer": "CYBER",
+      "acceptedAnswers": [
+        "cyber"
+      ],
+      "questionNumber": 5,
+      "challengeNumber": 5
+    },
+    {
+      "id": "r3-09",
+      "round": 3,
+      "title": "International Morse Code",
+      "category": "Morse Code",
+      "difficulty": "Easy",
+      "code": "... --- ...",
+      "hint": "The message is represented in standard timing signals. Translate each symbol group into its corresponding letter.",
+      "correctCode": "SOS",
+      "alternateCodes": [
+        "sos"
+      ],
+      "explanation": "... is S, --- is O, ... is S -> SOS",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "sos"
+      ],
+      "puzzle": "... --- ...",
+      "correctAnswer": "SOS",
+      "acceptedAnswers": [
+        "sos"
+      ],
+      "questionNumber": 6,
+      "challengeNumber": 6
+    },
+    {
+      "id": "r3-27",
+      "round": 3,
+      "title": "ROT13 Caesar Rotation",
+      "category": "Caesar Cipher",
+      "difficulty": "Medium",
+      "code": "NPGVIY",
+      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
+      "correctCode": "ACTIYL",
+      "alternateCodes": [
+        "actiyl",
+        "action"
+      ],
+      "explanation": "N(14)+13=A, P(16)+13=C, G(7)+13=T, V(22)+13=I, I(9)+13=V, Y(25)+13=L -> ACTIYL",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "actiyl",
+        "action"
+      ],
+      "puzzle": "NPGVIY",
+      "correctAnswer": "ACTIYL",
+      "acceptedAnswers": [
+        "actiyl",
+        "action"
+      ],
+      "questionNumber": 7,
+      "challengeNumber": 7
+    },
+    {
+      "id": "r3-03",
+      "round": 3,
+      "title": "Reverse String Cipher",
+      "category": "Reversal",
+      "difficulty": "Easy",
+      "code": "EDOCNERAKRAPS",
+      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
+      "correctCode": "SPARKRENACODE",
+      "alternateCodes": [
+        "sparkrenacode"
+      ],
+      "explanation": "Reversing EDOCNERAKRAPS yields SPARKRENACODE.",
+      "timeLimit": 45,
+      "isActive": true,
+      "acceptedCodes": [
+        "sparkrenacode"
+      ],
+      "puzzle": "EDOCNERAKRAPS",
+      "correctAnswer": "SPARKRENACODE",
+      "acceptedAnswers": [
+        "sparkrenacode"
+      ],
+      "questionNumber": 8,
+      "challengeNumber": 8
     },
     {
       "id": "r3-36",
@@ -824,157 +933,36 @@
       "acceptedAnswers": [
         "sql"
       ],
-      "questionNumber": 5,
-      "challengeNumber": 5
-    },
-    {
-      "id": "r3-15",
-      "round": 3,
-      "title": "Reverse String Cipher",
-      "category": "Reversal",
-      "difficulty": "Easy",
-      "code": "XIRTAM",
-      "hint": "The sequence is intact but inverted. Read the encrypted message from right to left.",
-      "correctCode": "MATRIX",
-      "alternateCodes": [
-        "matrix"
-      ],
-      "explanation": "X-I-R-T-A-M reversed is M-A-T-R-I-X.",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "matrix"
-      ],
-      "puzzle": "XIRTAM",
-      "correctAnswer": "MATRIX",
-      "acceptedAnswers": [
-        "matrix"
-      ],
-      "questionNumber": 6,
-      "challengeNumber": 6
-    },
-    {
-      "id": "r3-13",
-      "round": 3,
-      "title": "A1Z26 Numerical Cipher",
-      "category": "Alphabetical Mapping",
-      "difficulty": "Easy",
-      "code": "8 - 1 - 3 - 11",
-      "hint": "Each number corresponds to an alphabetical position. Look for a standard 1-to-26 letter relationship.",
-      "correctCode": "HACK",
-      "alternateCodes": [
-        "hack"
-      ],
-      "explanation": "8=H, 1=A, 3=C, 11=K -> HACK",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "hack"
-      ],
-      "puzzle": "8 - 1 - 3 - 11",
-      "correctAnswer": "HACK",
-      "acceptedAnswers": [
-        "hack"
-      ],
-      "questionNumber": 7,
-      "challengeNumber": 7
-    },
-    {
-      "id": "r3-33",
-      "round": 3,
-      "title": "Caesar Shift (-2)",
-      "category": "Caesar Cipher",
-      "difficulty": "Medium",
-      "code": "ENRVE",
-      "hint": "The letters have been shifted. Look for a consistent shift across the message.",
-      "correctCode": "GPTXG",
-      "alternateCodes": [
-        "gptxg"
-      ],
-      "explanation": "E+2=G, N+2=P, R+2=T, V+2=X, E+2=G -> GPTXG",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "gptxg"
-      ],
-      "puzzle": "ENRVE",
-      "correctAnswer": "GPTXG",
-      "acceptedAnswers": [
-        "gptxg"
-      ],
-      "questionNumber": 8,
-      "challengeNumber": 8
-    },
-    {
-      "id": "r3-10",
-      "round": 3,
-      "title": "Polybius Square Matrix",
-      "category": "Polybius Grid",
-      "difficulty": "Hard",
-      "code": "13  42  11  13  25",
-      "hint": "The coordinates reference a character grid. Determine row and column intersections to find each character.",
-      "correctCode": "CRACK",
-      "alternateCodes": [
-        "crack"
-      ],
-      "explanation": "13=C, 42=R, 11=A, 13=C, 25=K -> CRACK",
-      "timeLimit": 45,
-      "isActive": true,
-      "acceptedCodes": [
-        "crack"
-      ],
-      "puzzle": "13  42  11  13  25",
-      "correctAnswer": "CRACK",
-      "acceptedAnswers": [
-        "crack"
-      ],
       "questionNumber": 9,
       "challengeNumber": 9
     },
     {
-      "id": "r3-34",
+      "id": "r3-25",
       "round": 3,
-      "title": "Hexadecimal ASCII Code",
-      "category": "Hex Encoding",
-      "difficulty": "Easy",
-      "code": "47  49  54",
-      "hint": "The values are written using hexadecimal notation. Convert each pair using standard character encoding.",
-      "correctCode": "GIT",
+      "title": "ASCII Binary Byte Stream",
+      "category": "Binary ASCII",
+      "difficulty": "Hard",
+      "code": "01010001 01010101 01000101 01010011 01010100",
+      "hint": "Each 8-bit group represents one encoded character. Identify the character encoding being used.",
+      "correctCode": "QUEST",
       "alternateCodes": [
-        "git"
+        "quest"
       ],
-      "explanation": "G-I-T: The ubiquitous version control tool.",
+      "explanation": "81=Q, 85=U, 69=E, 83=S, 84=T -> QUEST",
       "timeLimit": 45,
       "isActive": true,
       "acceptedCodes": [
-        "git"
+        "quest"
       ],
-      "puzzle": "47  49  54",
-      "correctAnswer": "GIT",
+      "puzzle": "01010001 01010101 01000101 01010011 01010100",
+      "correctAnswer": "QUEST",
       "acceptedAnswers": [
-        "git"
+        "quest"
       ],
       "questionNumber": 10,
       "challengeNumber": 10
     }
   ],
-  "roundSubmissions": [
-    {
-      "team": 1,
-      "code": "SECURE",
-      "isCorrect": true,
-      "rank": 1,
-      "points": 40,
-      "timestamp": 1789748609060
-    },
-    {
-      "team": 2,
-      "code": "secure",
-      "isCorrect": true,
-      "rank": 2,
-      "points": 25,
-      "timestamp": 1789748609063
-    }
-  ],
-  "updatedAt": "2026-09-18T16:23:59.107Z"
+  "roundSubmissions": [],
+  "updatedAt": "2026-09-18T17:05:41.805Z"
 }

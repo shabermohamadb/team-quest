@@ -80,9 +80,9 @@ async function runMasterQA() {
 
     adminSocket = await connectSocket();
     const adminAuthRes = await new Promise((res) => {
-      adminSocket.emit('admin_auth', { pin: 'admin123' }, res);
+      adminSocket.emit('admin_auth', { pin: '12345' }, res);
     });
-    assert(adminAuthRes.success === true, 'Admin authenticated with admin123 PIN');
+    assert(adminAuthRes.success === true, 'Admin authenticated with 12345 PIN');
 
     // Reset game state to clean LOBBY
     await new Promise((res) => adminSocket.emit('admin_reset_game', {}, res));

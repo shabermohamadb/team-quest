@@ -50,7 +50,7 @@ export class GameManager {
     this.participantManager = participantManager;
 
     this.gameCode = 'QUEST-2026';
-    this.adminPin = 'admin123';
+    this.adminPin = process.env.ADMIN_PASSWORD || process.env.ADMIN_PIN || '12345';
     this.gameSessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
     this.state = GAME_STATES.LOBBY;
     this.previousState = null;
@@ -1967,7 +1967,6 @@ export class GameManager {
     return {
       ...displayState,
       teamCount: this.teamCount,
-      adminPin: this.adminPin,
       // Active question objects for current round
       round1Question: this.getCurrentRound1Question(),
       round2Pattern: this.getCurrentRound2Pattern(),
@@ -1983,8 +1982,10 @@ export class GameManager {
         id: t.id,
         name: t.name,
         isOccupied: t.claimed,
-        isConnected: t.connected
+        isConnected: t.connected,
+        isReconnecting: Boolean(t.reconnecting)
       })),
+      teamsStatus: this.teamManager.getPublicTeamStatus(),
       activeClueNumber: this.activeClueNumber,
       startCountdownRemaining: this.startCountdownRemaining,
       timeRemaining: this.timeRemaining,
@@ -2156,5 +2157,6 @@ export class GameManager {
     };
     this.io.to(this.gameCode).emit('timer_tick', tickData);
     this.io.to('admin_room').emit('timer_tick', tickData);
+    this.io.to('display_room').emit('timer_tick', tickData);
   }
 }
