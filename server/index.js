@@ -316,6 +316,16 @@ io.on('connection', (socket) => {
     const callback = typeof data === 'function' ? data : cb;
     if (typeof callback === 'function') callback({ success: true });
   });
+  socket.on('admin_start_r1', (data, cb) => {
+    gameManager.startRound1Sequence();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
+  socket.on('admin_start_round_1', (data, cb) => {
+    gameManager.startRound1Sequence();
+    const callback = typeof data === 'function' ? data : cb;
+    if (typeof callback === 'function') callback({ success: true });
+  });
   socket.on('admin_reveal_clue_2', (data, cb) => {
     gameManager.revealClue2();
     const callback = typeof data === 'function' ? data : cb;

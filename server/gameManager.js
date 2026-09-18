@@ -160,6 +160,7 @@ export class GameManager {
     }
 
     this.generateGameQuestions({ preserveFirstTestQuestion: true });
+    this.ensureQuestionsLoaded();
     this._saveToStore();
   }
 
@@ -235,16 +236,70 @@ export class GameManager {
       if (typeof saved.currentQuestionIndex === 'number') this.currentQuestionIndex = saved.currentQuestionIndex;
       if (typeof saved.activeClueNumber === 'number') this.activeClueNumber = saved.activeClueNumber;
       if (Array.isArray(saved.revealedClues)) this.revealedClues = [...saved.revealedClues];
-      if (saved.selectedRound1Questions) this.selectedRound1Questions = saved.selectedRound1Questions;
-      if (saved.selectedRound2Questions) this.selectedRound2Questions = saved.selectedRound2Questions;
-      if (saved.selectedRound3Questions) this.selectedRound3Questions = saved.selectedRound3Questions;
+      if (Array.isArray(saved.selectedRound1Questions) && saved.selectedRound1Questions.length > 0) {
+        this.selectedRound1Questions = saved.selectedRound1Questions;
+        this.r1Questions = this.selectedRound1Questions;
+      }
+      if (Array.isArray(saved.selectedRound2Questions) && saved.selectedRound2Questions.length > 0) {
+        this.selectedRound2Questions = saved.selectedRound2Questions;
+        this.r2Patterns = this.selectedRound2Questions;
+      }
+      if (Array.isArray(saved.selectedRound3Questions) && saved.selectedRound3Questions.length > 0) {
+        this.selectedRound3Questions = saved.selectedRound3Questions;
+        this.r3CodeCrackers = this.selectedRound3Questions;
+        this.r3Reactions = this.r3CodeCrackers;
+      }
       if (typeof saved.questionsFrozen === 'boolean') this.questionsFrozen = saved.questionsFrozen;
       if (Array.isArray(saved.roundSubmissions)) this.roundSubmissions = saved.roundSubmissions;
       if (saved.finalResults) this.finalResults = saved.finalResults;
 
+      // Always guarantee questions are loaded in memory for all rounds
+      this.ensureQuestionsLoaded();
+
       console.log(`[GameManager] Restored authoritative game state (${this.state}, Session: ${this.gameSessionId}, Teams: ${this.teamCount})`);
     } catch (e) {
       console.error('[GameManager] Error during state restoration:', e.message);
+    }
+  }
+
+  ensureQuestionsLoaded() {
+    if (!Array.isArray(this.r1Questions) || this.r1Questions.length === 0) {
+      if (Array.isArray(this.selectedRound1Questions) && this.selectedRound1Questions.length > 0) {
+        this.r1Questions = this.selectedRound1Questions;
+      } else if (this.questionManager && typeof this.questionManager.selectQuestionsForGame === 'function') {
+        const recentHistory = this.getRecentQuestionHistory ? this.getRecentQuestionHistory(3) : [];
+        this.selectedRound1Questions = this.questionManager.selectQuestionsForGame(1, this.round1TotalQuestions || 10, recentHistory, { preserveFirstTestQuestion: true });
+        this.r1Questions = this.selectedRound1Questions;
+      } else {
+        this.r1Questions = [];
+      }
+    }
+
+    if (!Array.isArray(this.r2Patterns) || this.r2Patterns.length === 0) {
+      if (Array.isArray(this.selectedRound2Questions) && this.selectedRound2Questions.length > 0) {
+        this.r2Patterns = this.selectedRound2Questions;
+      } else if (this.questionManager && typeof this.questionManager.selectQuestionsForGame === 'function') {
+        const recentHistory = this.getRecentQuestionHistory ? this.getRecentQuestionHistory(3) : [];
+        this.selectedRound2Questions = this.questionManager.selectQuestionsForGame(2, this.round2TotalQuestions || 10, recentHistory, { preserveFirstTestQuestion: true });
+        this.r2Patterns = this.selectedRound2Questions;
+      } else {
+        this.r2Patterns = [];
+      }
+    }
+
+    if (!Array.isArray(this.r3CodeCrackers) || this.r3CodeCrackers.length === 0) {
+      if (Array.isArray(this.selectedRound3Questions) && this.selectedRound3Questions.length > 0) {
+        this.r3CodeCrackers = this.selectedRound3Questions;
+        this.r3Reactions = this.r3CodeCrackers;
+      } else if (this.questionManager && typeof this.questionManager.selectQuestionsForGame === 'function') {
+        const recentHistory = this.getRecentQuestionHistory ? this.getRecentQuestionHistory(3) : [];
+        this.selectedRound3Questions = this.questionManager.selectQuestionsForGame(3, this.round3TotalQuestions || 10, recentHistory, { preserveFirstTestQuestion: true });
+        this.r3CodeCrackers = this.selectedRound3Questions;
+        this.r3Reactions = this.r3CodeCrackers;
+      } else {
+        this.r3CodeCrackers = [];
+        this.r3Reactions = [];
+      }
     }
   }
 
@@ -1788,16 +1843,135 @@ export class GameManager {
   }
 
   getCurrentRound1Question() {
-    return this.r1Questions[this.currentQuestionIndex % this.r1Questions.length];
+    // 1. If r1Questions is empty, sync from selectedRound1Questions or ensure questions loaded
+    if (!Array.isArray(this.r1Questions) || this.r1Questions.length === 0) {
+      if (Array.isArray(this.selectedRound1Questions) && this.selectedRound1Questions.length > 0) {
+        this.r1Questions = this.selectedRound1Questions;
+      } else {
+        this.ensureQuestionsLoaded();
+      }
+    }
+
+    // 2. Safe modulo indexing against active array
+    if (Array.isArray(this.r1Questions) && this.r1Questions.length > 0) {
+      const idx = Math.abs(this.currentQuestionIndex || 0) % this.r1Questions.length;
+      const q = this.r1Questions[idx];
+      if (q) return q;
+    }
+
+    // 3. Fallback to question bank
+    const bankR1 = this.questionManager?.getRound1All?.() || [];
+    if (bankR1.length > 0) {
+      const idx = Math.abs(this.currentQuestionIndex || 0) % bankR1.length;
+      return bankR1[idx];
+    }
+
+    // 4. Guaranteed safe fallback question object
+    return {
+      id: 'fallback-r1-q1',
+      round: 1,
+      questionNumber: (this.currentQuestionIndex || 0) + 1,
+      domain: 'Programming',
+      difficulty: 'Medium',
+      website: 'GitHub',
+      correctAnswer: 'GitHub',
+      acceptedAnswers: ['github', 'git hub'],
+      clue1: 'Developers commonly use this platform to collaborate on code repositories.',
+      clue2: 'Developers can create repositories, branches and pull requests on this platform.',
+      clue3: 'It is widely known by a short name that starts with "Git" and ends with "Hub".',
+      clues: [
+        'Developers commonly use this platform to collaborate on code repositories.',
+        'Developers can create repositories, branches and pull requests on this platform.',
+        'It is widely known by a short name that starts with "Git" and ends with "Hub".'
+      ]
+    };
   }
 
   getCurrentRound2Pattern() {
-    return this.r2Patterns[this.currentQuestionIndex % this.r2Patterns.length];
+    // 1. If r2Patterns is empty, sync from selectedRound2Questions or ensure questions loaded
+    if (!Array.isArray(this.r2Patterns) || this.r2Patterns.length === 0) {
+      if (Array.isArray(this.selectedRound2Questions) && this.selectedRound2Questions.length > 0) {
+        this.r2Patterns = this.selectedRound2Questions;
+      } else {
+        this.ensureQuestionsLoaded();
+      }
+    }
+
+    // 2. Safe modulo indexing against active array
+    if (Array.isArray(this.r2Patterns) && this.r2Patterns.length > 0) {
+      const idx = Math.abs(this.currentQuestionIndex || 0) % this.r2Patterns.length;
+      const p = this.r2Patterns[idx];
+      if (p) return p;
+    }
+
+    // 3. Fallback to question bank
+    const bankR2 = this.questionManager?.getRound2All?.() || [];
+    if (bankR2.length > 0) {
+      const idx = Math.abs(this.currentQuestionIndex || 0) % bankR2.length;
+      return bankR2[idx];
+    }
+
+    // 4. Guaranteed safe fallback pattern object
+    return {
+      id: 'fallback-r2-p1',
+      round: 2,
+      questionNumber: (this.currentQuestionIndex || 0) + 1,
+      title: 'Fibonacci Sequence',
+      category: 'Sequence',
+      difficulty: 'Medium',
+      patternText: '1, 1, 2, 3, 5, 8, ?',
+      options: [
+        { key: 'A', text: '11' },
+        { key: 'B', text: '12' },
+        { key: 'C', text: '13' },
+        { key: 'D', text: '15' }
+      ],
+      correctOption: 'C',
+      explanation: 'Each number is the sum of the previous two (5 + 8 = 13).'
+    };
   }
 
   getCurrentRound3CodeCracker() {
-    const list = this.r3CodeCrackers || this.questionManager.getRound3All();
-    return list[this.currentQuestionIndex % list.length];
+    // 1. If r3CodeCrackers is empty, sync from selectedRound3Questions or ensure questions loaded
+    if (!Array.isArray(this.r3CodeCrackers) || this.r3CodeCrackers.length === 0) {
+      if (Array.isArray(this.selectedRound3Questions) && this.selectedRound3Questions.length > 0) {
+        this.r3CodeCrackers = this.selectedRound3Questions;
+        this.r3Reactions = this.r3CodeCrackers;
+      } else {
+        this.ensureQuestionsLoaded();
+      }
+    }
+
+    // 2. Safe modulo indexing against active array
+    if (Array.isArray(this.r3CodeCrackers) && this.r3CodeCrackers.length > 0) {
+      const idx = Math.abs(this.currentQuestionIndex || 0) % this.r3CodeCrackers.length;
+      const c = this.r3CodeCrackers[idx];
+      if (c) return c;
+    }
+
+    // 3. Fallback to question bank
+    const bankR3 = this.questionManager?.getRound3All?.() || [];
+    if (bankR3.length > 0) {
+      const idx = Math.abs(this.currentQuestionIndex || 0) % bankR3.length;
+      return bankR3[idx];
+    }
+
+    // 4. Guaranteed safe fallback code cracker object
+    return {
+      id: 'fallback-r3-c1',
+      round: 3,
+      challengeNumber: (this.currentQuestionIndex || 0) + 1,
+      title: 'Off-by-One Loop',
+      category: 'Debugging',
+      difficulty: 'Hard',
+      code: 'for (let i = 0; i <= arr.length; i++) {\n  console.log(arr[i]);\n}',
+      puzzle: 'for (let i = 0; i <= arr.length; i++) {\n  console.log(arr[i]);\n}',
+      prompt: 'Fix the loop condition to avoid accessing undefined index',
+      hint: 'Array indices range from 0 to length - 1',
+      correctCode: 'i < arr.length',
+      correctAnswer: 'i < arr.length',
+      timeLimit: 45
+    };
   }
 
   getCurrentRound3Reaction() {
@@ -1817,17 +1991,21 @@ export class GameManager {
       const isAnswerVisible = [GAME_STATES.ROUND_1_ANSWER_REVEAL, GAME_STATES.ROUND_1_RESULT, GAME_STATES.FINAL_RESULT].includes(this.state);
 
       const activeClues = [];
-      if (this.revealedClues[0]) activeClues.push({ number: 1, text: q.clue1 });
-      if (this.revealedClues[1]) activeClues.push({ number: 2, text: q.clue2 });
-      if (this.revealedClues[2]) activeClues.push({ number: 3, text: q.clue3 });
+      const clue1 = q ? (q.clue1 || (Array.isArray(q.clues) ? q.clues[0] : null) || 'Clue 1 loading...') : 'Clue 1 loading...';
+      const clue2 = q ? (q.clue2 || (Array.isArray(q.clues) ? q.clues[1] : null) || 'Clue 2 loading...') : 'Clue 2 loading...';
+      const clue3 = q ? (q.clue3 || (Array.isArray(q.clues) ? q.clues[2] : null) || 'Clue 3 loading...') : 'Clue 3 loading...';
+
+      if (this.revealedClues[0]) activeClues.push({ number: 1, text: clue1 });
+      if (this.revealedClues[1]) activeClues.push({ number: 2, text: clue2 });
+      if (this.revealedClues[2]) activeClues.push({ number: 3, text: clue3 });
 
       currentChallenge = {
         roundNumber: 1,
-        domain: q.domain,
-        difficulty: q.difficulty,
+        domain: q?.domain || 'General',
+        difficulty: q?.difficulty || 'Medium',
         activeClues,
         activeClueNumber: this.activeClueNumber,
-        revealedAnswer: isAnswerVisible ? q.correctAnswer : null
+        revealedAnswer: isAnswerVisible ? (q?.correctAnswer || null) : null
       };
     } else if ([GAME_STATES.ROUND_2_INTRO, GAME_STATES.ROUND_2_ACTIVE, GAME_STATES.ROUND_2_RESULT].includes(this.state)) {
       const p = this.getCurrentRound2Pattern();
@@ -1835,31 +2013,31 @@ export class GameManager {
 
       currentChallenge = {
         roundNumber: 2,
-        title: p.title,
-        category: p.category,
-        difficulty: p.difficulty,
-        patternText: p.patternText,
-        options: p.options, // [{ key: 'A', text: '48' }, ...]
-        revealedOption: isAnswerVisible ? p.correctOption : null,
-        explanation: isAnswerVisible ? p.explanation : null
+        title: p?.title || 'Pattern Puzzle',
+        category: p?.category || 'General',
+        difficulty: p?.difficulty || 'Medium',
+        patternText: p?.patternText || '',
+        options: Array.isArray(p?.options) ? p.options : [],
+        revealedOption: isAnswerVisible ? (p?.correctOption || null) : null,
+        explanation: isAnswerVisible ? (p?.explanation || null) : null
       };
     } else if ([GAME_STATES.ROUND_3_INTRO, GAME_STATES.ROUND_3_ACTIVE, GAME_STATES.ROUND_3_RESULT].includes(this.state)) {
       const c = this.getCurrentRound3CodeCracker();
       const isAnswerVisible = [GAME_STATES.ROUND_3_RESULT, GAME_STATES.FINAL_RESULT].includes(this.state);
 
       currentChallenge = {
-        id: c.id,
+        id: c?.id || `r3-q${this.currentQuestionIndex + 1}`,
         roundNumber: 3,
         challengeNumber: this.currentQuestionIndex + 1,
-        title: c.title,
-        category: c.category,
-        difficulty: c.difficulty,
-        code: c.code || c.puzzle,
-        puzzle: c.puzzle || c.code,
-        hint: getEnforcedSafeHint(c),
-        prompt: c.prompt,
-        timeLimit: c.timeLimit || 45,
-        revealedCode: isAnswerVisible ? (c.correctCode || c.correctAnswer) : null
+        title: c?.title || 'Code Challenge',
+        category: c?.category || 'General',
+        difficulty: c?.difficulty || 'Hard',
+        code: c?.code || c?.puzzle || '',
+        puzzle: c?.puzzle || c?.code || '',
+        hint: c ? getEnforcedSafeHint(c) : '',
+        prompt: c?.prompt || '',
+        timeLimit: c?.timeLimit || 45,
+        revealedCode: isAnswerVisible ? (c?.correctCode || c?.correctAnswer || null) : null
       };
     }
 

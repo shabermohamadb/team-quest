@@ -3,33 +3,33 @@
     "id": "mem_1789752852525_3afb8d",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Jeni",
-    "teamId": 1,
+    "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_d43b8a",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Andrea",
-    "teamId": 1,
+    "teamId": 3,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_457711",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Archana",
-    "teamId": 4,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_4cf7a6",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Harshini",
-    "teamId": 4,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_c05002",
@@ -37,15 +37,15 @@
     "name": "Sowmiya",
     "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_a1d60a",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Ancy",
-    "teamId": 4,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_4264a6",
@@ -53,47 +53,47 @@
     "name": "Amrutha",
     "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_a57dac",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Dharshan",
-    "teamId": 2,
+    "teamId": 3,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_2c9762",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Vignesh",
-    "teamId": 1,
+    "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_118d25",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Susmitha",
-    "teamId": 3,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_b487fd",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Haajira",
-    "teamId": 3,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_9b98ee",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Ajisha",
-    "teamId": 3,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_a28dfd",
@@ -101,7 +101,7 @@
     "name": "Anjai",
     "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_9803f4",
@@ -109,47 +109,47 @@
     "name": "Tharun Krishna",
     "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_29efd6",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Abishake",
-    "teamId": 4,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_14e673",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Jagadeesh",
-    "teamId": 1,
+    "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_049817",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Aswathi",
-    "teamId": 3,
+    "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_14fb2d",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Arock",
-    "teamId": 1,
+    "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_96aa0e",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Vishal",
-    "teamId": 2,
+    "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_a28e98",
@@ -157,63 +157,63 @@
     "name": "Beule",
     "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_bc185b",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Danu Peter",
-    "teamId": 2,
+    "teamId": 1,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_c417d0",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Vishal",
-    "teamId": 1,
+    "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_705e1a",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Shaniya",
-    "teamId": 1,
+    "teamId": 3,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_bd74da",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Anitus",
-    "teamId": 4,
+    "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_6ab9c0",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Naveen",
-    "teamId": 3,
+    "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_bfb689",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Gobika",
-    "teamId": 3,
+    "teamId": 4,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_554775",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Aysha",
-    "teamId": 2,
+    "teamId": 3,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_b388c8",
@@ -221,30 +221,222 @@
     "name": "Algin Jerfiya",
     "teamId": 3,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_13a8a6",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Sibishah",
-    "teamId": 1,
+    "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_b9788e",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Aadhithya",
-    "teamId": 2,
+    "teamId": 3,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   },
   {
     "id": "mem_1789752852525_12fae2",
     "gameId": "session_1789752839827_fvp24rc",
     "name": "Hamdhan",
-    "teamId": 3,
+    "teamId": 2,
     "createdAt": "2026-09-18T17:34:12.524Z",
-    "updatedAt": "2026-09-18T17:34:12.525Z"
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_00fcad",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Shaber",
+    "teamId": 2,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_cd2836",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Arun",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_01987c",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Rahul",
+    "teamId": 1,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_d20dea",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Kavin",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_1a67d6",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Priya",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_e46d66",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Manoj",
+    "teamId": 4,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_e2c11d",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Sanjay",
+    "teamId": 1,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_75307f",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Vignesh",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_7a7c5c",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Anand",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_ee32fb",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Deepak",
+    "teamId": 1,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_408198",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Karthik",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_af4944",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Divya",
+    "teamId": 4,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_7d654e",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Sneha",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_cb22dc",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Rohit",
+    "teamId": 1,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_7d2784",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Suresh",
+    "teamId": 4,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_f9f73c",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Ramesh",
+    "teamId": 4,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_a5d3c6",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Meena",
+    "teamId": 2,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_699e83",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Swathi",
+    "teamId": 1,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_3a5d34",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Vikram",
+    "teamId": 2,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_d644a2",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Varun",
+    "teamId": 2,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_cc3233",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Naveen",
+    "teamId": 4,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_5e6dc3",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Ganesh",
+    "teamId": 2,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_ab1634",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Harish",
+    "teamId": 1,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
+  },
+  {
+    "id": "mem_1789754613199_7c78d2",
+    "gameId": "session_1789754612777_ds9w6ra",
+    "name": "Pooja",
+    "teamId": 3,
+    "createdAt": "2026-09-18T18:03:33.199Z",
+    "updatedAt": "2026-09-18T18:03:33.205Z"
   }
 ]
